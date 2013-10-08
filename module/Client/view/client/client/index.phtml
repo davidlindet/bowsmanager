@@ -1,0 +1,31 @@
+<?php
+use Client\Model\Client;
+use Client\Enum\ClientEnum;
+
+$title = 'My clients';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('client', array('action'=>'form', 'id' => ClientEnum::NEW_CLIENT));?>">Add new client</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Nom</th>
+        <th>&nbsp;</th>
+    </tr>
+
+    <?php /**  @var  $client Client*/?>
+    <?php foreach ($clients as $client) : ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($client->getName());?></td>
+            <td>
+                <a href="<?php echo $this->url('client',
+                    array('action'=>'form', 'id' => $client->getId()));?>">Edit</a>
+                <a href="<?php echo $this->url('client',
+                    array('action'=>'delete', 'id' => $client->getId()));?>">Delete</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>

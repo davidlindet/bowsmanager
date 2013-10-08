@@ -8,7 +8,7 @@ if ($_SERVER['APPLICATION_ENV'] == 'development') {
     ini_set("display_errors", 1);
 
     function pr($data, $die=true) {
-        print_r($data);
+        echo "<pre>" . print_r($data, true) . "</pre>";
         if($die){
             die();
         }
