@@ -6,9 +6,9 @@
  * Time: 10:18
  * To change this template use File | Settings | File Templates.
  */
-namespace Client\Model;
+namespace Application\Model;
 
-use Client\Enum\ClientEnum;
+use Application\Enum\ClientEnum;
 
 class Client
 {

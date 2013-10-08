@@ -6,15 +6,15 @@
  * Time: 00:37
  * To change this template use File | Settings | File Templates.
  */
-namespace Client\Controller;
+namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 
-use Client\Service\ClientService;
-use Client\Model\Client;
-use Client\Enum\ClientEnum;
+use Application\Service\ClientService;
+use Application\Model\Client;
+use Application\Enum\ClientEnum;
 
 class ClientController extends AbstractActionController
 {

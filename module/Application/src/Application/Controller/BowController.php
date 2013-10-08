@@ -6,12 +6,12 @@
  * Time: 00:37
  * To change this template use File | Settings | File Templates.
  */
-namespace Bow\Controller;
+namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-use Bow\Service\BowService;
+use Application\Service\BowService;
 
 class BowController extends AbstractActionController
 {

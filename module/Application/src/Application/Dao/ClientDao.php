@@ -6,12 +6,12 @@
  * Time: 10:36
  * To change this template use File | Settings | File Templates.
  */
-namespace Client\Dao;
+namespace Application\Dao;
 
 use Zend\Db\TableGateway\TableGateway;
 
-use Client\Model\Client;
-use Client\Enum\ClientEnum;
+use Application\Model\Client;
+use Application\Enum\ClientEnum;
 
 class ClientDao
 {

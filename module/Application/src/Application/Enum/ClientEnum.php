@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace Client\Enum;
+namespace Application\Enum;
 
 class ClientEnum {
     const NEW_CLIENT = 0;

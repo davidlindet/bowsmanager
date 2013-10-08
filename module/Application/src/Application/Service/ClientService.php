@@ -6,11 +6,11 @@
  * Time: 00:37
  * To change this template use File | Settings | File Templates.
  */
-namespace Client\Service;
+namespace Application\Service;
 
-use Client\Dao\ClientDao;
-use Client\Model\Client;
-use Client\Enum\ClientEnum;
+use Application\Dao\ClientDao;
+use Application\Model\Client;
+use Application\Enum\ClientEnum;
 
 class ClientService
 {

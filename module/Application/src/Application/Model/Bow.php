@@ -6,7 +6,7 @@
  * Time: 10:18
  * To change this template use File | Settings | File Templates.
  */
-namespace Bow\Model;
+namespace Application\Model;
 
 class Bow
 {

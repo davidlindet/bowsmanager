@@ -6,7 +6,7 @@
  * Time: 10:36
  * To change this template use File | Settings | File Templates.
  */
-namespace Bow\Dao;
+namespace Application\Dao;
 
 use Zend\Db\TableGateway\TableGateway;
 

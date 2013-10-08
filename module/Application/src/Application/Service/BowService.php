@@ -6,9 +6,9 @@
  * Time: 00:37
  * To change this template use File | Settings | File Templates.
  */
-namespace Bow\Service;
+namespace Application\Service;
 
-use Bow\Dao\BowDao;
+use Application\Dao\BowDao;
 
 class BowService
 {

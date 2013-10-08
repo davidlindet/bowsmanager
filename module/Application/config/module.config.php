@@ -10,7 +10,10 @@
 return array(
     'router' => array(
         'routes' => array(
-            'home' => array(
+            /**
+             * MAIN ROUTES
+             */
+             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
                     'route'    => '/',
@@ -50,6 +53,50 @@ return array(
                     ),
                 ),
             ),
+            /**
+             * BOW ROUTES
+             */
+            'bow' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/bow[/][:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Bow',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            /**
+             * CLIENT ROUTES
+             */
+            'client' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/client[/][:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Client',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            'client-save' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/client-save',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Client',
+                        'action'     => 'save',
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -73,7 +120,9 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Bow' => 'Application\Controller\BowController',
+            'Application\Controller\Client' => 'Application\Controller\ClientController',
         ),
     ),
     'view_manager' => array(
