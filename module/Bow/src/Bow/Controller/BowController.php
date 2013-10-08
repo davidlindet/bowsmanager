@@ -11,10 +11,28 @@ namespace Bow\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+use Bow\Service\BowService;
+
 class BowController extends AbstractActionController
 {
+    /**
+     * @var $bowService BowService
+     */
+    protected $bowService;
+
+    public function getBowService()
+    {
+        if (!$this->bowService) {
+            $this->bowService = $this->getServiceLocator()->get('BowService');
+        }
+        return $this->bowService;
+    }
+
     public function indexAction()
     {
+        return new ViewModel(array(
+            'bows' => $this->getBowService()->getAll(),
+        ));
     }
 
     public function addAction()

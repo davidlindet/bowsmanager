@@ -1,0 +1,42 @@
+<?php
+use Bow\Model\Bow;
+
+$title = 'My bows';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('bow', array('action'=>'add'));?>">Add new bow</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Type</th>
+        <th>Size</th>
+        <th>Description</th>
+        <th>WorkToDo</th>
+        <th>Status</th>
+        <th>IsDone</th>
+        <th>Comments</th>
+        <th>&nbsp;</th>
+    </tr>
+
+    <?php /**  @var  $bow Bow*/?>
+    <?php foreach ($bows as $bow) : ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($bow->getType());?></td>
+            <td><?php echo $this->escapeHtml($bow->getSize());?></td>
+            <td><?php echo $this->escapeHtml($bow->getDescription());?></td>
+            <td><?php echo $this->escapeHtml($bow->getWorkToDo());?></td>
+            <td><?php echo $this->escapeHtml($bow->getStatus());?></td>
+            <td><?php echo $this->escapeHtml($bow->getIsDone());?></td>
+            <td><?php echo $this->escapeHtml($bow->getComments());?></td>
+            <td>
+                <a href="<?php echo $this->url('bow',
+                    array('action'=>'edit', 'id' => $bow->getId()));?>">Edit</a>
+                <a href="<?php echo $this->url('bow',
+                    array('action'=>'delete', 'id' => $bow->getId()));?>">Delete</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>

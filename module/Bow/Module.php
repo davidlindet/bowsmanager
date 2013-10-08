@@ -10,6 +10,7 @@ namespace Bow;
 
 use Bow\Model\Bow;
 use Bow\Dao\BowDao;
+use Bow\Service\BowService;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -38,6 +39,11 @@ class Module
     {
         return array(
             'factories' => array(
+                'BowService' =>  function($sm) {
+                    $dao = $sm->get('Bow\Dao\BowDao');
+                    $service = new BowService($dao);
+                    return $service;
+                },
                 'Bow\Dao\BowDao' =>  function($sm) {
                     $tableGateway = $sm->get('BowDaoGateway');
                     $table = new BowDao($tableGateway);
