@@ -60,6 +60,27 @@ return array(
         'aliases' => array(
             'translator' => 'MvcTranslator',
         ),
+        'factories' => array(
+            'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+        ),
+    ),
+    'navigation' => array(
+        'default' => array(
+            array(
+                'label' => 'Home',
+                'route' => 'home',
+            ),
+            array(
+                'label' => 'Clients',
+                'route' => 'client',
+                'pages' => array(
+                    array(
+                        'label' => 'Add',
+                        'route' => 'client-save',
+                    ),
+                ),
+            ),
+        ),
     ),
     'translator' => array(
         'locale' => 'en_US',
