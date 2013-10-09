@@ -14,7 +14,21 @@ BowsManager.client = (function() {
         });
     }
 
+    function listInitFilters(){
+        $(".client-filter").click(function() {
+            var filter = this.id;
+            $(".data").hide();
+            if(filter == "ALL"){
+                $(".data").show();
+            }
+            else {
+                $("."+filter).show();
+            }
+        });
+    }
+
     return {
-        add: add
+        add: add,
+        listInitFilters : listInitFilters
     }
 })();

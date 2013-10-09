@@ -8,6 +8,7 @@
  */
 namespace Client\Dao;
 
+use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
 
 use Client\Model\Client;
@@ -22,9 +23,20 @@ class ClientDao
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll()
-    {
-        $resultSet = $this->tableGateway->select();
+    public function fetchAll($order = ClientEnum::SORT_NATIVE) {
+        $select = new Select();
+        $select->from("client");
+
+       // $select->where("SELECT * FROM client");
+        if($order == ClientEnum::SORT_AZ){
+            $select->order('last_name ASC');
+        }
+        elseif($order == ClientEnum::SORT_ZA){
+            $select->order('last_name DESC');
+        }
+
+        $resultSet = $this->tableGateway->selectWith($select);
+
         return $resultSet;
     }
 

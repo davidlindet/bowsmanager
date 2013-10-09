@@ -28,8 +28,8 @@ class ClientService
         return ($clientId == ClientEnum::NEW_CLIENT) ? new Client() : $this->clientDao->getClient($clientId);
     }
 
-    public function getAll(){
-        return $this->clientDao->fetchAll();
+    public function getAll($order = ClientEnum::SORT_AZ){
+        return $this->clientDao->fetchAll($order);
     }
 
     public function save($clientModel){

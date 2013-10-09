@@ -12,13 +12,28 @@ $this->headTitle($title);
 
 <table class="table">
     <tr>
-        <th>Nom</th>
-        <th>&nbsp;</th>
+        <td colspan="2">
+        <?php foreach(ClientEnum::FILTERS() as $filter){ ?>
+            <a href="#" class="client-filter" id="<?php echo $filter; ?>" ><?php echo $filter; ?></a>
+        <?php } ?>
+        </td>
     </tr>
 
-    <?php /**  @var  $client Client*/?>
-    <?php foreach ($clients as $client) : ?>
-        <tr>
+    <?php
+        $firstLetter = null;
+        /**  @var  $client Client*/
+         foreach ($clients as $client) :
+            $currentFirstLetter = $client->getName();
+            if($currentFirstLetter[0] != $firstLetter){
+                $firstLetter = $currentFirstLetter[0];
+    ?>
+        <tr class="data <?php echo $firstLetter ?>">
+            <td colspan="2"><h3><?php echo strtoupper($firstLetter);?></h3></td>
+        </tr>
+    <?php
+            }
+    ?>
+        <tr class="data <?php echo $firstLetter ?>">
             <td><?php echo $this->escapeHtml($client->getName());?></td>
             <td>
                 <a href="<?php echo $this->url('client',
@@ -29,3 +44,6 @@ $this->headTitle($title);
         </tr>
     <?php endforeach; ?>
 </table>
+<?php
+    $this->placeholder('scripts')->set("BowsManager.client.listInitFilters()");
+?>
