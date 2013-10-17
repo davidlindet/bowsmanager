@@ -63,16 +63,19 @@ class ClientDao
             'website'  => $client->getWebsite(),
         );
 
-        $id = (int)$client->getId();
+        $id = (int) $client->getId();
         if ($id == ClientEnum::NEW_CLIENT) {
             $this->tableGateway->insert($data);
+            $id = $this->tableGateway->lastInsertValue;
         } else {
             if ($this->getClient($id)) {
                 $this->tableGateway->update($data, array('id' => $id));
-            } else {
+            }
+            else {
                 throw new \Exception('Client id does not exist');
             }
         }
+        return $id;
     }
 
     public function deleteClient($id)

@@ -7,7 +7,7 @@ $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
 <p>
-    <a href="<?php echo $this->url('client', array('action'=>'form', 'id' => ClientEnum::NEW_CLIENT));?>">Add new client</a>
+    <a href="<?php echo $this->url('client', array('action'=>'add', 'id' => ClientEnum::NEW_CLIENT));?>">Add new client</a>
 </p>
 
 <table class="table">
@@ -33,17 +33,24 @@ $this->headTitle($title);
     <?php
             }
     ?>
-        <tr class="data <?php echo $firstLetter ?>">
-            <td><?php echo $this->escapeHtml($client->getName());?></td>
+        <tr class="data <?php echo $firstLetter ?>" id="client-<?php echo $client->getId() ?>">
             <td>
                 <a href="<?php echo $this->url('client',
-                    array('action'=>'form', 'id' => $client->getId()));?>">Edit</a>
+                    array('action'=>'details', 'id' => $client->getId()));?>">
+                    <?php echo $this->escapeHtml($client->getName());?>
+                </a>
+            </td>
+            <td>
                 <a href="<?php echo $this->url('client',
-                    array('action'=>'delete', 'id' => $client->getId()));?>">Delete</a>
+                    array('action'=>'edit', 'id' => $client->getId()));?>">Edit</a>
+                <div class="client-delete" data-id="<?php echo $client->getId() ?>" data-section="list" >Delete<div>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
 <?php
-    $this->placeholder('scripts')->set("BowsManager.client.listInitFilters()");
+    $this->placeholder('scripts')->set("
+        BowsManager.client.listInitFilters();
+        BowsManager.client.del();
+    ");
 ?>

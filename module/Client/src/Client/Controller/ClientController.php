@@ -38,20 +38,6 @@ class ClientController extends AbstractActionController
         ));
     }
 
-    /**
-     * Display the form with client data if in edit mode
-     */
-    public function formAction() {
-        $clientId = $this->getEvent()->getRouteMatch()->getParam('id', ClientEnum::NEW_CLIENT);
-
-        /** @var $clientModel Client */
-        $clientModel = $this->getClientService()->getById($clientId);
-
-        return new ViewModel(array(
-            'client' => $clientModel,
-        ));
-    }
-
     public function saveAction() {
         $params = $this->params()->fromPost();
 
@@ -66,23 +52,54 @@ class ClientController extends AbstractActionController
         $clientModel->setEmail($params['email']);
         $clientModel->setWebsite($params['website']);
 
-        $success = $this->getClientService()->save($clientModel);
-
-        $result = new JsonModel(array('success'=> $success));
-
-        return $result;
+        $result = $this->getClientService()->save($clientModel);
+        return new JsonModel($result);
     }
 
     public function addAction()
     {
+        /** @var $clientModel Client */
+        $clientModel = $this->getClientService()->getById(ClientEnum::NEW_CLIENT);
 
+        return new ViewModel(array(
+            'client' => $clientModel,
+        ));
     }
 
     public function editAction()
     {
+        $clientId = $this->getEvent()->getRouteMatch()->getParam('id', ClientEnum::NEW_CLIENT);
+
+        /** @var $clientModel Client */
+        $clientModel = $this->getClientService()->getById($clientId);
+
+        return new ViewModel(array(
+            'client' => $clientModel,
+        ));
+    }
+
+    public function detailsAction()
+    {
+        $clientId = $this->getEvent()->getRouteMatch()->getParam('id', ClientEnum::NEW_CLIENT);
+
+        /** @var $clientModel Client */
+        $clientModel = $this->getClientService()->getById($clientId);
+
+        return new ViewModel(array(
+            'client' => $clientModel,
+        ));
     }
 
     public function deleteAction()
     {
+        $params = $this->params()->fromPost();
+
+        /** @var $clientModel Client */
+        $clientModel = $this->getClientService()->getById($params['id']);
+        $success = $this->getClientService()->delete($clientModel->getId());
+
+        $result = new JsonModel(array('success'=> $success));
+
+        return $result;
     }
 }

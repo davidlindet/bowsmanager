@@ -33,14 +33,26 @@ class ClientService
     }
 
     public function save($clientModel){
-        $success = true;
         try {
-            $this->clientDao->saveClient($clientModel);
+            $clientId = $this->clientDao->saveClient($clientModel);
+            $result = array('success'=> true, 'id' => (int) $clientId);
         }
         catch (Exception $exception) {
-            $success = false;
+            error_log($exception);
+            $result = array('success'=> false, 'error' => $exception);
         }
+        return $result;
+    }
 
-        return $success;
+    public function delete($clientId){
+        try {
+            $this->clientDao->deleteClient($clientId);
+            $result = array('success'=> true);
+        }
+        catch (Exception $exception) {
+            error_log($exception);
+            $result = array('success'=> false, 'error' => $exception);
+        }
+        return $result;
     }
 }

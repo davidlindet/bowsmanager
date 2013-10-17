@@ -1,0 +1,35 @@
+<h1>
+    Client
+</h1>
+<a href="<?php echo $this->url('client') ?>" >Retour</a>
+
+<ul>
+    <li>
+        <?php echo $client->getName(false) ?>
+    </li>
+    <li>
+        <?php echo $client->getAddress() ?>
+    </li>
+    <li>
+        <?php echo $client->getLandline() ?>
+    </li>
+    <li>
+        <?php echo $client->getMobile() ?>
+    </li>
+    <li>
+        <?php echo $client->getEmail() ?>
+    </li>
+    <li>
+        <?php echo $client->getWebsite() ?>
+    </li>
+</ul>
+<div>
+    <a href="<?php echo $this->url('client',
+        array('action'=>'edit', 'id' => $client->getId()));?>">Edit</a>
+    <div class="client-delete" data-id="<?php echo $client->getId() ?>" data-section="details" >Delete<div>
+</div>
+<?php
+    $this->placeholder('scripts')->set("
+        BowsManager.client.del();
+    ");
+?>

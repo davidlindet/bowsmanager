@@ -31,9 +31,22 @@ return array(
                     ),
                 ),
             ),
+            'client-delete' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/client-delete',
+                    'defaults' => array(
+                        'controller' => 'Client\Controller\Client',
+                        'action'     => 'delete',
+                    ),
+                ),
+            ),
         ),
     ),
     'view_manager' => array(
+        'template_map' => array(
+            'form' => __DIR__ . '/../view/client/client/form.phtml',
+        ),
         'template_path_stack' => array(
             'client' => __DIR__ . '/../view',
         ),

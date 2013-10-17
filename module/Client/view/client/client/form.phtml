@@ -1,10 +1,8 @@
 <h1>
-    <?php if($client->getId() == 0){ ?>
-        Nouveau Client
-    <?php } else { ?>
-        Editer Client
-    <?php } ?>
+    <?php echo $header ?>
 </h1>
+<div class="error-message"></div>
+<a href="<?php echo $this->url('client') ?>" >Retour</a>
 <form id="client-form" >
     <input type="hidden" name="id" id="id" value="<?php echo $client->getId() ?>"><br>
 
