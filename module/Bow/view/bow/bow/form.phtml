@@ -1,0 +1,71 @@
+<?php
+use Bow\Enum\BowTypeEnum;
+use Bow\Enum\BowSizeEnum;
+?>
+
+<h1>
+    <?php echo $header ?>
+</h1>
+<div class="error-message"></div>
+<a href="<?php echo $this->url('bow') ?>" >Retour</a>
+<form id="bow-form" >
+
+    <input type="hidden" name="id" id="id" value="<?php echo $bow->getId() ?>"><br>
+
+    <label for="type">Type</label>
+    <select name="type" id="type" >
+        <?php
+            foreach(BowTypeEnum::COPIES(true) as $value => $copy) {
+        ?>
+            <option value="<?php echo $value ?>" <?php echo ($value == $bow->getType()) ? "selected='selected'" : "";?> ><?php echo $copy ?></option>
+        <?php
+            }
+        ?>
+    </select>
+    <br />
+
+    <label for="size">Taille</label>
+    <select name="size" id="size" >
+        <?php
+        foreach(BowSizeEnum::COPIES(true) as $value => $copy) {
+            ?>
+            <option value="<?php echo $value ?>" <?php echo ($value == $bow->getSize()) ? "selected='selected'" : "";?> ><?php echo $copy ?></option>
+        <?php
+        }
+        ?>
+    </select>
+    <br />
+
+    <label for="description">Description</label>
+    <textarea name="description" id="description">
+        <?php echo $bow->getDescription() ?>
+    </textarea>
+    <br />
+
+    <label for="workToDo">A faire</label>
+    <textarea name="workToDo" id="workToDo">
+        <?php echo $bow->getWorkToDo() ?>
+    </textarea>
+    <br />
+
+    <label for="status">Etat</label>
+    <textarea name="status" id="status">
+        <?php echo $bow->getStatus() ?>
+    </textarea>
+    <br />
+
+    <label for="isDone">Fini?</label>
+    <input type="checkbox" name="isDone" id="isDone" <?php echo ($bow->getIsDone()) ? "checked='checked'" : "" ?> />
+    <br />
+
+    <label for="comments">Commentaires</label>
+    <textarea name="comments" id="comments">
+        <?php echo $bow->getComments() ?>
+    </textarea>
+    <br />
+
+    <button type="submit" id="save-bow" >Enregistrer</button>
+</form>
+<?php
+//$this->placeholder('scripts')->set("BowsManager.client.add()");
+?>

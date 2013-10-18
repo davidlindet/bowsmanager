@@ -45,7 +45,7 @@ return array(
     ),
     'view_manager' => array(
         'template_map' => array(
-            'form' => __DIR__ . '/../view/client/client/form.phtml',
+            'formClient' => __DIR__ . '/../view/client/client/form.phtml',
         ),
         'template_path_stack' => array(
             'client' => __DIR__ . '/../view',

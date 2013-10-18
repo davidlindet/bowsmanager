@@ -24,6 +24,9 @@ return array(
         ),
     ),
     'view_manager' => array(
+        'template_map' => array(
+            'formBow' => __DIR__ . '/../view/bow/bow/form.phtml',
+        ),
         'template_path_stack' => array(
             'bow' => __DIR__ . '/../view',
         ),

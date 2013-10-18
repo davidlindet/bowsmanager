@@ -8,7 +8,9 @@
  */
 namespace Bow\Service;
 
+use Bow\Model\Bow;
 use Bow\Dao\BowDao;
+use Bow\Enum\BowEnum;
 
 class BowService
 {
@@ -23,5 +25,10 @@ class BowService
 
     public function getAll(){
         return $this->bowDao->fetchAll();
+    }
+
+    public function getById($bowId){
+        $bowId = (int) $bowId;
+        return ($bowId == BowEnum::NEW_BOW) ? new Bow() : $this->bowDao->getBow($bowId);
     }
 }

@@ -11,6 +11,7 @@ namespace Bow\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+use Bow\Enum\BowEnum;
 use Bow\Service\BowService;
 
 class BowController extends AbstractActionController
@@ -37,10 +38,24 @@ class BowController extends AbstractActionController
 
     public function addAction()
     {
+        /** @var $bowModel Bow */
+        $bowModel = $this->getBowService()->getById(BowEnum::NEW_BOW);
+
+        return new ViewModel(array(
+            'bow' => $bowModel,
+        ));
     }
 
     public function editAction()
     {
+        $bowId = $this->getEvent()->getRouteMatch()->getParam('id', BowEnum::NEW_BOW);
+
+        /** @var $bowModel Bow */
+        $bowModel = $this->getBowService()->getById($bowId);
+
+        return new ViewModel(array(
+            'bow' => $bowModel,
+        ));
     }
 
     public function deleteAction()

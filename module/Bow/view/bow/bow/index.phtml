@@ -1,5 +1,7 @@
 <?php
 use Bow\Model\Bow;
+use Bow\Enum\BowTypeEnum;
+use Bow\Enum\BowSizeEnum;
 
 $title = 'My bows';
 $this->headTitle($title);
@@ -24,8 +26,8 @@ $this->headTitle($title);
     <?php /**  @var  $bow Bow*/?>
     <?php foreach ($bows as $bow) : ?>
         <tr>
-            <td><?php echo $this->escapeHtml($bow->getType());?></td>
-            <td><?php echo $this->escapeHtml($bow->getSize());?></td>
+            <td><?php echo $this->escapeHtml(BowTypeEnum::COPY($bow->getType()));?></td>
+            <td><?php echo $this->escapeHtml(BowSizeEnum::COPY($bow->getSize()));?></td>
             <td><?php echo $this->escapeHtml($bow->getDescription());?></td>
             <td><?php echo $this->escapeHtml($bow->getWorkToDo());?></td>
             <td><?php echo $this->escapeHtml($bow->getStatus());?></td>
