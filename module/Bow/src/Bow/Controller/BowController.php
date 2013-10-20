@@ -82,7 +82,7 @@ class BowController extends AbstractActionController
     {
         $bowId = $this->getEvent()->getRouteMatch()->getParam('id', BowEnum::NEW_BOW);
 
-        /** @var $clientModel Bow */
+        /** @var $bowModel Bow */
         $bowModel = $this->getBowService()->getById($bowId);
 
         return new ViewModel(array(
@@ -94,7 +94,7 @@ class BowController extends AbstractActionController
     {
         $params = $this->params()->fromPost();
 
-        /** @var $clientModel Bow */
+        /** @var $bowModel Bow */
         $success = $this->getBowService()->delete((int) $params['id']);
 
         $result = new JsonModel($success);

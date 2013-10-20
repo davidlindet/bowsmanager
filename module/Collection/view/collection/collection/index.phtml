@@ -1,0 +1,39 @@
+<?php
+use Collection\Model\Collection;
+use Collection\Enum\CollectionEnum;
+
+$title = 'My collections';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('collection', array('action'=>'add', 'id' => CollectionEnum::NEW_COLLECTION));?>">Add new collection</a>
+</p>
+
+<table class="table">
+    <?php
+        /**  @var  $collection Collection*/
+         foreach ($collections as $collection) :
+    ?>
+        <tr id="collection-<?php echo $collection->getId() ?>">
+            <td>
+                Owner: <?php echo $collection->getOwner() ?>
+            </td>
+            <td>
+                <a href="<?php echo $this->url('collection',
+                    array('action'=>'details', 'id' => $collection->getId()));?>">
+                    Details
+                </a>
+                <a href="<?php echo $this->url('collection',
+                    array('action'=>'edit', 'id' => $collection->getId()));?>">Edit</a>
+                <div class="$collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="list" >Delete<div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<?php
+//    $this->placeholder('scripts')->set("
+//        BowsManager.client.listInitFilters();
+//        BowsManager.client.del();
+//    ");
+?>

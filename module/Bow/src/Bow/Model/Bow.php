@@ -12,6 +12,8 @@ class Bow
 {
     private $id;
 
+    private $collectionId;
+
     /**
      * 0 - violin
      * 1 - cello
@@ -51,6 +53,7 @@ class Bow
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? (int) $data['id'] : null;
+        $this->collectionId = (isset($data['collection_id'])) ? (int) $data['collection_id'] : null;
         $this->type = (isset($data['type'])) ? (int) $data['type'] : null;
         $this->size =(isset($data['size'])) ? (int) $data['size'] : null;
         $this->description =(!empty($data['description'])) ? $data['description'] : null;
@@ -58,6 +61,22 @@ class Bow
         $this->status = (!empty($data['status'])) ? $data['status'] : null;
         $this->isDone = (isset($data['is_done'])) ? (boolean) $data['is_done'] : null;
         $this->comments = (!empty($data['comments'])) ? $data['comments'] : null;
+    }
+
+    /**
+     * @param mixed $collectionId
+     */
+    public function setCollectionId($collectionId)
+    {
+        $this->collectionId = $collectionId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCollectionId()
+    {
+        return $this->collectionId;
     }
 
     /**
@@ -90,14 +109,6 @@ class Bow
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**

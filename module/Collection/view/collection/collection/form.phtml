@@ -1,0 +1,36 @@
+<h1>
+    <?php echo $header ?>
+</h1>
+<div class="error-message"></div>
+<a href="<?php echo $this->url('client') ?>" >Retour</a>
+<form id="client-form" >
+    <input type="hidden" name="id" id="id" value="<?php echo $client->getId() ?>"><br>
+
+    <label for="lastName">Nom</label>
+    <input type="text" name="lastName" id="lastName" value="<?php echo $client->getLastName() ?>"><br>
+
+    <label for="firstName">Prénom</label>
+    <input type="text" name="firstName" id="firstName" value="<?php echo $client->getFirstName() ?>"><br>
+
+    <label for="address">Adresse</label>
+    <textarea name="address" id="address"><?php echo $client->getAddress() ?></textarea><br>
+
+    <label for="landline">Téléphone Fixe</label>
+    <input type="text" name="landline" id="landline" value="<?php echo $client->getLandline() ?>"><br>
+
+    <label for="mobile">Mobile</label>
+    <input type="text" name="mobile" id="mobile" value="<?php echo $client->getMobile() ?>"><br>
+
+    <label for="email">Email</label>
+    <input type="text" name="email" id="email" value="<?php echo $client->getEmail() ?>"><br>
+
+    <label for="website">Website</label>
+    <input type="text" name="website" id="website" value="<?php echo $client->getWebsite() ?>"><br>
+
+    <button type="submit" id="save-client" >Enregistrer</button>
+</form>
+<?php
+    $this->placeholder('scripts')->set("BowsManager.client.add()");
+?>
+
+

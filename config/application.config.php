@@ -5,6 +5,7 @@ return array(
         'Application',
         'Bow',
         'Client',
+        'Collection',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

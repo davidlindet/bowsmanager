@@ -9,6 +9,8 @@
 namespace Client\Model;
 
 use Client\Enum\ClientEnum;
+use Client\Enum\ClientUpdateActionEnum;
+use Collection\Model\Collection;
 
 class Client
 {
@@ -20,8 +22,9 @@ class Client
     private $mobile;
     private $email;
     private $website;
+    private $collections;
 
-    public function __Construct($id = 0, $lastName = "", $firstName = "", $address = "", $landline = "", $mobile = "", $email = "", $website = ""){
+    public function __Construct($id = 0, $lastName = "", $firstName = "", $address = "", $landline = "", $mobile = "", $email = "", $website = "", $collections = array()){
         $this->id = $id;
         $this->lastName = $lastName;
         $this->firstName = $firstName;
@@ -30,6 +33,7 @@ class Client
         $this->mobile = $mobile;
         $this->email = $email;
         $this->website = $website;
+        $this->collections = $collections;
     }
 
     public function exchangeArray($data)
@@ -94,14 +98,6 @@ class Client
     public function getFirstName()
     {
         return $this->firstName;
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -176,5 +172,37 @@ class Client
         return $this->website;
     }
 
+    /**
+     * @param array $collections
+     */
+    public function setCollections($collections)
+    {
+        $this->collections = $collections;
+    }
 
+    /**
+     * @return array
+     */
+    public function getCollections()
+    {
+        return $this->collections;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCollectionsCount(){
+        return count($this->collections);
+    }
+
+    /**
+     * @param Collection $collection
+     */
+    public function addCollection(Collection $collection){
+        $this->collections[] = $collection;
+    }
+
+    public function removeCollection(int $collectionId){
+        unset($this->collections[$collectionId]);
+    }
 }

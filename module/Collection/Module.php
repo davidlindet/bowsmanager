@@ -6,11 +6,11 @@
  * Time: 00:30
  * To change this template use File | Settings | File Templates.
  */
-namespace Client;
+namespace Collection;
 
-use Client\Model\Client;
-use Client\Dao\ClientDao;
-use Client\Service\ClientService;
+use Collection\Model\Collection;
+use Collection\Dao\CollectionDao;
+use Collection\Service\CollectionService;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -39,22 +39,21 @@ class Module
     {
         return array(
             'factories' => array(
-                'ClientService' =>  function($sm) {
-                    $dao = $sm->get('Client\Dao\ClientDao');
-                    $collectionService = $sm->get('CollectionService');
-                    $service = new ClientService($dao, $collectionService);
+                'CollectionService' =>  function($sm) {
+                    $dao = $sm->get('Collection\Dao\CollectionDao');
+                    $service = new CollectionService($dao);
                     return $service;
                 },
-                'Client\Dao\ClientDao' =>  function($sm) {
-                    $tableGateway = $sm->get('ClientDaoGateway');
-                    $table = new ClientDao($tableGateway);
+                'Collection\Dao\CollectionDao' =>  function($sm) {
+                    $tableGateway = $sm->get('CollectionDaoGateway');
+                    $table = new CollectionDao($tableGateway);
                     return $table;
                 },
-                'ClientDaoGateway' => function ($sm) {
+                'CollectionDaoGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Client());
-                    return new TableGateway('client', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Collection());
+                    return new TableGateway('collection', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );

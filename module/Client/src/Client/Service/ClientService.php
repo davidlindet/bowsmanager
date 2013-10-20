@@ -11,6 +11,7 @@ namespace Client\Service;
 use Client\Dao\ClientDao;
 use Client\Model\Client;
 use Client\Enum\ClientEnum;
+use Collection\Service\CollectionService;
 
 class ClientService
 {
@@ -19,17 +20,41 @@ class ClientService
      */
     protected $clientDao;
 
-    public function __construct($clientDao){
+    /** @var  $collectionService CollectionService */
+    protected $collectionService;
+
+    public function __construct($clientDao, $collectionService){
         $this->clientDao = $clientDao;
+        $this->collectionService = $collectionService;
     }
 
     public function getById($clientId){
         $clientId = (int) $clientId;
-        return ($clientId == ClientEnum::NEW_CLIENT) ? new Client() : $this->clientDao->getClient($clientId);
+
+        $client = null;
+        if($clientId == ClientEnum::NEW_CLIENT){
+            $client = new Client();
+        }
+        else {
+            $client = $this->clientDao->getClient($clientId);
+            $collections = $this->collectionService->getByOwner($client->getId());
+            $client->setCollections($collections);
+        }
+        return $client;
     }
 
     public function getAll($order = ClientEnum::SORT_AZ){
-        return $this->clientDao->fetchAll($order);
+        $clients = $this->clientDao->fetchAll($order);
+
+        $finalClients =  array();
+
+        /** @var $client Client */
+        foreach($clients as $client) {
+            $collections = $this->collectionService->getByOwner($client->getId());
+            $client->setCollections($collections);
+            $finalClients[] = $client;
+        }
+        return $finalClients;
     }
 
     public function save($clientModel){
