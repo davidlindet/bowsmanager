@@ -50,13 +50,13 @@ class Bow
 
     public function exchangeArray($data)
     {
-        $this->id = (!empty($data['id'])) ? $data['id'] : null;
-        $this->type = (!empty($data['type'])) ? $data['type'] : null;
-        $this->size =(!empty($data['size'])) ? $data['size'] : null;
+        $this->id = (isset($data['id'])) ? (int) $data['id'] : null;
+        $this->type = (isset($data['type'])) ? (int) $data['type'] : null;
+        $this->size =(isset($data['size'])) ? (int) $data['size'] : null;
         $this->description =(!empty($data['description'])) ? $data['description'] : null;
         $this->workToDo = (!empty($data['work_to_do'])) ? $data['work_to_do'] : null;
         $this->status = (!empty($data['status'])) ? $data['status'] : null;
-        $this->isDone = (!empty($data['is_done'])) ? $data['is_done'] : null;
+        $this->isDone = (isset($data['is_done'])) ? (boolean) $data['is_done'] : null;
         $this->comments = (!empty($data['comments'])) ? $data['comments'] : null;
     }
 

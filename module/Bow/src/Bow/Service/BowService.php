@@ -31,4 +31,28 @@ class BowService
         $bowId = (int) $bowId;
         return ($bowId == BowEnum::NEW_BOW) ? new Bow() : $this->bowDao->getBow($bowId);
     }
+
+    public function save($bowModel){
+        try {
+            $bowId = $this->bowDao->saveBow($bowModel);
+            $result = array('success'=> true, 'id' => (int) $bowId);
+        }
+        catch (Exception $exception) {
+            error_log($exception);
+            $result = array('success'=> false, 'error' => $exception);
+        }
+        return $result;
+    }
+
+    public function delete($bowId){
+        try {
+            $this->bowDao->deleteBow($bowId);
+            $result = array('success'=> true);
+        }
+        catch (Exception $exception) {
+            error_log($exception);
+            $result = array('success'=> false, 'error' => $exception);
+        }
+        return $result;
+    }
 }

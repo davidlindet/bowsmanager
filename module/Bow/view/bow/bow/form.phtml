@@ -27,11 +27,11 @@ use Bow\Enum\BowSizeEnum;
     <label for="size">Taille</label>
     <select name="size" id="size" >
         <?php
-        foreach(BowSizeEnum::COPIES(true) as $value => $copy) {
-            ?>
+            foreach(BowSizeEnum::COPIES(true) as $value => $copy) {
+        ?>
             <option value="<?php echo $value ?>" <?php echo ($value == $bow->getSize()) ? "selected='selected'" : "";?> ><?php echo $copy ?></option>
         <?php
-        }
+            }
         ?>
     </select>
     <br />
@@ -67,5 +67,5 @@ use Bow\Enum\BowSizeEnum;
     <button type="submit" id="save-bow" >Enregistrer</button>
 </form>
 <?php
-//$this->placeholder('scripts')->set("BowsManager.client.add()");
+    $this->placeholder('scripts')->set("BowsManager.bow.add()");
 ?>

@@ -10,6 +10,8 @@ namespace Bow\Dao;
 
 use Zend\Db\TableGateway\TableGateway;
 
+use Bow\Model\Bow;
+
 class BowDao
 {
     protected $tableGateway;
@@ -39,25 +41,28 @@ class BowDao
     public function saveBow(Bow $bow)
     {
         $data = array(
-            'type' => $bow->type,
-            'size'  => $bow->size,
-            'description'  => $bow->description,
-            'work_to_do'  => $bow->workToDo,
-            'status'  => $bow->status,
-            'is_done'  => $bow->isDone,
-            'comments'  => $bow->comments,
+            'type' => $bow->getType(),
+            'size'  => $bow->getSize(),
+            'description'  => $bow->getDescription(),
+            'work_to_do'  => $bow->getWorkToDo(),
+            'status'  => $bow->getStatus(),
+            'is_done'  => $bow->getIsDone(),
+            'comments'  => $bow->getComments(),
         );
 
-        $id = (int)$bow->id;
+        $id = (int)$bow->getId();
         if ($id == 0) {
             $this->tableGateway->insert($data);
+            $id = $this->tableGateway->lastInsertValue;
         } else {
             if ($this->getBow($id)) {
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
-                throw new \Exception('Album id does not exist');
+                throw new \Exception('Bow id does not exist');
             }
         }
+        return $id;
+
     }
 
     public function deleteBow($id)

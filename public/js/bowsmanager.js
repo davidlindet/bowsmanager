@@ -68,3 +68,58 @@ BowsManager.client = (function() {
         listInitFilters : listInitFilters
     }
 })();
+
+BowsManager.bow = (function() {
+
+    function add(){
+        $("#bow-form").submit(function( event ) {
+            event.preventDefault();
+            var params = $("#bow-form").serializeForm();
+            $.ajax({
+                url: "/bow-save",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if(data.success){
+                        window.location.href = '/bow/details/'+data.id;
+                    }
+                    else {
+                        $('.error-message').html("Impossible d'enregistrer l'archet");
+                    }
+                }
+            });
+        });
+    }
+
+    function del(){
+        $(".bow-delete").click(function() {
+            var bowId = $(this).data('id');
+            var section = $(this).data('section');
+            if(confirm("Voulez vous vraiment supprimer cet archet?")){
+                $.ajax({
+                    url: "/bow-delete",
+                    method: "POST",
+                    data: {id: bowId},
+                    success: function(data) {
+                        if(data.success){
+                            if(section == "list") {
+                                $("#bow-"+bowId).fadeOut("slow");
+                            }
+                            else {
+                                window.location.href = '/bow';
+                            }
+                        }
+                        else {
+                            $('.error-message').html("Impossible de supprimer l'archet");
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    return {
+        add: add,
+        del: del
+    }
+})();

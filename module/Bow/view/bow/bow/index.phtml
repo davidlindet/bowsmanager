@@ -25,7 +25,7 @@ $this->headTitle($title);
 
     <?php /**  @var  $bow Bow*/?>
     <?php foreach ($bows as $bow) : ?>
-        <tr>
+        <tr id="bow-<?php echo $bow->getId() ?>" >
             <td><?php echo $this->escapeHtml(BowTypeEnum::COPY($bow->getType()));?></td>
             <td><?php echo $this->escapeHtml(BowSizeEnum::COPY($bow->getSize()));?></td>
             <td><?php echo $this->escapeHtml($bow->getDescription());?></td>
@@ -35,10 +35,16 @@ $this->headTitle($title);
             <td><?php echo $this->escapeHtml($bow->getComments());?></td>
             <td>
                 <a href="<?php echo $this->url('bow',
-                    array('action'=>'edit', 'id' => $bow->getId()));?>">Edit</a>
+                    array('action'=>'details', 'id' => $bow->getId()));?>">Details</a>
                 <a href="<?php echo $this->url('bow',
-                    array('action'=>'delete', 'id' => $bow->getId()));?>">Delete</a>
+                    array('action'=>'edit', 'id' => $bow->getId()));?>">Edit</a>
+                <div class="bow-delete" data-id="<?php echo $bow->getId() ?>" data-section="list" >Delete<div>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
+<?php
+$this->placeholder('scripts')->set("
+        BowsManager.bow.del();
+    ");
+?>

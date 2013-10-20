@@ -21,6 +21,26 @@ return array(
                     ),
                 ),
             ),
+            'bow-save' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/bow-save',
+                    'defaults' => array(
+                        'controller' => 'Bow\Controller\Bow',
+                        'action'     => 'save',
+                    ),
+                ),
+            ),
+            'bow-delete' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/bow-delete',
+                    'defaults' => array(
+                        'controller' => 'Bow\Controller\Bow',
+                        'action'     => 'delete',
+                    ),
+                ),
+            ),
         ),
     ),
     'view_manager' => array(

@@ -1,0 +1,38 @@
+<h1>
+    Archet
+</h1>
+<a href="<?php echo $this->url('bow') ?>" >Retour</a>
+
+<ul>
+    <li>
+        <?php echo \Bow\Enum\BowTypeEnum::COPY($bow->getType()) ?>
+    </li>
+    <li>
+        <?php echo \Bow\Enum\BowSizeEnum::COPY($bow->getSize()) ?>
+    </li>
+    <li>
+        <?php echo $bow->getDescription() ?>
+    </li>
+    <li>
+        <?php echo $bow->getWorkToDo() ?>
+    </li>
+    <li>
+        <?php echo $bow->getStatus() ?>
+    </li>
+    <li>
+        <?php echo ($bow->getIsDone()) ? "Done" : "Not Done" ?>
+    </li>
+    <li>
+        <?php echo $bow->getComments() ?>
+    </li>
+</ul>
+<div>
+    <a href="<?php echo $this->url('bow',
+        array('action'=>'edit', 'id' => $bow->getId()));?>">Edit</a>
+    <div class="bow-delete" data-id="<?php echo $bow->getId() ?>" data-section="details" >Delete<div>
+        </div>
+<?php
+$this->placeholder('scripts')->set("
+        BowsManager.bow.del();
+    ");
+?>

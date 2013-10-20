@@ -10,7 +10,9 @@ namespace Bow\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
+use Bow\Model\Bow;
 use Bow\Enum\BowEnum;
 use Bow\Service\BowService;
 
@@ -36,6 +38,24 @@ class BowController extends AbstractActionController
         ));
     }
 
+    public function saveAction() {
+        $params = $this->params()->fromPost();
+
+        /** @var $bowModel Bow */
+        $bowModel = $this->getBowService()->getById($params['id']);
+
+        $bowModel->setType((int) $params['type']);
+        $bowModel->setSize((int) $params['size']);
+        $bowModel->setDescription($params['description']);
+        $bowModel->setWorkToDo($params['workToDo']);
+        $bowModel->setStatus($params['status']);
+        $bowModel->setIsDone((isset($params['isDone']) &&  $params['isDone'] == "on") ? true : false);
+        $bowModel->setComments($params['comments']);
+
+        $result = $this->getBowService()->save($bowModel);
+        return new JsonModel($result);
+    }
+
     public function addAction()
     {
         /** @var $bowModel Bow */
@@ -58,7 +78,27 @@ class BowController extends AbstractActionController
         ));
     }
 
+    public function detailsAction()
+    {
+        $bowId = $this->getEvent()->getRouteMatch()->getParam('id', BowEnum::NEW_BOW);
+
+        /** @var $clientModel Bow */
+        $bowModel = $this->getBowService()->getById($bowId);
+
+        return new ViewModel(array(
+            'bow' => $bowModel,
+        ));
+    }
+
     public function deleteAction()
     {
+        $params = $this->params()->fromPost();
+
+        /** @var $clientModel Bow */
+        $success = $this->getBowService()->delete((int) $params['id']);
+
+        $result = new JsonModel($success);
+
+        return $result;
     }
 }
