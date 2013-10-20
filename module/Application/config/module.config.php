@@ -73,12 +73,10 @@ return array(
             array(
                 'label' => 'Clients',
                 'route' => 'client',
-                'pages' => array(
-                    array(
-                        'label' => 'Add',
-                        'route' => 'client-save',
-                    ),
-                ),
+            ),
+            array(
+                'label' => 'Lots',
+                'route' => 'collection',
             ),
         ),
     ),

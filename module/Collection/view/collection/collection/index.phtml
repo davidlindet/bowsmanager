@@ -17,7 +17,14 @@ $this->headTitle($title);
     ?>
         <tr id="collection-<?php echo $collection->getId() ?>">
             <td>
-                Owner: <?php echo $collection->getOwner() ?>
+                Owner:
+                <a href="<?php echo $this->url('client',
+                    array('action'=>'details', 'id' => $collection->getOwnerId()));?>">
+                    <?php echo $collection->getOwnerName() ?>
+                </a>
+            </td>
+            <td>
+                <?php echo $collection->getReceptionTime() ?>
             </td>
             <td>
                 <a href="<?php echo $this->url('collection',

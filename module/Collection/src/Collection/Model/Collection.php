@@ -13,14 +13,16 @@ use Collection\Enum\CollectionEnum;
 class Collection
 {
     private $id;
-    private $owner; // int
+    private $ownerId; // int
+    private $ownerName; // String
     private $receptionTime; // timestamp
     private $sentStatus; // boolean
     private $paidStatus; // boolean
 
-    public function __Construct($id = 0, $owner = null, $receptionTime = false, $sentStatus = false, $paidStatus = false){
+    public function __Construct($id = 0, $ownerId = null, $ownerName = "", $receptionTime = false, $sentStatus = false, $paidStatus = false){
         $this->id = $id;
-        $this->owner = $owner;
+        $this->ownerId = $ownerId;
+        $this->ownerName = $ownerName;
         $this->receptionTime = ($receptionTime) ? $receptionTime : time();
         $this->sentStatus = $sentStatus;
         $this->paidStatus = $paidStatus;
@@ -28,11 +30,19 @@ class Collection
 
     public function exchangeArray($data)
     {
-        $this->id = (!empty($data['id'])) ? $data['id'] : CollectionEnum::NEW_COLLECTION;
-        $this->owner = (!empty($data['owner'])) ? $data['owner'] : null;
+        $this->id = (isset($data['id'])) ? $data['id'] : CollectionEnum::NEW_COLLECTION;
+        $this->ownerId = (isset($data['owner'])) ? $data['owner'] : null;
+        $name = "";
+        if(!empty($data['first_name'])){
+            $name .= $data['first_name'] . " ";
+        }
+        if(!empty($data['last_name'])){
+            $name .= $data['last_name'];
+        }
+        $this->ownerName = $name;
         $this->receptionTime =(!empty($data['reception_time'])) ? $data['reception_time'] : time();
-        $this->sentStatus =(!empty($data['sent_status'])) ? $data['sent_status'] : false;
-        $this->paidStatus = (!empty($data['paid_status'])) ? $data['paid_status'] : false;
+        $this->sentStatus =(isset($data['sent_status'])) ? $data['sent_status'] : false;
+        $this->paidStatus = (isset($data['paid_status'])) ? $data['paid_status'] : false;
     }
 
     /**
@@ -44,19 +54,35 @@ class Collection
     }
 
     /**
-     * @param null $owner
+     * @param null $ownerId
      */
-    public function setOwner($owner)
+    public function setOwnerId($ownerId)
     {
-        $this->owner = $owner;
+        $this->ownerId = $ownerId;
     }
 
     /**
      * @return null
      */
-    public function getOwner()
+    public function getOwnerId()
     {
-        return $this->owner;
+        return $this->ownerId;
+    }
+
+    /**
+     * @param mixed $ownerName
+     */
+    public function setOwnerName($ownerName)
+    {
+        $this->ownerName = $ownerName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOwnerName()
+    {
+        return $this->ownerName;
     }
 
     /**
