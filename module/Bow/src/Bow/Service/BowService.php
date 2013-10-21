@@ -59,4 +59,8 @@ class BowService
         }
         return $result;
     }
+
+    public function search($query) {
+        return $this->bowDao->fetchAllByQuery($query);
+    }
 }

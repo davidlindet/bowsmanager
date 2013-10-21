@@ -9,6 +9,7 @@
 namespace Search\Service;
 
 use Client\Service\ClientService;
+use Bow\Service\BowService;
 
 use Collection\Dao\CollectionDao;
 use Collection\Model\Collection;
@@ -35,5 +36,17 @@ class SearchService
         }
 
         return $clients;
+    }
+
+    public function searchBow($query){
+        $bows = array();
+
+        if($query){
+            /** @var  $bowService BowService */
+            $bowService = $this->serviceManager->get('BowService');
+            $bows = $bowService->search($query);
+        }
+
+        return $bows;
     }
 }

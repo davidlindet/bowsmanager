@@ -10,8 +10,10 @@ namespace Bow\Dao;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Select;
+use Zend\Db\ResultSet\ResultSet;
 
 use Bow\Model\Bow;
+use Bow\Enum\BowTypeEnum;
 
 class BowDao
 {
@@ -38,6 +40,50 @@ class BowDao
         $bows = array();
         /** @var $bow Bow */
         foreach($resultSet as $bow){
+            $bows[$bow->getId()] = $bow;
+        }
+        return $bows;
+    }
+
+    public function fetchAllByQuery($query) {
+        $driver = $this->tableGateway->getAdapter()->getDriver();
+
+        $sql = false;
+
+        if(strtolower($query) == strtolower(BowTypeEnum::COPY(BowTypeEnum::ALTO))){
+            $sql =   "SELECT * FROM bow b WHERE b.type = " . BowTypeEnum::ALTO;
+        }
+        elseif(strtolower($query) == strtolower(BowTypeEnum::COPY(BowTypeEnum::CELLO))){
+            $sql =   "SELECT * FROM bow b WHERE b.type = " . BowTypeEnum::CELLO;
+        }
+        elseif(strtolower($query) == strtolower(BowTypeEnum::COPY(BowTypeEnum::VIOLIN))){
+            $sql =   "SELECT * FROM bow b WHERE b.type = " . BowTypeEnum::VIOLIN;
+        }
+        elseif(strtolower($query) == strtolower(BowTypeEnum::COPY(BowTypeEnum::DOUBLE_BASS))){
+            $sql =   "SELECT * FROM bow b WHERE b.type = " . BowTypeEnum::DOUBLE_BASS;
+        }
+
+        if(!$sql) {
+            $sql = "SELECT * FROM bow WHERE description LIKE '%$query%'
+                    UNION
+                    SELECT * FROM bow WHERE work_to_do LIKE '%$query%'
+                    UNION
+                    SELECT * FROM bow WHERE status LIKE '%$query%'
+                    UNION
+                    SELECT * FROM bow WHERE comments LIKE '%$query%'
+            ";
+        }
+
+        $statement = $driver->createStatement($sql);
+        $result = $statement->execute();
+
+        $resultSet = new ResultSet;
+        $resultSet->initialize($result);
+
+        $bows = array();
+        foreach($resultSet as $data){
+            $bow = new Bow();
+            $bow->exchangeArray($data);
             $bows[$bow->getId()] = $bow;
         }
         return $bows;

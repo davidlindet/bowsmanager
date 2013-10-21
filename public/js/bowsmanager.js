@@ -133,15 +133,17 @@ BowsManager.search = (function() {
             var params = $("#search-form").serializeForm();
 
             $('#client-results').html("");
+            $('#bow-results').html("");
             $('.error-message').html("");
-            
+
             $.ajax({
                 url: "/search/search",
                 method: "POST",
                 data: params,
                 success: function(data) {
                     if(data.success){
-                        $('#client-results').html(data.clientHtml);
+                        $('#client-results').html(data.clientHTML);
+                        $('#bow-results').html(data.bowHTML);
                     }
                     else {
                         $('.error-message').html(data.error);

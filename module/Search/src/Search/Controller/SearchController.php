@@ -32,34 +32,34 @@ class SearchController extends AbstractActionController
     }
 
     public function searchAction() {
+        $viewRender = $this->getServiceLocator()->get('ViewRenderer');
+
         $query = $this->params()->fromPost('query', false);
         $searchTypes = $this->params()->fromPost('type', false);
 
         $response = array('success' => false,
-                            'clientHtml' => false,
+                            'clientHTML' => false,
+                            'bowHTML' => false,
                             'query' => $query
                             );
 
+        //client
         if(in_array(SearchEnum::SEARCH_CLIENT, $searchTypes)){
             $clients = $this->getSearchService()->searchClient($query);
-
-//            /** @var $client \client\Model\Client */
-//            foreach($clients as $client){
-//                $response['clients'][] = $client->toArray();
-//            }
-
-            $viewModel =  new ViewModel(array(
-                                'clients' => $clients,
-                                'query' => $query,
-                            ));
+            $viewModel =  new ViewModel(array('clients' => $clients, 'query' => $query));
             $viewModel->setTemplate("clientList");
-            $viewRender = $this->getServiceLocator()->get('ViewRenderer');
-            $html = $viewRender->render($viewModel);
-
-            $response['clientHtml'] = $html;
+            $response['clientHTML'] = $viewRender->render($viewModel);
         }
 
-        if($response['clientHtml']){
+        //bow
+        if(in_array(SearchEnum::SEARCH_BOW, $searchTypes)){
+            $bows = $this->getSearchService()->searchBow($query);
+            $viewModel =  new ViewModel(array('bows' => $bows, 'query' => $query));
+            $viewModel->setTemplate("bowList");
+            $response['bowHTML'] = $viewRender->render($viewModel);
+        }
+
+        if($response['clientHTML'] || $response['bowHTML']){
             $response['success'] = true;
         }
         else {

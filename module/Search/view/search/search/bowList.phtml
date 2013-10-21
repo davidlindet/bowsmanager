@@ -1,0 +1,35 @@
+<?php
+use Bow\Model\Bow;
+use Bow\Enum\BowTypeEnum;
+use Bow\Enum\BowSizeEnum;
+?>
+<h2>Bow Results:</h2>
+<table class="table">
+    <tr>
+        <th>Type</th>
+        <th>Size</th>
+        <th>Description</th>
+        <th>WorkToDo</th>
+        <th>Status</th>
+        <th>IsDone</th>
+        <th>Comments</th>
+        <th>&nbsp;</th>
+    </tr>
+
+    <?php /**  @var  $bow Bow*/?>
+    <?php foreach ($bows as $bow) : ?>
+        <tr id="bow-<?php echo $bow->getId() ?>" >
+            <td><?php echo $this->highLight(BowTypeEnum::COPY($bow->getType()), $query);?></td>
+            <td><?php echo $this->highLight(BowSizeEnum::COPY($bow->getSize()), $query);?></td>
+            <td><?php echo $this->highLight($bow->getDescription(), $query);?></td>
+            <td><?php echo $this->highLight($bow->getWorkToDo(), $query);?></td>
+            <td><?php echo $this->highLight($bow->getStatus(), $query);?></td>
+            <td><?php echo $bow->getIsDone() ?></td>
+            <td><?php echo $this->highLight($bow->getComments(), $query);?></td>
+            <td>
+                <a href="<?php echo $this->url('bow', array('action'=>'details', 'id' => $bow->getId()));?>">Details</a>
+                <a href="<?php echo $this->url('bow', array('action'=>'edit', 'id' => $bow->getId()));?>">Edit</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
