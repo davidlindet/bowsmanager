@@ -29,11 +29,9 @@
     <div class="client-delete" data-id="<?php echo $client->getId() ?>" data-section="details" >Delete</div>
 </div>
 <?php
-    foreach($client->getCollections() as $collection){
-        echo $this->partial('collectionDetails', array(
-            'collection' => $collection
-        ));
-    }
+    echo $this->partial('collectionList', array(
+        'collections' => $client->getCollections()
+    ));
 ?>
 <?php
     $this->placeholder('scripts')->set("

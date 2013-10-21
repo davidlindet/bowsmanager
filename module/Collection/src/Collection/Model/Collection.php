@@ -9,6 +9,7 @@
 namespace Collection\Model;
 
 use Collection\Enum\CollectionEnum;
+use Bow\Model\Bow;
 
 class Collection
 {
@@ -21,6 +22,7 @@ class Collection
     private $billReference; // String
     private $billAmount; // Float
     private $paidStatus; // boolean
+    private $bows;
 
     public function __Construct($id = 0,
                                 $ownerId = null,
@@ -40,6 +42,7 @@ class Collection
         $this->billReference = $billReference;
         $this->billAmount = $billAmount;
         $this->paidStatus = $paidStatus;
+        $this->bows = array();
     }
 
     public function exchangeArray($data)
@@ -204,5 +207,39 @@ class Collection
     public function getReturnTime()
     {
         return $this->returnTime;
+    }
+
+    /**
+     * @param array $bows
+     */
+    public function setBows($bows)
+    {
+        $this->bows = $bows;
+    }
+
+    /**
+     * @return array
+     */
+    public function getBows()
+    {
+        return $this->bows;
+    }
+
+    /**
+     * @return int
+     */
+    public function countBows(){
+        return count($this->bows);
+    }
+
+    /**
+     * @param Bow $bow
+     */
+    public function addBow(Bow $bow){
+        $this->bows[$bow->getId()] = $bow;
+    }
+
+    public function removeBow(int $bowId){
+        unset($this->bows[$bowId]);
     }
 }

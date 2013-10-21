@@ -46,7 +46,7 @@ return array(
     'view_manager' => array(
         'template_map' => array(
             'formClient' => __DIR__ . '/../view/client/client/form.phtml',
-            'collectionDetails' => __DIR__ . '/../../Collection/view/collection/collection/details.phtml',
+            'collectionList' => __DIR__ . '/../../Collection/view/collection/collection/index.phtml',
         ),
         'template_path_stack' => array(
             'client' => __DIR__ . '/../view',

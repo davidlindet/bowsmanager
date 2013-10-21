@@ -10,7 +10,6 @@ namespace Collection\Dao;
 
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
-use Zend\Db\ResultSet\ResultSetInterface;
 use Zend\Db\ResultSet\ResultSet;
 
 use Collection\Model\Collection;
@@ -35,7 +34,9 @@ class CollectionDao
             $orderSql = "reception_time ASC";
         }
 
-        $sql = "SELECT col.id, owner, reception_time, sent_status, paid_status, first_name, last_name
+        $sql = "SELECT col.id, owner, reception_time, return_time,
+              package_number, bill_reference, bill_amount,
+              paid_status, first_name, last_name
               FROM collection col
               JOIN client cli
               ON cli.id = col.owner
@@ -52,7 +53,7 @@ class CollectionDao
         foreach($resultSet as $data){
             $collection = new Collection();
             $collection->exchangeArray($data);
-            $collections[] = $collection;
+            $collections[$collection->getId()] = $collection;
         }
         return $collections;
     }
@@ -69,21 +70,41 @@ class CollectionDao
         }
         $resultSet = $this->tableGateway->selectWith($select);
         $collections = array();
+        /** @var $collection Collection */
         foreach($resultSet as $collection){
-            $collections[] = $collection;
+            $collections[$collection->getId()] = $collection;
         }
         return $collections;
     }
 
     public function getCollection($id)
     {
-        $id  = (int) $id;
-        $rowset = $this->tableGateway->select(array('id' => $id));
-        $row = $rowset->current();
-        if (!$row) {
+        $driver = $this->tableGateway->getAdapter()->getDriver();
+
+        $sql = "SELECT col.id, owner, reception_time, return_time,
+              package_number, bill_reference, bill_amount,
+              paid_status, first_name, last_name
+              FROM collection col
+              JOIN client cli
+                  ON cli.id = col.owner
+              WHERE col.id = $id;
+        ";
+
+        $statement = $driver->createStatement($sql);
+        $result = $statement->execute();
+
+        $resultSet = new ResultSet;
+        $resultSet->initialize($result);
+
+        $data = $resultSet->current();
+
+        if (!$data) {
             throw new \Exception("Could not find row $id");
         }
-        return $row;
+
+        $collection = new Collection();
+        $collection->exchangeArray($data);
+        return $collection;
     }
 
     public function saveCollection(Collection $collection)

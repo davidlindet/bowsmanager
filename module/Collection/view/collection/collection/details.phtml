@@ -16,12 +16,23 @@
     <li>
         <?php echo $collection->isPaid() ? "Is paid" : "Not Paid" ?>
     </li>
+    <li>
+        <?php echo $collection->countBows() . " archets" ?>
+    </li>
 </ul>
 <div>
     <a href="<?php echo $this->url('collection',
         array('action'=>'edit', 'id' => $collection->getId()));?>">Edit</a>
     <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="details" >Delete<div>
 </div>
+
+<?php
+foreach($collection->getBows() as $bow){
+    echo $this->partial('bowDetails', array(
+        'bow' => $bow
+    ));
+}
+?>
 <?php
 //    $this->placeholder('scripts')->set("
 //        BowsManager.client.del();

@@ -41,7 +41,8 @@ class Module
             'factories' => array(
                 'CollectionService' =>  function($sm) {
                     $dao = $sm->get('Collection\Dao\CollectionDao');
-                    $service = new CollectionService($dao);
+                    $bowService =  $sm->get('BowService');
+                    $service = new CollectionService($dao, $bowService);
                     return $service;
                 },
                 'Collection\Dao\CollectionDao' =>  function($sm) {

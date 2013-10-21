@@ -44,9 +44,10 @@ return array(
         ),
     ),
     'view_manager' => array(
-//        'template_map' => array(
+        'template_map' => array(
 //            'formClient' => __DIR__ . '/../view/client/client/form.phtml',
-//        ),
+            'bowDetails' => __DIR__ . '/../../Bow/view/bow/bow/details.phtml',
+        ),
         'template_path_stack' => array(
             'collection' => __DIR__ . '/../view',
         ),

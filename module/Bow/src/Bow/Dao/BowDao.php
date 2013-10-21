@@ -9,6 +9,7 @@
 namespace Bow\Dao;
 
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Select;
 
 use Bow\Model\Bow;
 
@@ -25,6 +26,21 @@ class BowDao
     {
         $resultSet = $this->tableGateway->select();
         return $resultSet;
+    }
+
+    public function fetchAllByCollection($collectionId)
+    {
+        $select = new Select();
+        $select->from("bow");
+        $select->where(array('collection_id' => $collectionId));
+        $select->order('id ASC');
+        $resultSet = $this->tableGateway->selectWith($select);
+        $bows = array();
+        /** @var $bow Bow */
+        foreach($resultSet as $bow){
+            $bows[$bow->getId()] = $bow;
+        }
+        return $bows;
     }
 
     public function getBow($id)

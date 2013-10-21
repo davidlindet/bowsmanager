@@ -8,6 +8,8 @@
  */
 namespace Collection\Service;
 
+use Bow\Service\BowService;
+
 use Collection\Dao\CollectionDao;
 use Collection\Model\Collection;
 use Collection\Enum\CollectionEnum;
@@ -19,22 +21,52 @@ class CollectionService
      */
     protected $collectionDao;
 
-    public function __construct($collectionDao){
+    /**
+     * @var $bowService BowService
+     */
+    protected $bowService;
+
+    public function __construct($collectionDao, $bowService){
         $this->collectionDao = $collectionDao;
+        $this->bowService = $bowService;
     }
 
     public function getById($collectionId){
         $collectionId = (int) $collectionId;
-        return ($collectionId == CollectionEnum::NEW_COLLECTION) ? new Collection() : $this->collectionDao->getCollection($collectionId);
+
+        if($collectionId ==  CollectionEnum::NEW_COLLECTION){
+            $collection = new Collection();
+        }
+        else {
+            $collection = $this->collectionDao->getCollection($collectionId);
+            $bows = $this->bowService->getAllByCollection($collection->getId());
+            $collection->setBows($bows);
+        }
+        return $collection;
     }
 
     public function getByOwner($ownerId){
         $ownerId = (int) $ownerId;
-        return $this->collectionDao->fetchAllByOwner($ownerId);
+        $collections = $this->collectionDao->fetchAllByOwner($ownerId);
+
+        /** @var $collection Collection */
+        foreach($collections as &$collection){
+            $bows = $this->bowService->getAllByCollection($collection->getId());
+            $collection->setBows($bows);
+        }
+
+        return $collections;
     }
 
     public function getAll(){
-        return $this->collectionDao->fetchAll();
+        $collections = $this->collectionDao->fetchAll();
+        /** @var $collection Collection */
+        foreach($collections as &$collection){
+            $bows = $this->bowService->getAllByCollection($collection->getId());
+            $collection->setBows($bows);
+        }
+
+        return $collections;
     }
 
     public function save($collectionModel){

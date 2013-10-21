@@ -27,6 +27,10 @@ class BowService
         return $this->bowDao->fetchAll();
     }
 
+    public function getAllByCollection($collectionId){
+        return $this->bowDao->fetchAllByCollection($collectionId);
+    }
+
     public function getById($bowId){
         $bowId = (int) $bowId;
         return ($bowId == BowEnum::NEW_BOW) ? new Bow() : $this->bowDao->getBow($bowId);

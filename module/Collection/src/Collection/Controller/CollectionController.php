@@ -78,17 +78,17 @@ class CollectionController extends AbstractActionController
 //        ));
 //    }
 //
-//    public function detailsAction()
-//    {
-//        $clientId = $this->getEvent()->getRouteMatch()->getParam('id', ClientEnum::NEW_CLIENT);
-//
-//        /** @var $clientModel Client */
-//        $clientModel = $this->getClientService()->getById($clientId);
-//
-//        return new ViewModel(array(
-//            'client' => $clientModel,
-//        ));
-//    }
+    public function detailsAction()
+    {
+        $collecitonId = $this->params()->fromRoute('id', CollectionEnum::NEW_COLLECTION);
+
+        /** @var $collectionModel Collection */
+        $collectionModel = $this->getCollectionService()->getById($collecitonId);
+
+        return new ViewModel(array(
+            'collection' => $collectionModel,
+        ));
+    }
 //
 //    public function deleteAction()
 //    {

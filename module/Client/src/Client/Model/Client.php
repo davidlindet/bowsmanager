@@ -14,15 +14,15 @@ use Collection\Model\Collection;
 
 class Client
 {
-    private $id;
-    private $lastName;
-    private $firstName;
-    private $address;
-    private $landline;
-    private $mobile;
-    private $email;
-    private $website;
-    private $collections;
+    private $id; // int
+    private $lastName; // String
+    private $firstName; // String
+    private $address; // String
+    private $landline; //String
+    private $mobile; // String
+    private $email; // String
+    private $website; // String
+    private $collections; // collections array
 
     public function __Construct($id = 0, $lastName = "", $firstName = "", $address = "", $landline = "", $mobile = "", $email = "", $website = "", $collections = array()){
         $this->id = $id;
@@ -191,7 +191,7 @@ class Client
     /**
      * @return int
      */
-    public function getCollectionsCount(){
+    public function countCollections(){
         return count($this->collections);
     }
 
