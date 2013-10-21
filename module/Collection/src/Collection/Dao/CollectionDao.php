@@ -91,7 +91,10 @@ class CollectionDao
         $data = array(
             'owner' => $collection->getOwner(),
             'reception_time'  => $collection->getReceptionTime(),
-            'sent_status'  => $collection->getSentStatus(),
+            'return_time' => $collection->getReturnTime(),
+            'package_number'  => $collection->getPackageNumber(),
+            'bill_reference'  => $collection->getBillReference(),
+            'bill_amount'  => $collection->getBillAmount(),
             'paid_status'  => $collection->getPaidStatus(),
         );
 

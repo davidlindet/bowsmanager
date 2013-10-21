@@ -16,15 +16,29 @@ class Collection
     private $ownerId; // int
     private $ownerName; // String
     private $receptionTime; // timestamp
-    private $sentStatus; // boolean
+    private $returnTime; // timestamp
+    private $packageNumber; // String
+    private $billReference; // String
+    private $billAmount; // Float
     private $paidStatus; // boolean
 
-    public function __Construct($id = 0, $ownerId = null, $ownerName = "", $receptionTime = false, $sentStatus = false, $paidStatus = false){
+    public function __Construct($id = 0,
+                                $ownerId = null,
+                                $ownerName = "",
+                                $receptionTime = false,
+                                $returnTime = false,
+                                $packageNumber = false,
+                                $billReference = false,
+                                $billAmount = false,
+                                $paidStatus = false){
         $this->id = $id;
         $this->ownerId = $ownerId;
         $this->ownerName = $ownerName;
         $this->receptionTime = ($receptionTime) ? $receptionTime : time();
-        $this->sentStatus = $sentStatus;
+        $this->returnTime = $returnTime;
+        $this->packageNumber = $packageNumber;
+        $this->billReference = $billReference;
+        $this->billAmount = $billAmount;
         $this->paidStatus = $paidStatus;
     }
 
@@ -40,8 +54,11 @@ class Collection
             $name .= $data['last_name'];
         }
         $this->ownerName = $name;
-        $this->receptionTime =(!empty($data['reception_time'])) ? $data['reception_time'] : time();
-        $this->sentStatus =(isset($data['sent_status'])) ? $data['sent_status'] : false;
+        $this->receptionTime =(!empty($data['reception_time'])) ? $data['reception_time'] : false;
+        $this->returnTime =(!empty($data['return_time'])) ? $data['return_time'] : false;
+        $this->packageNumber =(!empty($data['package_number'])) ? $data['package_number'] : null;
+        $this->billReference =(!empty($data['bill_reference'])) ? $data['bill_reference'] : null;
+        $this->billAmount =(isset($data['bill_amount'])) ? $data['bill_amount'] : null;
         $this->paidStatus = (isset($data['paid_status'])) ? $data['paid_status'] : false;
     }
 
@@ -96,9 +113,17 @@ class Collection
     /**
      * @return boolean
      */
-    public function getPaidStatus()
+    public function isPaid()
     {
         return $this->paidStatus;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isSent()
+    {
+        return $this->returnTime ? true : false;
     }
 
     /**
@@ -118,18 +143,66 @@ class Collection
     }
 
     /**
-     * @param boolean $sentStatus
+     * @param boolean $billAmount
      */
-    public function setSentStatus($sentStatus)
+    public function setBillAmount($billAmount)
     {
-        $this->sentStatus = $sentStatus;
+        $this->billAmount = $billAmount;
     }
 
     /**
      * @return boolean
      */
-    public function getSentStatus()
+    public function getBillAmount()
     {
-        return $this->sentStatus;
+        return $this->billAmount;
+    }
+
+    /**
+     * @param boolean $billReference
+     */
+    public function setBillReference($billReference)
+    {
+        $this->billReference = $billReference;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getBillReference()
+    {
+        return $this->billReference;
+    }
+
+    /**
+     * @param boolean $packageNumber
+     */
+    public function setPackageNumber($packageNumber)
+    {
+        $this->packageNumber = $packageNumber;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getPackageNumber()
+    {
+        return $this->packageNumber;
+    }
+
+    /**
+     * @param boolean $returnTime
+     */
+    public function setReturnTime($returnTime)
+    {
+        $this->returnTime = $returnTime;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getReturnTime()
+    {
+        return $this->returnTime;
     }
 }

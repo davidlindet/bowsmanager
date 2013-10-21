@@ -11,10 +11,10 @@
         <?php echo $collection->getReceptionTime() ?>
     </li>
     <li>
-        <?php echo $collection->getSentStatus() ? "Is sent" : "Not sent" ?>
+        <?php echo $collection->isSent() ? "Is sent" : "Not sent" ?>
     </li>
     <li>
-        <?php echo $collection->getPaidStatus() ? "Is paid" : "Not Paid" ?>
+        <?php echo $collection->isPaid() ? "Is paid" : "Not Paid" ?>
     </li>
 </ul>
 <div>
