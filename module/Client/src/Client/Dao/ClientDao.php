@@ -10,6 +10,7 @@ namespace Client\Dao;
 
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\ResultSet\ResultSet;
 
 use Client\Model\Client;
 use Client\Enum\ClientEnum;
@@ -38,6 +39,37 @@ class ClientDao
         $resultSet = $this->tableGateway->selectWith($select);
 
         return $resultSet;
+    }
+
+    public function fetchAllByQuery($query, $order = ClientEnum::SORT_AZ) {
+        $driver = $this->tableGateway->getAdapter()->getDriver();
+
+        if($order == ClientEnum::SORT_AZ){
+            $orderSql = "last_name ASC";
+        }
+        elseif($order == ClientEnum::SORT_ZA){
+            $orderSql = "last_name DESC";
+        }
+
+        $sql = "SELECT * FROM client WHERE last_name LIKE '%$query%'
+                UNION
+                SELECT * FROM client WHERE first_name LIKE '%$query%' ORDER BY $orderSql
+              ;
+        ";
+
+        $statement = $driver->createStatement($sql);
+        $result = $statement->execute();
+
+        $resultSet = new ResultSet;
+        $resultSet->initialize($result);
+
+        $clients = array();
+        foreach($resultSet as $data){
+            $client = new Client();
+            $client->exchangeArray($data);
+            $clients[$client->getId()] = $client;
+        }
+        return $clients;
     }
 
     public function getClient($id)

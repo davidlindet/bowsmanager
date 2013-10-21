@@ -1,0 +1,23 @@
+<?php
+use Collection\Model\Collection;
+use Collection\Enum\CollectionEnum;
+
+$title = 'My search';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<h2>Client results:</h2>
+
+<?php
+    echo $this->partial('clientList', array(
+        'clients' => $clients,
+        'query' => $query,
+    ));
+?>
+
+<?php
+//    $this->placeholder('scripts')->set("
+//        BowsManager.client.listInitFilters();
+//        BowsManager.client.del();
+//    ");
+?>

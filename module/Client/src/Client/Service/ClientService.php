@@ -80,4 +80,8 @@ class ClientService
         }
         return $result;
     }
+
+    public function search($query) {
+        return $this->clientDao->fetchAllByQuery($query);
+    }
 }

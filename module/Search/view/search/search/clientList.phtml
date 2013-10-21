@@ -1,0 +1,36 @@
+<?php
+$firstLetter = null;
+/**  @var  $client Client*/
+foreach ($clients as $client) :
+    $currentFirstLetter = $client->getName();
+    if($currentFirstLetter[0] != $firstLetter){
+        $firstLetter = $currentFirstLetter[0];
+        ?>
+        <tr class="data <?php echo $firstLetter ?>">
+            <td colspan="3"><h3><?php echo strtoupper($firstLetter);?></h3></td>
+        </tr>
+    <?php
+    }
+    ?>
+    <tr class="data <?php echo $firstLetter ?>" id="client-<?php echo $client->getId() ?>">
+        <td>
+            <a href="<?php echo $this->url('client',
+                array('action'=>'details', 'id' => $client->getId()));?>">
+                <?php
+                    echo $this->highLight($client->getName(), $query);
+                ?>
+            </a>
+        </td>
+        <td>
+            Lots: <?php echo $client->countCollections() ?>
+        </td>
+        <td>
+            <a href="<?php echo $this->url('client',
+                array('action'=>'details', 'id' => $client->getId()));?>">
+                Details
+            </a>
+            <a href="<?php echo $this->url('client',
+                array('action'=>'edit', 'id' => $client->getId()));?>">Edit</a>
+        </td>
+    </tr>
+<?php endforeach; ?>

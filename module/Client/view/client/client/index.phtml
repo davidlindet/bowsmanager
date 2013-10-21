@@ -20,19 +20,19 @@ $this->headTitle($title);
     </tr>
 
     <?php
-        $firstLetter = null;
-        /**  @var  $client Client*/
-         foreach ($clients as $client) :
-            $currentFirstLetter = $client->getName();
-            if($currentFirstLetter[0] != $firstLetter){
-                $firstLetter = $currentFirstLetter[0];
-    ?>
-        <tr class="data <?php echo $firstLetter ?>">
-            <td colspan="3"><h3><?php echo strtoupper($firstLetter);?></h3></td>
-        </tr>
-    <?php
-            }
-    ?>
+    $firstLetter = null;
+    /**  @var  $client Client*/
+    foreach ($clients as $client) :
+        $currentFirstLetter = $client->getName();
+        if($currentFirstLetter[0] != $firstLetter){
+            $firstLetter = $currentFirstLetter[0];
+            ?>
+            <tr class="data <?php echo $firstLetter ?>">
+                <td colspan="3"><h3><?php echo strtoupper($firstLetter);?></h3></td>
+            </tr>
+        <?php
+        }
+        ?>
         <tr class="data <?php echo $firstLetter ?>" id="client-<?php echo $client->getId() ?>">
             <td>
                 <a href="<?php echo $this->url('client',

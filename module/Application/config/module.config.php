@@ -78,6 +78,10 @@ return array(
                 'label' => 'Lots',
                 'route' => 'collection',
             ),
+            array(
+                'label' => 'Search',
+                'route' => 'search',
+            ),
         ),
     ),
     'translator' => array(
