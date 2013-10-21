@@ -205,4 +205,18 @@ class Client
     public function removeCollection(int $collectionId){
         unset($this->collections[$collectionId]);
     }
+
+    public function toArray(){
+        return array(
+            "id" => $this->id,
+            "lastName" => $this->lastName,
+            "firstName" => $this->firstName,
+            "address" => $this->address,
+            "landline" => $this->landline,
+            "mobile" => $this->mobile,
+            "email" => $this->email,
+            "website" => $this->website,
+            "nb_collections" => count($this->collections),
+        );
+    }
 }

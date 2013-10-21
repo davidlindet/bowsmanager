@@ -12,6 +12,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 
+use Search\Enum\SearchEnum;
+
 use Search\Service\SearchService;
 
 class SearchController extends AbstractActionController
@@ -29,14 +31,44 @@ class SearchController extends AbstractActionController
         return $this->searchService;
     }
 
-    public function indexAction()
-    {
-        $query = $this->params()->fromQuery('query', false);
+    public function searchAction() {
+        $query = $this->params()->fromPost('query', false);
+        $searchTypes = $this->params()->fromPost('type', false);
 
-        return new ViewModel(array(
-            'query' => $query,
-            'clients' => $this->getSearchService()->searchClient($query),
-            //'collections' => $this->getSearchService()->getSearchResult(),
-        ));
+        $response = array('success' => false,
+                            'clientHtml' => false,
+                            'query' => $query
+                            );
+
+        if(in_array(SearchEnum::SEARCH_CLIENT, $searchTypes)){
+            $clients = $this->getSearchService()->searchClient($query);
+
+//            /** @var $client \client\Model\Client */
+//            foreach($clients as $client){
+//                $response['clients'][] = $client->toArray();
+//            }
+
+            $viewModel =  new ViewModel(array(
+                                'clients' => $clients,
+                                'query' => $query,
+                            ));
+            $viewModel->setTemplate("clientList");
+            $viewRender = $this->getServiceLocator()->get('ViewRenderer');
+            $html = $viewRender->render($viewModel);
+
+            $response['clientHtml'] = $html;
+        }
+
+        if($response['clientHtml']){
+            $response['success'] = true;
+        }
+        else {
+            $response['error'] = 'No results';
+        }
+
+        return new JsonModel($response);
     }
+
+    public function indexAction()
+    {}
 }

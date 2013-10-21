@@ -10,5 +10,7 @@
 namespace Search\Enum;
 
 class SearchEnum {
-
+    const SEARCH_CLIENT = "client";
+    const SEARCH_BOW = "bow";
+    const SEARCH_COLLECTION = "collection";
 }

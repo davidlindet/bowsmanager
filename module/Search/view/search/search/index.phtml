@@ -6,18 +6,17 @@ $title = 'My search';
 $this->headTitle($title);
 ?>
 <h1><?php echo $this->escapeHtml($title); ?></h1>
-<h2>Client results:</h2>
-
+<form id="search-form" >
+    <input type="text" name="query" />
+    <select name="type" multiple>
+        <option selected="selected" value="client">Client</option>
+        <option selected="selected"value="bow">Archet</option>
+        <option selected="selected" value="collection">Lot</option>
+    </select>
+    <button type="submit" id="search">Rechercher</button>
+</form>
+<div class="error-message"></div>
+<div id="client-results"></div>
 <?php
-    echo $this->partial('clientList', array(
-        'clients' => $clients,
-        'query' => $query,
-    ));
-?>
-
-<?php
-//    $this->placeholder('scripts')->set("
-//        BowsManager.client.listInitFilters();
-//        BowsManager.client.del();
-//    ");
+    $this->placeholder('scripts')->set("BowsManager.search.search()");
 ?>

@@ -45,16 +45,7 @@ class ClientService
 
     public function getAll($order = ClientEnum::SORT_AZ){
         $clients = $this->clientDao->fetchAll($order);
-
-        $finalClients =  array();
-
-        /** @var $client Client */
-        foreach($clients as $client) {
-            $collections = $this->collectionService->getByOwner($client->getId());
-            $client->setCollections($collections);
-            $finalClients[] = $client;
-        }
-        return $finalClients;
+        return $this->setCollections($clients);
     }
 
     public function save($clientModel){
@@ -82,6 +73,19 @@ class ClientService
     }
 
     public function search($query) {
-        return $this->clientDao->fetchAllByQuery($query);
+        $clients = $this->clientDao->fetchAllByQuery($query);
+        return $this->setCollections($clients);
+    }
+
+    public function setCollections($clients){
+        $finalClients =  array();
+
+        /** @var $client Client */
+        foreach($clients as $client) {
+            $collections = $this->collectionService->getByOwner($client->getId());
+            $client->setCollections($collections);
+            $finalClients[] = $client;
+        }
+        return $finalClients;
     }
 }

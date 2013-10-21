@@ -123,3 +123,35 @@ BowsManager.bow = (function() {
         del: del
     }
 })();
+
+BowsManager.search = (function() {
+
+    function search(){
+
+        $("#search-form").submit(function( event ) {
+            event.preventDefault();
+            var params = $("#search-form").serializeForm();
+
+            $('#client-results').html("");
+            $('.error-message').html("");
+            
+            $.ajax({
+                url: "/search/search",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if(data.success){
+                        $('#client-results').html(data.clientHtml);
+                    }
+                    else {
+                        $('.error-message').html(data.error);
+                    }
+                }
+            });
+        });
+    }
+
+    return {
+        search: search
+    }
+})();

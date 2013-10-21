@@ -27,11 +27,9 @@
 </div>
 
 <?php
-foreach($collection->getBows() as $bow){
-    echo $this->partial('bowDetails', array(
-        'bow' => $bow
+    echo $this->partial('bowList', array(
+        'bows' => $collection->getBows()
     ));
-}
 ?>
 <?php
 //    $this->placeholder('scripts')->set("
