@@ -17,9 +17,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../view/layout/layout.phtml:6
-#: ../view/layout/layout.phtml:33
-msgid "Skeleton Application"
-msgstr "Skeleton Application"
+msgid "Bows Manager"
+msgstr "Bows Manager"
 
 #: ../view/layout/layout.phtml:36
 msgid "Home"
@@ -150,4 +149,30 @@ msgstr "résout en %s"
 #: ../view/error/404.phtml:51
 msgid "Exception"
 msgstr "Exception"
+
+#------------------------------------------
+#       Collection
+#------------------------------------------
+
+#: collection module
+msgid "Collections"
+msgstr "Lots"
+
+#:
+msgid "Add new collection"
+msgstr "Ajouter un lot"
+
+msgid "Reception Time"
+msgstr "Date de réception"
+
+msgid "Client"
+msgstr "Client"
+
+msgid "Bows"
+msgstr "Archets"
+
+msgid "Options"
+msgstr "Options"
+
+
 
