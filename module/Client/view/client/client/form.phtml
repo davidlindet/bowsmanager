@@ -2,32 +2,34 @@
     <?php echo $header ?>
 </h1>
 <div class="error-message"></div>
-<a href="<?php echo $this->url('client') ?>" >Retour</a>
+<a href="<?php echo $backUrl ?>" >
+    <?php echo $this->translate("Back") ?>
+</a>
 <form id="client-form" >
     <input type="hidden" name="id" id="id" value="<?php echo $client->getId() ?>"><br>
 
-    <label for="lastName">Nom</label>
+    <label for="lastName"><?php echo $this->translate("Last Name") ?></label>
     <input type="text" name="lastName" id="lastName" value="<?php echo $client->getLastName() ?>"><br>
 
-    <label for="firstName">Prénom</label>
+    <label for="firstName"><?php echo $this->translate("First Name") ?></label>
     <input type="text" name="firstName" id="firstName" value="<?php echo $client->getFirstName() ?>"><br>
 
-    <label for="address">Adresse</label>
+    <label for="address"><?php echo $this->translate("Address") ?></label>
     <textarea name="address" id="address"><?php echo $client->getAddress() ?></textarea><br>
 
-    <label for="landline">Téléphone Fixe</label>
+    <label for="landline"><?php echo  $this->translate("Landline") ?></label>
     <input type="text" name="landline" id="landline" value="<?php echo $client->getLandline() ?>"><br>
 
-    <label for="mobile">Mobile</label>
+    <label for="mobile"><?php echo $this->translate("Mobile") ?></label>
     <input type="text" name="mobile" id="mobile" value="<?php echo $client->getMobile() ?>"><br>
 
-    <label for="email">Email</label>
+    <label for="email"><?php echo $this->translate("Email") ?></label>
     <input type="text" name="email" id="email" value="<?php echo $client->getEmail() ?>"><br>
 
-    <label for="website">Website</label>
+    <label for="website"><?php echo $this->translate("Website") ?></label>
     <input type="text" name="website" id="website" value="<?php echo $client->getWebsite() ?>"><br>
 
-    <button type="submit" id="save-client" >Enregistrer</button>
+    <button type="submit" id="save-client" ><?php echo $this->translate("Save") ?></button>
 </form>
 <?php
     $this->placeholder('scripts')->set("BowsManager.client.add()");

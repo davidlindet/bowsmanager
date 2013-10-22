@@ -57,6 +57,7 @@
         </div> <!-- /container -->
         <?php
             echo $this->inlineScript();
+            echo $this->partial('jsCopies');
             echo "<script type='text/javascript'>" . $this->placeholder('scripts') . "</script>";
         ?>
     </body>

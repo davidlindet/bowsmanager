@@ -150,6 +150,64 @@ msgstr "résout en %s"
 msgid "Exception"
 msgstr "Exception"
 
+
+msgid "Back"
+msgstr "Retour"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+#------------------------------------------
+#       Client
+#------------------------------------------
+msgid "Client List"
+msgstr "Liste des Clients"
+
+msgid "New Client"
+msgstr "Nouveau Client"
+
+msgid "Add new client"
+msgstr "Ajouter un client"
+
+msgid "Edit Client"
+msgstr "Modifier le Client"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Last Name"
+msgstr "Nom"
+
+msgid "First Name"
+msgstr "Prénom"
+
+msgid "Address"
+msgstr "Adresse"
+
+msgid "Landline"
+msgstr "Fixe"
+
+msgid "Mobile"
+msgstr "Portable"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Website"
+msgstr "Site Web"
+
+msgid "Do you really want to delete this client?"
+msgstr "Voulez-vous vraiment supprimer ce client?"
+
+msgid "Impossible to save this client"
+msgstr "Impossible d'enregistrer ce client"
+
 #------------------------------------------
 #       Collection
 #------------------------------------------
@@ -173,6 +231,8 @@ msgstr "Archets"
 
 msgid "Options"
 msgstr "Options"
+
+
 
 
 

@@ -15,7 +15,7 @@ BowsManager.client = (function() {
                         window.location.href = '/client/details/'+data.id;
                     }
                     else {
-                        $('.error-message').html("Impossible d'enregistrer client");
+                        $('.error-message').html(BowsManager.copies.errorSaveClient);
                     }
                 }
             });
@@ -26,7 +26,7 @@ BowsManager.client = (function() {
         $(".client-delete").click(function() {
             var clientId = $(this).data('id');
             var section = $(this).data('section');
-            if(confirm("Voulez vous vraiment supprimer ce client?")){
+            if(confirm(BowsManager.copies.deleteClient)){
                 $.ajax({
                     url: "/client-delete",
                     method: "POST",

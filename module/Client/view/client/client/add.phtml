@@ -1,5 +1,5 @@
 <?php echo $this->partial('formClient', array(
-    'header' => 'Nouveau Client',
+    'header' => $this->translate('New Client'),
+    'backUrl' => $this->url('client'),
     'client' => $client
 ));
-?>
