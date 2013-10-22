@@ -12,6 +12,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 
+use Client\Service\ClientService;
+use Client\Enum\ClientEnum;
+
 use Collection\Service\CollectionService;
 use Collection\Model\Collection;
 use Collection\Enum\CollectionEnum;
@@ -37,56 +40,93 @@ class CollectionController extends AbstractActionController
             'collections' => $this->getCollectionService()->getAll(),
         ));
     }
-//
-//    public function saveAction() {
-//        $params = $this->params()->fromPost();
-//
-//        /** @var $clientModel Client */
-//        $clientModel = $this->getClientService()->getById($params['id']);
-//
-//        $clientModel->setFirstName($params['firstName']);
-//        $clientModel->setLastName($params['lastName']);
-//        $clientModel->setAddress($params['address']);
-//        $clientModel->setLandline($params['landline']);
-//        $clientModel->setMobile($params['mobile']);
-//        $clientModel->setEmail($params['email']);
-//        $clientModel->setWebsite($params['website']);
-//
-//        $result = $this->getClientService()->save($clientModel);
-//        return new JsonModel($result);
-//    }
-//
-//    public function addAction()
-//    {
-//        /** @var $clientModel Client */
-//        $clientModel = $this->getClientService()->getById(ClientEnum::NEW_CLIENT);
-//
-//        return new ViewModel(array(
-//            'client' => $clientModel,
-//        ));
-//    }
-//
-//    public function editAction()
-//    {
-//        $clientId = $this->getEvent()->getRouteMatch()->getParam('id', ClientEnum::NEW_CLIENT);
-//
-//        /** @var $clientModel Client */
-//        $clientModel = $this->getClientService()->getById($clientId);
-//
-//        return new ViewModel(array(
-//            'client' => $clientModel,
-//        ));
-//    }
-//
-    public function detailsAction()
-    {
-        $collecitonId = $this->params()->fromRoute('id', CollectionEnum::NEW_COLLECTION);
+
+    public function saveAction() {
+        $params = $this->params()->fromPost();
 
         /** @var $collectionModel Collection */
-        $collectionModel = $this->getCollectionService()->getById($collecitonId);
+        $collectionModel = $this->getCollectionService()->getById($params['id']);
+
+        $collectionModel->setOwnerId($params['owner']);
+        $collectionModel->setReceptionTime(strtotime($params['receptionTime']));
+        $collectionModel->setPackageNumber($params['packageNumber']);
+        $collectionModel->setReturnTime(strtotime($params['returnTime']));
+
+        $result = $this->getCollectionService()->save($collectionModel);
+        return new JsonModel($result);
+    }
+
+    public function addAction()
+    {
+        /** @var $collectionModel Collection */
+        $collectionModel = $this->getCollectionService()->getById(CollectionEnum::NEW_COLLECTION);
+        $clientId = $this->getEvent()->getRouteMatch()->getParam('clientId', false);
+
+        /** @var $clientService ClientService */
+        $clientService = $this->getServiceLocator()->get('ClientService');
+
+        $attributes = array(ClientEnum::ATTR_FIRST_NAME,
+            ClientEnum::ATTR_LAST_NAME,
+        );
+        $client = $clientService->getById($clientId, $attributes);
+        $collectionModel->setOwnerId($client->getId());
+        $collectionModel->setOwnerName($client->getName(false));
+
+        $clients = array();
+        $attributes = array(ClientEnum::ATTR_FIRST_NAME,
+            ClientEnum::ATTR_LAST_NAME,
+        );
+        if(!$clientId){
+            $clients = $clientService->getAll(ClientEnum::SORT_AZ, $attributes);
+        }
+        else {
+            $client = $clientService->getById($clientId, $attributes);
+            $collectionModel->setOwnerId($client->getId());
+            $collectionModel->setOwnerName($client->getName(false));
+        }
 
         return new ViewModel(array(
             'collection' => $collectionModel,
+            'clients' => $clients,
+            'client' => $client,
+        ));
+    }
+
+    public function editAction()
+    {
+        $collectionId = $this->getEvent()->getRouteMatch()->getParam('id', CollectionEnum::NEW_COLLECTION);
+        $clientId = $this->getEvent()->getRouteMatch()->getParam('clientId', false);
+
+        /** @var $collectionModel Collection */
+        $collectionModel = $this->getCollectionService()->getById($collectionId);
+
+        /** @var $clientService ClientService */
+        $clientService = $this->getServiceLocator()->get('ClientService');
+
+        $attributes = array(ClientEnum::ATTR_FIRST_NAME,
+                                ClientEnum::ATTR_LAST_NAME,
+                                );
+        $client = $clientService->getById($clientId, $attributes);
+        $collectionModel->setOwnerId($client->getId());
+        $collectionModel->setOwnerName($client->getName(false));
+
+        return new ViewModel(array(
+            'collection' => $collectionModel,
+            'client' => $client,
+        ));
+    }
+
+    public function detailsAction()
+    {
+        $section = $this->params()->fromRoute('section', false);
+        $collectionId = $this->params()->fromRoute('id', CollectionEnum::NEW_COLLECTION);
+
+        /** @var $collectionModel Collection */
+        $collectionModel = $this->getCollectionService()->getById($collectionId);
+
+        return new ViewModel(array(
+            'collection' => $collectionModel,
+            'section' => $section,
         ));
     }
 //

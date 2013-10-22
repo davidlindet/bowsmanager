@@ -2,7 +2,9 @@
     Client
 </h1>
 <div>
-    <a href="<?php echo $this->url('client') ?>" >Retour</a>
+    <a href="<?php echo $this->url('client') ?>" >
+        <?php $this->translate("Back") ?>
+    </a>
     <a href="<?php echo $this->url('client', array('action'=>'edit', 'id' => $client->getId()));?>">Edit</a>
     <div class="client-delete" data-id="<?php echo $client->getId() ?>" data-section="details" >Delete</div>
 </div>
@@ -29,8 +31,10 @@
     </dd>
 </dl>
 <?php
+    // Collection List
     echo $this->partial('collectionList', array(
-        'collections' => $client->getCollections()
+        'collections' => $client->getCollections(),
+        'clientId' => $client->getId()
     ));
 ?>
 <?php

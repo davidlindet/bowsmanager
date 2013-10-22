@@ -78,7 +78,7 @@ class Collection
      */
     public function setOwnerId($ownerId)
     {
-        $this->ownerId = $ownerId;
+        $this->ownerId = (int) $ownerId;
     }
 
     /**
@@ -142,7 +142,7 @@ class Collection
      */
     public function getReceptionTime()
     {
-        return date('d/m/Y', $this->receptionTime);
+        return date('d-m-Y', $this->receptionTime);
     }
 
     /**
@@ -206,7 +206,7 @@ class Collection
      */
     public function getReturnTime()
     {
-        return $this->returnTime;
+        return date('d-m-Y', $this->returnTime);
     }
 
     /**

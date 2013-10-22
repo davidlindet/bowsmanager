@@ -110,13 +110,13 @@ class CollectionDao
     public function saveCollection(Collection $collection)
     {
         $data = array(
-            'owner' => $collection->getOwner(),
+            'owner' => $collection->getOwnerId(),
             'reception_time'  => $collection->getReceptionTime(),
             'return_time' => $collection->getReturnTime(),
             'package_number'  => $collection->getPackageNumber(),
             'bill_reference'  => $collection->getBillReference(),
             'bill_amount'  => $collection->getBillAmount(),
-            'paid_status'  => $collection->getPaidStatus(),
+            'paid_status'  => $collection->isPaid(),
         );
 
         $id = (int) $collection->getId();

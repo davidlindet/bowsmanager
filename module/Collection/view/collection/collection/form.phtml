@@ -2,35 +2,57 @@
     <?php echo $header ?>
 </h1>
 <div class="error-message"></div>
-<a href="<?php echo $this->url('client') ?>" >Retour</a>
-<form id="client-form" >
-    <input type="hidden" name="id" id="id" value="<?php echo $client->getId() ?>"><br>
+<? /*
+6	bill_reference	varchar(100)	utf8_general_ci		Non	Aucune		 Modifier Modifier	 Supprimer Supprimer	 plus Montrer d'autres actions
+7	bill_amount	float			Non	Aucune		 Modifier Modifier	 Supprimer Supprimer	 plus Montrer d'autres actions
+8	paid_status */
+?>
 
-    <label for="lastName">Nom</label>
-    <input type="text" name="lastName" id="lastName" value="<?php echo $client->getLastName() ?>"><br>
+<a href="<?php echo $backUrl ?>" >
+    <?php echo $this->translate("Back") ?>
+</a>
+<form id="collection-form" >
+    <input type="hidden" name="id" id="id" value="<?php echo $collection->getId() ?>"><br>
 
-    <label for="firstName">Prénom</label>
-    <input type="text" name="firstName" id="firstName" value="<?php echo $client->getFirstName() ?>"><br>
+    <label for="owner"><?php echo $this->translate("Client") ?></label>
+    <?php if(!empty($clients)){ ?>
+        <select name="owner" id="owner">
+    <?php
+        /** @var $client \Client\Model\Client */
+        foreach($clients as $client){
+    ?>
+        <option value="<?php echo $client->getId(); ?>"><?php echo $client->getName(); ?></option>
+    <?php
+        }
+    ?>
+        </select><br />
+    <?php
+    }
+    else {
+     ?>
+        <input type="hidden" value="<?php echo $client->getId(); ?>" />
+        <a href="<?php echo $this->url("client", array('action'=>'details', 'id' => $collection->getOwnerId())) ?>" >
+            <?php echo $collection->getOwnerName() ?>
+        </a><br />
+    <?php
+    }
+    ?>
 
-    <label for="address">Adresse</label>
-    <textarea name="address" id="address"><?php echo $client->getAddress() ?></textarea><br>
 
-    <label for="landline">Téléphone Fixe</label>
-    <input type="text" name="landline" id="landline" value="<?php echo $client->getLandline() ?>"><br>
 
-    <label for="mobile">Mobile</label>
-    <input type="text" name="mobile" id="mobile" value="<?php echo $client->getMobile() ?>"><br>
+    <label for="receptionTime"><?php echo $this->translate("Reception Date") ?></label>
+    <input type="text" name="receptionTime" id="receptionTime" value="<?php echo $collection->getReceptionTime() ?>"><br>
 
-    <label for="email">Email</label>
-    <input type="text" name="email" id="email" value="<?php echo $client->getEmail() ?>"><br>
+    <label for="packageNumber"><?php echo $this->translate("Package Number") ?></label>
+    <input type="text" name="packageNumber" id="packageNumber" value="<?php echo $collection->getPackageNumber() ?>"><br>
 
-    <label for="website">Website</label>
-    <input type="text" name="website" id="website" value="<?php echo $client->getWebsite() ?>"><br>
+    <label for="returnTime"><?php echo $this->translate("Return Date") ?></label>
+    <input type="text" name="returnTime" id="returnTime" value="<?php echo $collection->getReturnTime() ?>"><br>
 
-    <button type="submit" id="save-client" >Enregistrer</button>
+    <button type="submit" id="save-collection" ><?php echo $this->translate("Save") ?></button>
 </form>
 <?php
-    $this->placeholder('scripts')->set("BowsManager.client.add()");
+    $this->placeholder('scripts')->set("BowsManager.collection.add()");
 ?>
 
 

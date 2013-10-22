@@ -150,7 +150,9 @@ msgstr "résout en %s"
 msgid "Exception"
 msgstr "Exception"
 
-
+#------------------------------------------
+#       Options
+#------------------------------------------
 msgid "Back"
 msgstr "Retour"
 
@@ -162,6 +164,9 @@ msgstr "Supprimer"
 
 msgid "Save"
 msgstr "Enregistrer"
+
+msgid "Options"
+msgstr "Options"
 
 #------------------------------------------
 #       Client
@@ -212,11 +217,18 @@ msgstr "Impossible d'enregistrer ce client"
 #       Collection
 #------------------------------------------
 
-#: collection module
 msgid "Collections"
 msgstr "Lots"
 
-#:
+msgid "Collection"
+msgstr "Lot"
+
+msgid "New Collection"
+msgstr "Nouveau Lot"
+
+msgid "Edit Collection"
+msgstr "Modifier le Lot"
+
 msgid "Add new collection"
 msgstr "Ajouter un lot"
 
@@ -229,10 +241,11 @@ msgstr "Client"
 msgid "Bows"
 msgstr "Archets"
 
-msgid "Options"
-msgstr "Options"
+msgid "Reception Date"
+msgstr "Date de Réception"
 
+msgid "Package Number"
+msgstr "Numéro de Colis"
 
-
-
-
+msgid "Return Date"
+msgstr "Date de Renvoi"

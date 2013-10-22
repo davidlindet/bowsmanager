@@ -10,10 +10,12 @@ return array(
             'collection' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/collection[/][:action][/:id]',
+                    'route'    => '/collection[/][:action][/:id][/:clientId][/:section]',
                     'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
+                        'action'   => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'       => '[0-9]+',
+                        'clientId' => '[0-9]+',
+                        'section'   => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
                         'controller' => 'Collection\Controller\Collection',
@@ -21,16 +23,16 @@ return array(
                     ),
                 ),
             ),
-//            'client-save' => array(
-//                'type'    => 'literal',
-//                'options' => array(
-//                    'route'    => '/client-save',
-//                    'defaults' => array(
-//                        'controller' => 'Client\Controller\Client',
-//                        'action'     => 'save',
-//                    ),
-//                ),
-//            ),
+            'collection-save' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/collection-save',
+                    'defaults' => array(
+                        'controller' => 'Collection\Controller\Collection',
+                        'action'     => 'save',
+                    ),
+                ),
+            ),
 //            'client-delete' => array(
 //                'type'    => 'literal',
 //                'options' => array(
@@ -45,7 +47,7 @@ return array(
     ),
     'view_manager' => array(
         'template_map' => array(
-//            'formClient' => __DIR__ . '/../view/client/client/form.phtml',
+            'formCollection' => __DIR__ . '/../view/collection/collection/form.phtml',
             'bowList' => __DIR__ . '/../../Bow/view/bow/bow/index.phtml',
         ),
         'template_path_stack' => array(

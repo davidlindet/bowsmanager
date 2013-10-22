@@ -28,7 +28,7 @@ class ClientService
         $this->collectionService = $collectionService;
     }
 
-    public function getById($clientId){
+    public function getById($clientId, $dataRequired = array(ClientEnum::ATTR_ALL)){
         $clientId = (int) $clientId;
 
         $client = null;
@@ -36,16 +36,24 @@ class ClientService
             $client = new Client();
         }
         else {
-            $client = $this->clientDao->getClient($clientId);
-            $collections = $this->collectionService->getByOwner($client->getId());
-            $client->setCollections($collections);
+            $client = $this->clientDao->getClient($clientId, $dataRequired);
+
+            if(in_array(ClientEnum::ATTR_ALL, $dataRequired) || in_array(ClientEnum::ATTR_COLLECTIONS, $dataRequired)){
+                $collections = $this->collectionService->getByOwner($client->getId());
+                $client->setCollections($collections);
+            }
         }
         return $client;
     }
 
-    public function getAll($order = ClientEnum::SORT_AZ){
-        $clients = $this->clientDao->fetchAll($order);
-        return $this->setCollections($clients);
+    public function getAll($order = ClientEnum::SORT_AZ, $dataRequired = array(ClientEnum::ATTR_ALL)){
+        $clients = $this->clientDao->fetchAll($order, $dataRequired);
+
+        if(in_array(ClientEnum::ATTR_ALL, $dataRequired) || in_array(ClientEnum::ATTR_COLLECTIONS, $dataRequired)){
+            $clients = $this->setCollections($clients);
+        }
+
+        return $clients;
     }
 
     public function save($clientModel){

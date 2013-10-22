@@ -24,21 +24,50 @@ class ClientDao
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll($order = ClientEnum::SORT_NATIVE) {
-        $select = new Select();
-        $select->from("client");
+    public function fetchAll($order = ClientEnum::SORT_NATIVE, $dataRequired = array(ClientEnum::ATTR_ALL)) {
 
-       // $select->where("SELECT * FROM client");
+        if(($key = array_search(ClientEnum::ATTR_COLLECTIONS, $dataRequired)) !== false) {
+            unset($dataRequired[$key]);
+        }
+
+        $driver = $this->tableGateway->getAdapter()->getDriver();
+
+        if(empty($dataRequired) || in_array(ClientEnum::ATTR_ALL, $dataRequired)){
+            $columns = "*";
+        }
+        else {
+            $columns = "id";
+            for($i = 0; $i < count($dataRequired); $i++) {
+                if($i < count($dataRequired)){
+                    $columns .= ", ";
+                }
+
+                $columns .= $dataRequired[$i];
+            }
+        }
+        $orderSql = "";
         if($order == ClientEnum::SORT_AZ){
-            $select->order('last_name ASC');
+            $orderSql = "ORDER BY last_name ASC";
         }
         elseif($order == ClientEnum::SORT_ZA){
-            $select->order('last_name DESC');
+            $orderSql = "ORDER BY last_name DESC";
+        }
+        $sql = "SELECT $columns FROM client $orderSql;";
+
+        $statement = $driver->createStatement($sql);
+        $result = $statement->execute();
+
+        $resultSet = new ResultSet;
+        $resultSet->initialize($result);
+
+        $clients = array();
+        foreach($resultSet as $data){
+            $client = new Client();
+            $client->exchangeArray($data);
+            $clients[$client->getId()] = $client;
         }
 
-        $resultSet = $this->tableGateway->selectWith($select);
-
-        return $resultSet;
+        return $clients;
     }
 
     public function fetchAllByQuery($query, $order = ClientEnum::SORT_AZ) {
@@ -72,15 +101,40 @@ class ClientDao
         return $clients;
     }
 
-    public function getClient($id)
+    public function getClient($id, $dataRequired = array(ClientEnum::ATTR_ALL))
     {
-        $id  = (int) $id;
-        $rowset = $this->tableGateway->select(array('id' => $id));
-        $row = $rowset->current();
-        if (!$row) {
-            throw new \Exception("Could not find row $id");
+        if(($key = array_search(ClientEnum::ATTR_COLLECTIONS, $dataRequired)) !== false) {
+            unset($dataRequired[$key]);
         }
-        return $row;
+
+        $driver = $this->tableGateway->getAdapter()->getDriver();
+
+        if(empty($dataRequired) || in_array(ClientEnum::ATTR_ALL, $dataRequired)){
+            $columns = "*";
+        }
+        else {
+            $columns = "id";
+            for($i = 0; $i < count($dataRequired); $i++) {
+                if($i < count($dataRequired)){
+                    $columns .= ", ";
+                }
+
+                $columns .= $dataRequired[$i];
+            }
+        }
+        $sql = "SELECT $columns FROM client WHERE id = $id;";
+
+        $statement = $driver->createStatement($sql);
+        $result = $statement->execute();
+
+        $resultSet = new ResultSet;
+        $resultSet->initialize($result);
+        $data = $resultSet->current();
+
+        $client = new Client();
+        $client->exchangeArray($data);
+
+        return $client;
     }
 
     public function saveClient(Client $client)

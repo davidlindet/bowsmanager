@@ -124,6 +124,61 @@ BowsManager.bow = (function() {
     }
 })();
 
+BowsManager.collection = (function() {
+
+    function add(){
+        $("#collection-form").submit(function( event ) {
+            event.preventDefault();
+            var params = $("#collection-form").serializeForm();
+            $.ajax({
+                url: "/collection-save",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if(data.success){
+                        window.location.href = '/collection/details/'+data.id;
+                    }
+                    else {
+                        $('.error-message').html("Impossible d'enregistrer le lot");
+                    }
+                }
+            });
+        });
+    }
+
+    function del(){
+//        $(".bow-delete").click(function() {
+//            var bowId = $(this).data('id');
+//            var section = $(this).data('section');
+//            if(confirm("Voulez vous vraiment supprimer cet archet?")){
+//                $.ajax({
+//                    url: "/bow-delete",
+//                    method: "POST",
+//                    data: {id: bowId},
+//                    success: function(data) {
+//                        if(data.success){
+//                            if(section == "list") {
+//                                $("#bow-"+bowId).fadeOut("slow");
+//                            }
+//                            else {
+//                                window.location.href = '/bow';
+//                            }
+//                        }
+//                        else {
+//                            $('.error-message').html("Impossible de supprimer l'archet");
+//                        }
+//                    }
+//                });
+//            }
+//        });
+    }
+
+    return {
+        add: add,
+        del: del
+    }
+})();
+
 BowsManager.search = (function() {
 
     function search(){

@@ -4,7 +4,11 @@ use Collection\Enum\CollectionEnum;
 ?>
 <h1><?php echo $this->translate('Collections'); ?></h1>
 <p>
-    <a href="<?php echo $this->url('collection', array('action'=>'add', 'id' => CollectionEnum::NEW_COLLECTION));?>">
+    <a href="<?php echo $this->url('collection', array('action'=>'add',
+                                                        'id' => CollectionEnum::NEW_COLLECTION,
+                                                        'clientId' => (isset($clientId)) ? $clientId : false,
+        )
+    );?>">
         <?php echo $this->translate("Add new collection"); ?>
     </a>
 </p>
@@ -31,8 +35,7 @@ use Collection\Enum\CollectionEnum;
                 <?php echo $collection->getReceptionTime() ?>
             </td>
             <td>
-                <a href="<?php echo $this->url('client',
-                    array('action'=>'details', 'id' => $collection->getOwnerId()));?>">
+                <a href="<?php echo $this->url('client', array('action'=>'details', 'id' => $collection->getOwnerId()));?>">
                     <?php echo $collection->getOwnerName() ?>
                 </a>
             </td>
@@ -40,11 +43,19 @@ use Collection\Enum\CollectionEnum;
                 <?php echo $collection->countBows() ?>
             </td>
             <td>
-                <a href="<?php echo $this->url('collection',
-                    array('action'=>'details', 'id' => $collection->getId()));?>">
-                    Details
-                </a>
-                <a href="<?php echo $this->url('collection', array('action'=>'edit', 'id' => $collection->getId()));?>">Edit</a>
+                <a href="<?php
+                $params = array('action'=>'details',
+                    'id' => $collection->getId(),
+                    'clientId' => $collection->getOwnerId(),
+                );
+                if(!isset($clientId)){
+                    $params['section'] = 'list';
+                }
+                echo $this->url('collection', $params);?>">Details</a>
+                <a href="<?php echo $this->url('collection', array('action'=>'edit',
+                    'id' => $collection->getId(),
+                    'clientId' => $collection->getOwnerId()
+                )); ?>">Edit</a>
                 <div class="$collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="list" >Delete<div>
             </td>
         </tr>
