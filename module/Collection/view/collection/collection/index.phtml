@@ -1,11 +1,13 @@
 <?php
 use Collection\Model\Collection;
 use Collection\Enum\CollectionEnum;
-?>
-<?php
-    echo (isset($clientId)) ? "<h2>" : "<h1>";
-        echo $this->translate('Collections List');
-    echo (isset($clientId)) ? "</h2>" : "</h1>";
+use Application\Enum\SectionEnum;
+
+$section = $this->sectionName();
+
+echo ($section == SectionEnum::COLLECTION_INDEX) ? "<h1>" : "<h2>";
+    echo $this->translate('Collections List');
+echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
 ?>
 <p>
     <a href="<?php echo $this->url('collection', array('action'=>'add',
@@ -22,7 +24,7 @@ use Collection\Enum\CollectionEnum;
         <?php echo $this->translate("Reception Date"); ?>
     </th>
     <?php
-        if(!isset($clientId)) {
+        if($section == SectionEnum::COLLECTION_INDEX) {
     ?>
         <th><?php echo $this->translate("Client"); ?></th>
     <?php
@@ -43,7 +45,7 @@ use Collection\Enum\CollectionEnum;
                 <?php echo $collection->getReceptionTime() ?>
             </td>
             <?php
-            if(!isset($clientId)) {
+            if($section == SectionEnum::COLLECTION_INDEX) {
                 ?>
                 <td>
                     <a href="<?php echo $this->url('client', array('action'=>'details', 'id' => $collection->getOwnerId()));?>">

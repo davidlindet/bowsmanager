@@ -20,6 +20,12 @@ class Module
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
 
+        $viewHelperManager = $e->getApplication()->getServiceManager()->get('viewhelpermanager');
+        $viewHelperManager->setFactory('sectionName', function($sm) use ($e) {
+            $viewHelper = new View\Helper\SectionName($e->getRouteMatch());
+            return $viewHelper;
+        });
+
         $translator = $e->getApplication()->getServiceManager()->get('translator');
         $translator->setLocale('fr_FR');
     }
