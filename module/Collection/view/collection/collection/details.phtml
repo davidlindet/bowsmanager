@@ -4,37 +4,64 @@
 <h1>
     <?php echo $this->translate("Collection"); ?>
 </h1>
-<a href="<?php
-    $backUrl = $this->url('client', array('action'=>'details', 'id' => $collection->getOwnerId()));
-
-if(!empty($section) && $section == "list"){
-        $backUrl = $this->url('collection');
-    }
-    echo $backUrl;
-?>"><?php echo $this->translate("Back") ?></a>
-<ul>
-    <li>
-        <?php echo $collection->getOwnerName() ?>
-    </li>
-    <li>
+    <div>
+        <a href="<?php $backUrl = $this->url('client', array('action'=>'details', 'id' => $collection->getOwnerId()));
+        if(!empty($section) && $section == "list"){
+            $backUrl = $this->url('collection');
+        }
+        echo $backUrl;
+        ?>"><?php echo $this->translate("Back") ?></a>
+        <a href="<?php echo $this->url('collection', array('action'=>'edit', 'id' => $collection->getId(), 'clientId' => $collection->getOwnerId()));?>">
+            Edit
+        </a>
+        <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="details" >Delete</div>
+    </div>
+<dl>
+    <dt>
+        <?php echo $this->translate("Client") ?>
+    </dt>
+    <dd>
+        <a href="<?php echo $this->url('client', array('action' => 'details', 'id' => $collection->getOwnerId())) ?>">
+            <?php echo $collection->getOwnerName() ?>
+        </a>
+    </dd>
+    <dt>
+        <?php echo $this->translate("Reception Date") ?>
+    </dt>
+    <dd>
         <?php echo $collection->getReceptionTime() ?>
-    </li>
-    <li>
-        <?php echo $collection->isSent() ? "Is sent" : "Not sent" ?>
-    </li>
-    <li>
-        <?php echo $collection->isPaid() ? "Is paid" : "Not Paid" ?>
-    </li>
-    <li>
-        <?php echo $collection->countBows() . " archets" ?>
-    </li>
-</ul>
-<div>
-    <a href="<?php echo $this->url('collection', array('action'=>'edit', 'id' => $collection->getId(), 'clientId' => $collection->getOwnerId()));?>">
-        Edit
-    </a>
-    <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="details" >Delete</div>
-</div>
+    </dd>
+    <dt>
+        <?php echo $this->translate("Bows") ?>
+    </dt>
+    <dd>
+        <?php echo $collection->countBows() ?>
+    </dd>
+    <dt>
+        <?php echo $this->translate("Return Date") ?>
+    </dt>
+    <dd>
+        <?php echo $collection->getReturnTime() ?>
+    </dd>
+    <dt>
+        <?php echo $this->translate("Package Number") ?>
+    </dt>
+    <dd>
+        <?php echo $collection->getPackageNumber() ?>
+    </dd>
+    <dt>
+        <?php echo $this->translate("Bill Reference") ?>
+    </dt>
+    <dd>
+        <?php echo $collection->getBillReference() ?>
+    </dd>
+    <dt>
+        <?php echo $this->translate("Bill Amount") ?>
+    </dt>
+    <dd>
+        <?php echo $collection->getBillAmount() ?>
+    </dd>
+</dl>
 
 <?php
     echo $this->partial('bowList', array(
@@ -42,7 +69,7 @@ if(!empty($section) && $section == "list"){
     ));
 ?>
 <?php
-//    $this->placeholder('scripts')->set("
-//        BowsManager.client.del();
-//    ");
+    $this->placeholder('scripts')->append("
+        BowsManager.collection.del();
+    ");
 ?>

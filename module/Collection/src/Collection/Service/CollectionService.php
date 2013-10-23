@@ -14,6 +14,8 @@ use Collection\Dao\CollectionDao;
 use Collection\Model\Collection;
 use Collection\Enum\CollectionEnum;
 
+use Bow\Model\Bow;
+
 class CollectionService
 {
     /**
@@ -81,9 +83,15 @@ class CollectionService
         return $result;
     }
 
-    public function delete($collectionId){
+    public function delete(Collection $collection){
         try {
-            $this->collectionDao->deleteCollection($collectionId);
+            $bows = $collection->getBows();
+            /** @var $bow Bow */
+            foreach($bows as $bow) {
+                $this->bowService->delete($bow->getId());
+            }
+
+            $this->collectionDao->deleteCollection($collection->getId());
             $result = array('success'=> true);
         }
         catch (Exception $exception) {

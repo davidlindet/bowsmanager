@@ -162,6 +162,9 @@ msgstr "Modifier"
 msgid "Delete"
 msgstr "Supprimer"
 
+msgid "Details"
+msgstr "Détails"
+
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -172,7 +175,10 @@ msgstr "Options"
 #       Client
 #------------------------------------------
 msgid "Client List"
-msgstr "Liste des Clients"
+msgstr "Liste des clients"
+
+msgid "Client Details"
+msgstr "Détails du client"
 
 msgid "New Client"
 msgstr "Nouveau Client"
@@ -217,6 +223,9 @@ msgstr "Impossible d'enregistrer ce client"
 #       Collection
 #------------------------------------------
 
+msgid "Collections List"
+msgstr "Liste des lots"
+
 msgid "Collections"
 msgstr "Lots"
 
@@ -232,9 +241,6 @@ msgstr "Modifier le Lot"
 msgid "Add new collection"
 msgstr "Ajouter un lot"
 
-msgid "Reception Time"
-msgstr "Date de réception"
-
 msgid "Client"
 msgstr "Client"
 
@@ -242,10 +248,16 @@ msgid "Bows"
 msgstr "Archets"
 
 msgid "Reception Date"
-msgstr "Date de Réception"
+msgstr "Date de réception"
 
 msgid "Package Number"
 msgstr "Numéro de Colis"
 
 msgid "Return Date"
-msgstr "Date de Renvoi"
+msgstr "Date de renvoi"
+
+msgid "Bill Reference"
+msgstr "N° de facture"
+
+msgid "Bill Amount"
+msgstr "Montant"

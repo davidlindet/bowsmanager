@@ -129,17 +129,17 @@ class CollectionController extends AbstractActionController
             'section' => $section,
         ));
     }
-//
-//    public function deleteAction()
-//    {
-//        $params = $this->params()->fromPost();
-//
-//        /** @var $clientModel Client */
-//        $clientModel = $this->getClientService()->getById($params['id']);
-//        $success = $this->getClientService()->delete($clientModel->getId());
-//
-//        $result = new JsonModel($success);
-//
-//        return $result;
-//    }
+
+    public function deleteAction()
+    {
+        $params = $this->params()->fromPost();
+
+        /** @var $collectionModel Collection */
+        $collectionModel = $this->getCollectionService()->getById($params['id']);
+        $success = $this->getCollectionService()->delete($collectionModel);
+
+        $result = new JsonModel($success);
+
+        return $result;
+    }
 }

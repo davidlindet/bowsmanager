@@ -147,30 +147,30 @@ BowsManager.collection = (function() {
     }
 
     function del(){
-//        $(".bow-delete").click(function() {
-//            var bowId = $(this).data('id');
-//            var section = $(this).data('section');
-//            if(confirm("Voulez vous vraiment supprimer cet archet?")){
-//                $.ajax({
-//                    url: "/bow-delete",
-//                    method: "POST",
-//                    data: {id: bowId},
-//                    success: function(data) {
-//                        if(data.success){
-//                            if(section == "list") {
-//                                $("#bow-"+bowId).fadeOut("slow");
-//                            }
-//                            else {
-//                                window.location.href = '/bow';
-//                            }
-//                        }
-//                        else {
-//                            $('.error-message').html("Impossible de supprimer l'archet");
-//                        }
-//                    }
-//                });
-//            }
-//        });
+        $(".collection-delete").click(function() {
+            var collectionId = $(this).data('id');
+            var section = $(this).data('section');
+            if(confirm("Voulez vous vraiment supprimer ce lot?")){
+                $.ajax({
+                    url: "/collection-delete",
+                    method: "POST",
+                    data: {id: collectionId},
+                    success: function(data) {
+                        if(data.success){
+                            if(section == "list") {
+                                $("#collection-"+collectionId).fadeOut("slow");
+                            }
+                            else {
+                                window.location.href = '/collection';
+                            }
+                        }
+                        else {
+                            $('.error-message').html("Impossible de supprimer la collection");
+                        }
+                    }
+                });
+            }
+        });
     }
 
     return {

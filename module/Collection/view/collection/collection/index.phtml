@@ -2,7 +2,11 @@
 use Collection\Model\Collection;
 use Collection\Enum\CollectionEnum;
 ?>
-<h1><?php echo $this->translate('Collections'); ?></h1>
+<?php
+    echo (isset($clientId)) ? "<h2>" : "<h1>";
+        echo $this->translate('Collections List');
+    echo (isset($clientId)) ? "</h2>" : "</h1>";
+?>
 <p>
     <a href="<?php echo $this->url('collection', array('action'=>'add',
                                                         'id' => CollectionEnum::NEW_COLLECTION,
@@ -15,11 +19,15 @@ use Collection\Enum\CollectionEnum;
 
 <table class="table">
     <th>
-        <?php echo $this->translate("Reception Time"); ?>
+        <?php echo $this->translate("Reception Date"); ?>
     </th>
-    <th>
-        <?php echo $this->translate("Client"); ?>
-    </th>
+    <?php
+        if(!isset($clientId)) {
+    ?>
+        <th><?php echo $this->translate("Client"); ?></th>
+    <?php
+        }
+    ?>
     <th>
         <?php echo $this->translate("Bows"); ?>
     </th>
@@ -34,11 +42,17 @@ use Collection\Enum\CollectionEnum;
             <td>
                 <?php echo $collection->getReceptionTime() ?>
             </td>
-            <td>
-                <a href="<?php echo $this->url('client', array('action'=>'details', 'id' => $collection->getOwnerId()));?>">
-                    <?php echo $collection->getOwnerName() ?>
-                </a>
-            </td>
+            <?php
+            if(!isset($clientId)) {
+                ?>
+                <td>
+                    <a href="<?php echo $this->url('client', array('action'=>'details', 'id' => $collection->getOwnerId()));?>">
+                        <?php echo $collection->getOwnerName() ?>
+                    </a>
+                </td>
+            <?php
+            }
+            ?>
             <td>
                 <?php echo $collection->countBows() ?>
             </td>
@@ -51,19 +65,24 @@ use Collection\Enum\CollectionEnum;
                 if(!isset($clientId)){
                     $params['section'] = 'list';
                 }
-                echo $this->url('collection', $params);?>">Details</a>
+                echo $this->url('collection', $params);?>"><?php
+                    echo $this->translate("Details")
+                    ?></a>
                 <a href="<?php echo $this->url('collection', array('action'=>'edit',
                     'id' => $collection->getId(),
                     'clientId' => $collection->getOwnerId()
-                )); ?>">Edit</a>
-                <div class="$collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="list" >Delete<div>
+                )); ?>"><?php
+                    echo $this->translate("Edit")
+                    ?></a>
+                <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="list" ><?php
+                    echo $this->translate("Delete")
+                    ?><div>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
 <?php
-//    $this->placeholder('scripts')->set("
-//        BowsManager.client.listInitFilters();
-//        BowsManager.client.del();
-//    ");
+    $this->placeholder('scripts')->append("
+        BowsManager.collection.del();
+    ");
 ?>

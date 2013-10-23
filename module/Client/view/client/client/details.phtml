@@ -1,12 +1,16 @@
-<h1>
-    Client
-</h1>
+<h1><?php echo $this->translate("Client Details") ?></h1>
 <div>
     <a href="<?php echo $this->url('client') ?>" >
         <?php $this->translate("Back") ?>
     </a>
-    <a href="<?php echo $this->url('client', array('action'=>'edit', 'id' => $client->getId()));?>">Edit</a>
-    <div class="client-delete" data-id="<?php echo $client->getId() ?>" data-section="details" >Delete</div>
+    <a href="<?php echo $this->url('client', array('action'=>'edit', 'id' => $client->getId()));?>"><?php
+       echo $this->translate("Edit")
+     ?></a>
+    <div class="client-delete" data-id="<?php echo $client->getId() ?>" data-section="details" >
+    <?php
+       echo $this->translate("Delete")
+    ?>
+    </div>
 </div>
 <dl>
     <dt><?php echo $this->translate("Name") ?>:</dt>
@@ -38,7 +42,7 @@
     ));
 ?>
 <?php
-    $this->placeholder('scripts')->set("
+    $this->placeholder('scripts')->append("
         BowsManager.client.del();
     ");
 ?>

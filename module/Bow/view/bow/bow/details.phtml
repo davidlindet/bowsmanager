@@ -32,7 +32,7 @@
     <div class="bow-delete" data-id="<?php echo $bow->getId() ?>" data-section="details" >Delete</div>
         </div>
 <?php
-$this->placeholder('scripts')->set("
+$this->placeholder('scripts')->append("
         BowsManager.bow.del();
     ");
 ?>

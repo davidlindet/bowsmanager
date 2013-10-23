@@ -53,7 +53,7 @@ use Client\Enum\ClientEnum;
     <?php endforeach; ?>
 </table>
 <?php
-    $this->placeholder('scripts')->set("
+    $this->placeholder('scripts')->append("
         BowsManager.client.listInitFilters();
         BowsManager.client.del();
     ");

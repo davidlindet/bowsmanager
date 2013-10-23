@@ -30,15 +30,13 @@
     }
     else {
      ?>
-        <input type="hidden" value="<?php echo $client->getId(); ?>" />
+        <input type="hidden" name="owner" value="<?php echo $client->getId(); ?>" />
         <a href="<?php echo $this->url("client", array('action'=>'details', 'id' => $collection->getOwnerId())) ?>" >
             <?php echo $collection->getOwnerName() ?>
         </a><br />
     <?php
     }
     ?>
-
-
 
     <label for="receptionTime"><?php echo $this->translate("Reception Date") ?></label>
     <input type="text" name="receptionTime" id="receptionTime" value="<?php echo $collection->getReceptionTime() ?>"><br>
@@ -52,7 +50,7 @@
     <button type="submit" id="save-collection" ><?php echo $this->translate("Save") ?></button>
 </form>
 <?php
-    $this->placeholder('scripts')->set("BowsManager.collection.add()");
+    $this->placeholder('scripts')->append("BowsManager.collection.add()");
 ?>
 
 

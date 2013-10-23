@@ -44,7 +44,7 @@ $this->headTitle($title);
     <?php endforeach; ?>
 </table>
 <?php
-$this->placeholder('scripts')->set("
+$this->placeholder('scripts')->append("
         BowsManager.bow.del();
     ");
 ?>

@@ -33,16 +33,16 @@ return array(
                     ),
                 ),
             ),
-//            'client-delete' => array(
-//                'type'    => 'literal',
-//                'options' => array(
-//                    'route'    => '/client-delete',
-//                    'defaults' => array(
-//                        'controller' => 'Client\Controller\Client',
-//                        'action'     => 'delete',
-//                    ),
-//                ),
-//            ),
+            'collection-delete' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/collection-delete',
+                    'defaults' => array(
+                        'controller' => 'Collection\Controller\Collection',
+                        'action'     => 'delete',
+                    ),
+                ),
+            ),
         ),
     ),
     'view_manager' => array(
