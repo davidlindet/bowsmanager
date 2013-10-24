@@ -103,6 +103,7 @@ class BowDao
     public function saveBow(Bow $bow)
     {
         $data = array(
+            'collection_id' => $bow->getCollectionId(),
             'type' => $bow->getType(),
             'size'  => $bow->getSize(),
             'description'  => $bow->getDescription(),

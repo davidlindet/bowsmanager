@@ -33,8 +33,11 @@ class BowController extends AbstractActionController
 
     public function indexAction()
     {
+        $collectionId = $this->getEvent()->getRouteMatch()->getParam('collectionId');
+
         return new ViewModel(array(
             'bows' => $this->getBowService()->getAll(),
+            'collectionId' => $collectionId,
         ));
     }
 
@@ -44,6 +47,7 @@ class BowController extends AbstractActionController
         /** @var $bowModel Bow */
         $bowModel = $this->getBowService()->getById($params['id']);
 
+        $bowModel->setCollectionId((int) $params['collectionId']);
         $bowModel->setType((int) $params['type']);
         $bowModel->setSize((int) $params['size']);
         $bowModel->setDescription($params['description']);
@@ -58,11 +62,16 @@ class BowController extends AbstractActionController
 
     public function addAction()
     {
+        $collectionId = $this->getEvent()->getRouteMatch()->getParam('collectionId', false);
+        $section = $this->params()->fromRoute('section', false);
+
         /** @var $bowModel Bow */
         $bowModel = $this->getBowService()->getById(BowEnum::NEW_BOW);
 
         return new ViewModel(array(
             'bow' => $bowModel,
+            'collectionId' => $collectionId,
+            'section' => $section,
         ));
     }
 

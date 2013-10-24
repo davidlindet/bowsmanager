@@ -151,6 +151,7 @@ class ClientDao
 
         $id = (int) $client->getId();
         if ($id == ClientEnum::NEW_CLIENT) {
+            $data['create_time'] = time();
             $this->tableGateway->insert($data);
             $id = $this->tableGateway->lastInsertValue;
         } else {

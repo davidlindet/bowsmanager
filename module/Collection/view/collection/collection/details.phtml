@@ -67,7 +67,8 @@
 
 <?php
     echo $this->partial('bowList', array(
-        'bows' => $collection->getBows()
+        'bows' => $collection->getBows(),
+        'collectionId' => $collection->getId(),
     ));
 ?>
 <?php

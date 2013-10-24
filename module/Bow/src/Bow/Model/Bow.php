@@ -76,7 +76,7 @@ class Bow
      */
     public function getCollectionId()
     {
-        return $this->collectionId;
+        return (int) $this->collectionId;
     }
 
     /**

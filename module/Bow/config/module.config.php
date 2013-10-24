@@ -10,10 +10,12 @@ return array(
             'bow' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/bow[/][:action][/:id]',
+                    'route'    => '/bow[/][:action][/:id][/:collectionId][/:section]',
                     'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
+                        'action'        => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'            => '[0-9]+',
+                        'collectionId'  => '[0-9]+',
+                        'section'       => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
                         'controller' => 'Bow\Controller\Bow',
