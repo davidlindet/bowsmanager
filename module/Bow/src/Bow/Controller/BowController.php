@@ -80,12 +80,14 @@ class BowController extends AbstractActionController
     public function editAction()
     {
         $bowId = $this->getEvent()->getRouteMatch()->getParam('id', BowEnum::NEW_BOW);
+        $section = $this->params()->fromRoute('section', false);
 
         /** @var $bowModel Bow */
         $bowModel = $this->getBowService()->getById($bowId);
 
         return new ViewModel(array(
             'bow' => $bowModel,
+            'section' => $section,
         ));
     }
 
