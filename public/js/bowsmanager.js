@@ -95,6 +95,8 @@ BowsManager.bow = (function() {
         $(".bow-delete").click(function() {
             var bowId = $(this).data('id');
             var section = $(this).data('section');
+            var collectionId = $(this).data('collectionid');
+
             if(confirm("Voulez vous vraiment supprimer cet archet?")){
                 $.ajax({
                     url: "/bow-delete",
@@ -102,11 +104,11 @@ BowsManager.bow = (function() {
                     data: {id: bowId},
                     success: function(data) {
                         if(data.success){
-                            if(section == "list") {
+                            if(typeof section == "undefined") {
                                 $("#bow-"+bowId).fadeOut("slow");
                             }
                             else {
-                                window.location.href = '/bow';
+                                window.location.href = '/collection-details/'+collectionId+'/'+section;
                             }
                         }
                         else {

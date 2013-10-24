@@ -43,6 +43,16 @@ return array(
                     ),
                 ),
             ),
+            'bow-details' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/bow-details[/][:id][/][:section]',
+                    'defaults' => array(
+                        'controller' => 'Bow\Controller\Bow',
+                        'action'     => 'details',
+                    ),
+                ),
+            ),
             'bow-save' => array(
                 'type'    => 'literal',
                 'options' => array(

@@ -27,7 +27,7 @@ use Bow\Enum\BowSizeEnum;
             <td><?php echo $bow->getIsDone() ?></td>
             <td><?php echo $this->highLight($bow->getComments(), $query);?></td>
             <td>
-                <a href="<?php echo $this->url('bow', array('action'=>'details', 'id' => $bow->getId()));?>">Details</a>
+                <a href="<?php echo $this->url('bow-details', array('id' => $bow->getId()));?>">Details</a>
                 <a href="<?php echo $this->url('bow-edit', array('id' => $bow->getId()));?>">Edit</a>
             </td>
         </tr>

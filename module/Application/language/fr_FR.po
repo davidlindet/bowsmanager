@@ -249,6 +249,9 @@ msgstr "Nouvel Archet"
 msgid "Edit Bow"
 msgstr "Modifier l'archet"
 
+msgid "Bow"
+msgstr "Archet"
+
 msgid "Type"
 msgstr "Type"
 
