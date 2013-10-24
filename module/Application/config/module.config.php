@@ -64,26 +64,6 @@ return array(
             'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         ),
     ),
-    'navigation' => array(
-        'default' => array(
-            array(
-                'label' => 'Home',
-                'route' => 'home',
-            ),
-            array(
-                'label' => 'Clients',
-                'route' => 'client',
-            ),
-            array(
-                'label' => 'Lots',
-                'route' => 'collection',
-            ),
-            array(
-                'label' => 'Search',
-                'route' => 'search',
-            ),
-        ),
-    ),
     'translator' => array(
         'locale' => 'en_US',
         'translation_file_patterns' => array(
