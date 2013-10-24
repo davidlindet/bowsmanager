@@ -1,4 +1,4 @@
-<h2>Client results:</h2>
+<h2><?php echo $this->translate("Clients") ?></h2>
 <?php
 $firstLetter = null;
 /**  @var  $client Client*/
@@ -8,7 +8,7 @@ foreach ($clients as $client) :
         $firstLetter = $currentFirstLetter[0];
         ?>
         <tr class="data <?php echo $firstLetter ?>">
-            <td colspan="3"><h3><?php echo strtoupper($firstLetter);?></h3></td>
+            <td colspan="3"><h4><?php echo strtoupper($firstLetter);?></h4></td>
         </tr>
     <?php
     }
@@ -20,13 +20,12 @@ foreach ($clients as $client) :
             ?></a>
         </td>
         <td>
-            Lots: <?php echo $client->countCollections() ?>
+            <?php echo $this->translate("Collections") ?>: <?php echo $client->countCollections() ?>
         </td>
         <td>
             <a href="<?php echo $this->url('client-details',array('id' => $client->getId()));?>">
-                Details
-            </a>
-            <a href="<?php echo $this->url('client-edit', array('id' => $client->getId()));?>">Edit</a>
+                <?php echo $this->translate("Details") ?></a>
+            <a href="<?php echo $this->url('client-edit', array('id' => $client->getId()));?>"><?php echo $this->translate("Edit") ?></a>
         </td>
     </tr>
 <?php endforeach; ?>
