@@ -220,6 +220,37 @@ msgid "Impossible to save this client"
 msgstr "Impossible d'enregistrer ce client"
 
 #------------------------------------------
+#       Bow
+#------------------------------------------
+
+msgid "Bows List"
+msgstr "Liste des archets"
+
+msgid "Add new bow"
+msgstr "Ajouter un archet"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Size"
+msgstr "Taille"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Work to do"
+msgstr "Travail à effectuer"
+
+msgid "Status"
+msgstr "Etat"
+
+msgid "Is done?"
+msgstr "Terminé?"
+
+msgid "Comments"
+msgstr "Remarques"
+
+#------------------------------------------
 #       Collection
 #------------------------------------------
 
