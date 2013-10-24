@@ -10,7 +10,7 @@ return array(
             'bow' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/bow[/][:action][/:id][/:collectionId][/:section]',
+                    'route'    => '/bow[/][:action][/:id][/][:collectionId][/][:section]',
                     'constraints' => array(
                         'action'        => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'            => '[0-9]+',

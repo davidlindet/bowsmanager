@@ -1,10 +1,5 @@
 <?php
-if($section == \Application\Enum\SectionEnum::COLLECTION_INDEX){
-    $backUrl = $this->url('collection');
-}
-else {
-    $backUrl = $this->url('client', array('action'=>'details', 'id' => $client->getId()));
-}
+$backUrl = $this->url('collection', array('action' => 'details', 'id' => $collection->getId()));
 
 echo $this->partial('formCollection', array(
     'header' => $this->translate("Edit Collection"),

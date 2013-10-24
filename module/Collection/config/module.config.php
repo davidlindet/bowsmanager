@@ -10,7 +10,7 @@ return array(
             'collection' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/collection[/][:action][/:id][/:clientId][/:section]',
+                    'route'    => '/collection[/][:action][/][:id][/][:clientId][/][:section]',
                     'constraints' => array(
                         'action'   => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'       => '[0-9]+',
