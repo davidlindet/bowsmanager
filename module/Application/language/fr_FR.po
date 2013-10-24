@@ -222,6 +222,20 @@ msgstr "Impossible d'enregistrer ce client"
 #------------------------------------------
 #       Bow
 #------------------------------------------
+msgid "Unknow"
+msgstr "Inconnu"
+
+msgid "Violin"
+msgstr "Violon"
+
+msgid "Cello"
+msgstr "Violoncelle"
+
+msgid "Viola"
+msgstr "Alto"
+
+msgid "Doublebass"
+msgstr "Contre Basse"
 
 msgid "Bows List"
 msgstr "Liste des archets"

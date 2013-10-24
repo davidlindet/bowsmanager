@@ -18,11 +18,11 @@ class BowTypeEnum {
     const DOUBLE_BASS = 3;
 
     private static $copies = array(
-        null => 'Inconnu',
-        0  => 'Violon',
-        1 => 'Violoncelle',
-        2 => 'Alto',
-        3 => 'Contre Basse'
+        null =>  'Unknow',
+        0  => 'Violin',
+        1 => 'Cello',
+        2 => 'Viola',
+        3 => 'Doublebass',
     );
 
     public static function COPIES($removeUnknown = false) {

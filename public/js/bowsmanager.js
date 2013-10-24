@@ -81,7 +81,7 @@ BowsManager.bow = (function() {
                 data: params,
                 success: function(data) {
                     if(data.success){
-                        window.location.href = '/bow/details/'+data.id;
+                        window.location.href = '/collection-details/'+data.collectionId+'/'+data.section;
                     }
                     else {
                         $('.error-message').html("Impossible d'enregistrer l'archet");

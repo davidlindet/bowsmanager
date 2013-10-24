@@ -33,6 +33,16 @@ return array(
                     ),
                 ),
             ),
+            'bow-edit' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/bow-edit[/][:id][/][:section]',
+                    'defaults' => array(
+                        'controller' => 'Bow\Controller\Bow',
+                        'action'     => 'edit',
+                    ),
+                ),
+            ),
             'bow-save' => array(
                 'type'    => 'literal',
                 'options' => array(

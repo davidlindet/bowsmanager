@@ -59,6 +59,8 @@ class BowController extends AbstractActionController
         $bowModel->setComments($params['comments']);
 
         $result = $this->getBowService()->save($bowModel);
+        $result['section'] = $params['section'];
+        $result['collectionId'] = $params['collectionId'];
         return new JsonModel($result);
     }
 

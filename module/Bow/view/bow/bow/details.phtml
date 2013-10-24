@@ -27,8 +27,7 @@
     </li>
 </ul>
 <div>
-    <a href="<?php echo $this->url('bow',
-        array('action'=>'edit', 'id' => $bow->getId()));?>">Edit</a>
+    <a href="<?php echo $this->url('bow-edit', array('id' => $bow->getId(), 'section' => $section));?>">Edit</a>
     <div class="bow-delete" data-id="<?php echo $bow->getId() ?>" data-section="details" >Delete</div>
         </div>
 <?php
