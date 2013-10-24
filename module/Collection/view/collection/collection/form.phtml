@@ -6,6 +6,7 @@
     <?php echo $this->translate("Back") ?>
 </a>
 <form id="collection-form" >
+    <input type="hidden" name="section" value="<?php echo $section ?>"><br>
     <input type="hidden" name="id" id="id" value="<?php echo $collection->getId() ?>"><br>
 
     <label for="owner"><?php echo $this->translate("Client") ?></label>

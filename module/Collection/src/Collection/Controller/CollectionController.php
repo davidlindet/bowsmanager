@@ -53,6 +53,7 @@ class CollectionController extends AbstractActionController
         $collectionModel->setReturnTime(strtotime($params['returnTime']));
 
         $result = $this->getCollectionService()->save($collectionModel);
+        $result['section'] = $params['section'];
         return new JsonModel($result);
     }
 
