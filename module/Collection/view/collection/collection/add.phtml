@@ -3,14 +3,13 @@ if($section == \Application\Enum\SectionEnum::COLLECTION_INDEX){
     $backUrl = $this->url('collection');
 }
 else {
-    $backUrl = $this->url('client', array('action'=>'details', 'id' => $client->getId()));
+    $backUrl = $this->url('client-details', array('id' => $collection->getOwnerId()));
 }
 
 echo $this->partial('formCollection', array(
     'header' => $this->translate("New Collection"),
     'collection' => $collection,
     'clients' => $clients,
-    'client' => $client,
     'backUrl' => $backUrl,
     'section' => $section,
 ));

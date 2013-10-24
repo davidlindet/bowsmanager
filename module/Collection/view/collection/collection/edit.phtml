@@ -1,10 +1,9 @@
 <?php
-$backUrl = $this->url('collection', array('action' => 'details', 'id' => $collection->getId()));
+$backUrl = $this->url('collection-details', array('id' => $collection->getId(), 'section' => $section));
 
 echo $this->partial('formCollection', array(
     'header' => $this->translate("Edit Collection"),
     'collection' => $collection,
-    'client' => $client,
     'backUrl' => $backUrl,
     'section' => $section,
 ));

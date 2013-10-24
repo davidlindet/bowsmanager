@@ -10,7 +10,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "<h1>" : "<h2>";
 echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
 ?>
 <p>
-    <a href="<?php echo $this->url('collection', array('action'=>'add',
+    <a href="<?php echo $this->url('collection-add', array(
                                                         'id' => CollectionEnum::NEW_COLLECTION,
                                                         'clientId' => (isset($clientId)) ? $clientId : false,
                                                         'section' => $section,
@@ -49,7 +49,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
             if($section == SectionEnum::COLLECTION_INDEX) {
                 ?>
                 <td>
-                    <a href="<?php echo $this->url('client', array('action'=>'details', 'id' => $collection->getOwnerId()));?>">
+                    <a href="<?php echo $this->url('client-details', array('id' => $collection->getOwnerId()));?>">
                         <?php echo $collection->getOwnerName() ?>
                     </a>
                 </td>
@@ -60,21 +60,10 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
                 <?php echo $collection->countBows() ?>
             </td>
             <td>
-                <a href="<?php
-                    $params = array('action'=>'details',
-                        'id' => $collection->getId(),
-                        'clientId' => $collection->getOwnerId(),
-                        'section' => $section,
-                    );
-                    echo $this->url('collection', $params);
-                ?>"><?php
+                <a href="<?php echo $this->url('collection-details',  array('id' => $collection->getId(),'section' => $section)); ?>"><?php
                     echo $this->translate("Details")
                     ?></a>
-                <a href="<?php echo $this->url('collection', array('action'=>'edit',
-                    'id' => $collection->getId(),
-                    'clientId' => $collection->getOwnerId(),
-                    'section' => $section
-                )); ?>"><?php
+                <a href="<?php echo $this->url('collection-edit', array('id' => $collection->getId(), 'section' => $section)); ?>"><?php
                     echo $this->translate("Edit")
                     ?></a>
                 <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="list" ><?php

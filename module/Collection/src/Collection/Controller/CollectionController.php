@@ -72,7 +72,6 @@ class CollectionController extends AbstractActionController
         );
 
         $clients = array();
-        $client = false;
         if(!$clientId){
             $clients = $clientService->getAll(ClientEnum::SORT_AZ, $attributes);
         }
@@ -85,7 +84,6 @@ class CollectionController extends AbstractActionController
         return new ViewModel(array(
             'collection' => $collectionModel,
             'clients' => $clients,
-            'client' => $client,
             'section' => $section,
         ));
     }
@@ -93,25 +91,13 @@ class CollectionController extends AbstractActionController
     public function editAction()
     {
         $collectionId = $this->getEvent()->getRouteMatch()->getParam('id', CollectionEnum::NEW_COLLECTION);
-        $clientId = $this->getEvent()->getRouteMatch()->getParam('clientId', false);
         $section = $this->params()->fromRoute('section', false);
 
         /** @var $collectionModel Collection */
         $collectionModel = $this->getCollectionService()->getById($collectionId);
 
-        /** @var $clientService ClientService */
-        $clientService = $this->getServiceLocator()->get('ClientService');
-
-        $attributes = array(ClientEnum::ATTR_FIRST_NAME,
-                                ClientEnum::ATTR_LAST_NAME,
-                                );
-        $client = $clientService->getById($clientId, $attributes);
-        $collectionModel->setOwnerId($client->getId());
-        $collectionModel->setOwnerName($client->getName(false));
-
         return new ViewModel(array(
             'collection' => $collectionModel,
-            'client' => $client,
             'section' => $section,
         ));
     }

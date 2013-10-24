@@ -7,11 +7,11 @@
     <div>
         <a href="<?php
         $backUrl = ($section == \Application\Enum\SectionEnum::CLIENT_DETAILS) ?
-            $this->url('client', array('action'=>'details', 'id' => $collection->getOwnerId())) :
+            $this->url('client-details', array('id' => $collection->getOwnerId())) :
             $this->url('collection');
         echo $backUrl;
         ?>"><?php echo $this->translate("Back") ?></a>
-        <a href="<?php echo $this->url('collection', array('action'=>'edit', 'id' => $collection->getId(), 'clientId' => $collection->getOwnerId()));?>">
+        <a href="<?php echo $this->url('collection-edit', array('id' => $collection->getId(), 'section' => $section));?>">
             <?php echo $this->translate("Edit") ?>
         </a>
         <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="details" ><?php
@@ -23,7 +23,7 @@
         <?php echo $this->translate("Client") ?>
     </dt>
     <dd>
-        <a href="<?php echo $this->url('client', array('action' => 'details', 'id' => $collection->getOwnerId())) ?>">
+        <a href="<?php echo $this->url('client-details', array('id' => $collection->getOwnerId())) ?>">
             <?php echo $collection->getOwnerName() ?>
         </a>
     </dd>

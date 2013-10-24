@@ -15,23 +15,18 @@ foreach ($clients as $client) :
     ?>
     <tr class="data <?php echo $firstLetter ?>" id="client-<?php echo $client->getId() ?>">
         <td>
-            <a href="<?php echo $this->url('client',
-                array('action'=>'details', 'id' => $client->getId()));?>">
-                <?php
+            <a href="<?php echo $this->url('client-details', array('id' => $client->getId()));?>"><?php
                     echo $this->highLight($client->getName(), $query);
-                ?>
-            </a>
+            ?></a>
         </td>
         <td>
             Lots: <?php echo $client->countCollections() ?>
         </td>
         <td>
-            <a href="<?php echo $this->url('client',
-                array('action'=>'details', 'id' => $client->getId()));?>">
+            <a href="<?php echo $this->url('client-details',array('id' => $client->getId()));?>">
                 Details
             </a>
-            <a href="<?php echo $this->url('client',
-                array('action'=>'edit', 'id' => $client->getId()));?>">Edit</a>
+            <a href="<?php echo $this->url('client-edit', array('id' => $client->getId()));?>">Edit</a>
         </td>
     </tr>
 <?php endforeach; ?>

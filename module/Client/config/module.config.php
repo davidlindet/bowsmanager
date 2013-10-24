@@ -21,6 +21,36 @@ return array(
                     ),
                 ),
             ),
+            'client-details' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/client-details[/][:id]',
+                    'defaults' => array(
+                        'controller' => 'Client\Controller\Client',
+                        'action'     => 'details',
+                    ),
+                ),
+            ),
+            'client-add' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/client-add[/][:id]',
+                    'defaults' => array(
+                        'controller' => 'Client\Controller\Client',
+                        'action'     => 'add',
+                    ),
+                ),
+            ),
+            'client-edit' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/client-edit[/][:id]',
+                    'defaults' => array(
+                        'controller' => 'Client\Controller\Client',
+                        'action'     => 'edit',
+                    ),
+                ),
+            ),
             'client-save' => array(
                 'type'    => 'literal',
                 'options' => array(

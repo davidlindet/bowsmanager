@@ -4,7 +4,7 @@ use Client\Enum\ClientEnum;
 ?>
 <h1><?php echo $this->translate("Client List"); ?></h1>
 <p>
-    <a href="<?php echo $this->url('client', array('action'=>'add', 'id' => ClientEnum::NEW_CLIENT));?>">
+    <a href="<?php echo $this->url('client-add', array('id' => ClientEnum::NEW_CLIENT));?>">
         <?php echo $this->translate("Add new client") ?>
     </a>
 </p>
@@ -34,7 +34,7 @@ use Client\Enum\ClientEnum;
         ?>
         <tr class="data <?php echo $firstLetter ?>" id="client-<?php echo $client->getId() ?>">
             <td>
-                <a href="<?php echo $this->url('client', array('action'=>'details', 'id' => $client->getId()));?>">
+                <a href="<?php echo $this->url('client-details', array('id' => $client->getId()));?>">
                     <?php echo $this->escapeHtml($client->getName());?>
                 </a>
             </td>
@@ -42,7 +42,7 @@ use Client\Enum\ClientEnum;
                <?php echo $this->translate("Collections") . ": ". $client->countCollections() ?>
             </td>
             <td>
-                <a href="<?php echo $this->url('client', array('action'=>'edit', 'id' => $client->getId()));?>">
+                <a href="<?php echo $this->url('client-edit', array('id' => $client->getId()));?>">
                     <?php echo $this->translate("Edit") ?>
                 </a>
                 <div class="client-delete" data-id="<?php echo $client->getId() ?>" data-section="list" >

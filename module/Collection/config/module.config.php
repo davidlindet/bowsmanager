@@ -23,6 +23,36 @@ return array(
                     ),
                 ),
             ),
+            'collection-add' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/collection-add[/][:clientId][/][:section]',
+                    'defaults' => array(
+                        'controller' => 'Collection\Controller\Collection',
+                        'action'     => 'add',
+                    ),
+                ),
+            ),
+            'collection-edit' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/collection-edit[/][:id][/][:section]',
+                    'defaults' => array(
+                        'controller' => 'Collection\Controller\Collection',
+                        'action'     => 'edit',
+                    ),
+                ),
+            ),
+            'collection-details' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/collection-details[/][:id][/][:section]',
+                    'defaults' => array(
+                        'controller' => 'Collection\Controller\Collection',
+                        'action'     => 'details',
+                    ),
+                ),
+            ),
             'collection-save' => array(
                 'type'    => 'literal',
                 'options' => array(
