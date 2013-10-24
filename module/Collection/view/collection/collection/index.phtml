@@ -13,6 +13,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
     <a href="<?php echo $this->url('collection', array('action'=>'add',
                                                         'id' => CollectionEnum::NEW_COLLECTION,
                                                         'clientId' => (isset($clientId)) ? $clientId : false,
+                                                        'section' => $section,
         )
     );?>">
         <?php echo $this->translate("Add new collection"); ?>
@@ -60,19 +61,19 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
             </td>
             <td>
                 <a href="<?php
-                $params = array('action'=>'details',
-                    'id' => $collection->getId(),
-                    'clientId' => $collection->getOwnerId(),
-                );
-                if(!isset($clientId)){
-                    $params['section'] = 'list';
-                }
-                echo $this->url('collection', $params);?>"><?php
+                    $params = array('action'=>'details',
+                        'id' => $collection->getId(),
+                        'clientId' => $collection->getOwnerId(),
+                        'section' => $section,
+                    );
+                    echo $this->url('collection', $params);
+                ?>"><?php
                     echo $this->translate("Details")
                     ?></a>
                 <a href="<?php echo $this->url('collection', array('action'=>'edit',
                     'id' => $collection->getId(),
-                    'clientId' => $collection->getOwnerId()
+                    'clientId' => $collection->getOwnerId(),
+                    'section' => $section
                 )); ?>"><?php
                     echo $this->translate("Edit")
                     ?></a>

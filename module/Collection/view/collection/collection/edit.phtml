@@ -1,5 +1,5 @@
 <?php
-if(empty($client)){
+if($section == \Application\Enum\SectionEnum::COLLECTION_INDEX){
     $backUrl = $this->url('collection');
 }
 else {

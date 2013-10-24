@@ -111,8 +111,8 @@ class CollectionDao
     {
         $data = array(
             'owner' => $collection->getOwnerId(),
-            'reception_time'  => $collection->getReceptionTime(),
-            'return_time' => $collection->getReturnTime(),
+            'reception_time'  => $collection->getReceptionTime(false),
+            'return_time' => $collection->getReturnTime(false),
             'package_number'  => $collection->getPackageNumber(),
             'bill_reference'  => $collection->getBillReference(),
             'bill_amount'  => $collection->getBillAmount(),

@@ -12,6 +12,8 @@ namespace Collection\Enum;
 class CollectionEnum {
     const NEW_COLLECTION = 0;
 
+    const NO_RETURN_TIME = -1;
+
     //sort mode
     const SORT_NATIVE = 0;
     const SORT_OLD_TO_NEW = 1;

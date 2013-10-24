@@ -25,9 +25,9 @@ return array(
     ),
     'view_manager' => array(
         'template_map' => array(
-            'clientList' => __DIR__ . '/../view/search/search/clientList.phtml',
-            'collectionList' => __DIR__ . '/../../Collection/view/collection/collection/index.phtml',
-            'bowList' => __DIR__ . '/../view/search/search/bowList.phtml',
+            'searchClientList' => __DIR__ . '/../view/search/search/clientList.phtml',
+//            'collectionList' => __DIR__ . '/../../Collection/view/collection/collection/index.phtml',
+            'searchBowList' => __DIR__ . '/../view/search/search/bowList.phtml',
         ),
         'template_path_stack' => array(
             'search' => __DIR__ . '/../view',

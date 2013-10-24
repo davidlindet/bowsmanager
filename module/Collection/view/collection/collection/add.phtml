@@ -1,5 +1,5 @@
 <?php
-if(!empty($clients)){
+if($section == \Application\Enum\SectionEnum::COLLECTION_INDEX){
     $backUrl = $this->url('collection');
 }
 else {
@@ -12,4 +12,5 @@ echo $this->partial('formCollection', array(
     'clients' => $clients,
     'client' => $client,
     'backUrl' => $backUrl,
+    'section' => $section,
 ));

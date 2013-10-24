@@ -28,7 +28,7 @@ class Collection
                                 $ownerId = null,
                                 $ownerName = "",
                                 $receptionTime = false,
-                                $returnTime = false,
+                                $returnTime = CollectionEnum::NO_RETURN_TIME,
                                 $packageNumber = false,
                                 $billReference = false,
                                 $billAmount = false,
@@ -58,7 +58,7 @@ class Collection
         }
         $this->ownerName = $name;
         $this->receptionTime =(!empty($data['reception_time'])) ? $data['reception_time'] : false;
-        $this->returnTime =(!empty($data['return_time'])) ? $data['return_time'] : false;
+        $this->returnTime =(!empty($data['return_time'])) ? $data['return_time'] : CollectionEnum::NO_RETURN_TIME;
         $this->packageNumber =(!empty($data['package_number'])) ? $data['package_number'] : null;
         $this->billReference =(!empty($data['bill_reference'])) ? $data['bill_reference'] : null;
         $this->billAmount =(isset($data['bill_amount'])) ? $data['bill_amount'] : null;
@@ -140,9 +140,13 @@ class Collection
     /**
      * @return bool|int
      */
-    public function getReceptionTime()
+    public function getReceptionTime($formated = true)
     {
-        return date('d-m-Y', $this->receptionTime);
+        $receptionTime = $this->receptionTime;
+        if($formated){
+            $receptionTime = date('d-m-Y', $receptionTime);
+        }
+        return $receptionTime;
     }
 
     /**
@@ -204,9 +208,13 @@ class Collection
     /**
      * @return boolean
      */
-    public function getReturnTime()
+    public function getReturnTime($formated = true)
     {
-        return date('d-m-Y', $this->returnTime);
+        $returnTime = $this->returnTime;
+        if($formated){
+            $returnTime = ($returnTime == CollectionEnum::NO_RETURN_TIME) ? "" : date('d-m-Y', $returnTime);
+        }
+        return $returnTime;
     }
 
     /**

@@ -5,16 +5,18 @@
     <?php echo $this->translate("Collection"); ?>
 </h1>
     <div>
-        <a href="<?php $backUrl = $this->url('client', array('action'=>'details', 'id' => $collection->getOwnerId()));
-        if(!empty($section) && $section == "list"){
-            $backUrl = $this->url('collection');
-        }
+        <a href="<?php
+        $backUrl = ($section == \Application\Enum\SectionEnum::CLIENT_DETAILS) ?
+            $this->url('client', array('action'=>'details', 'id' => $collection->getOwnerId())) :
+            $this->url('collection');
         echo $backUrl;
         ?>"><?php echo $this->translate("Back") ?></a>
         <a href="<?php echo $this->url('collection', array('action'=>'edit', 'id' => $collection->getId(), 'clientId' => $collection->getOwnerId()));?>">
-            Edit
+            <?php echo $this->translate("Edit") ?>
         </a>
-        <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="details" >Delete</div>
+        <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="details" ><?php
+            echo $this->translate("Delete") ?>
+        </div>
     </div>
 <dl>
     <dt>
