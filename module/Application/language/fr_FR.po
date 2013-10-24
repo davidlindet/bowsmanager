@@ -229,6 +229,9 @@ msgstr "Liste des archets"
 msgid "Add new bow"
 msgstr "Ajouter un archet"
 
+msgid "New Bow"
+msgstr "Nouvel Archet"
+
 msgid "Type"
 msgstr "Type"
 

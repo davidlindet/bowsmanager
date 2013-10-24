@@ -23,6 +23,16 @@ return array(
                     ),
                 ),
             ),
+            'bow-add' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/bow-add[/][:collectionId][/][:section]',
+                    'defaults' => array(
+                        'controller' => 'Bow\Controller\Bow',
+                        'action'     => 'add',
+                    ),
+                ),
+            ),
             'bow-save' => array(
                 'type'    => 'literal',
                 'options' => array(

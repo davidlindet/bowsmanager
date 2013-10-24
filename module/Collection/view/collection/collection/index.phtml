@@ -66,7 +66,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
                 <a href="<?php echo $this->url('collection-edit', array('id' => $collection->getId(), 'section' => $section)); ?>"><?php
                     echo $this->translate("Edit")
                     ?></a>
-                <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="list" ><?php
+                <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" ><?php
                     echo $this->translate("Delete")
                     ?><div>
             </td>

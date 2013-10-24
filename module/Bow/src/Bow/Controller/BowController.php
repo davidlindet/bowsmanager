@@ -8,6 +8,7 @@
  */
 namespace Bow\Controller;
 
+use Application\Enum\SectionEnum;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
@@ -38,6 +39,7 @@ class BowController extends AbstractActionController
         return new ViewModel(array(
             'bows' => $this->getBowService()->getAll(),
             'collectionId' => $collectionId,
+            'section' => SectionEnum::BOW_INDEX
         ));
     }
 
@@ -67,10 +69,10 @@ class BowController extends AbstractActionController
 
         /** @var $bowModel Bow */
         $bowModel = $this->getBowService()->getById(BowEnum::NEW_BOW);
+        $bowModel->setCollectionId($collectionId);
 
         return new ViewModel(array(
             'bow' => $bowModel,
-            'collectionId' => $collectionId,
             'section' => $section,
         ));
     }

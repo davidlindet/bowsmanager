@@ -124,8 +124,6 @@ class CollectionController extends AbstractActionController
         $collectionModel = $this->getCollectionService()->getById($params['id']);
         $success = $this->getCollectionService()->delete($collectionModel);
 
-        $result = new JsonModel($success);
-
-        return $result;
+        return new JsonModel($success);
     }
 }

@@ -12,7 +12,7 @@ BowsManager.client = (function() {
                 data: params,
                 success: function(data) {
                     if(data.success){
-                        window.location.href = '/client/details/'+data.id;
+                        window.location.href = '/client-details/'+data.id;
                     }
                     else {
                         $('.error-message').html(BowsManager.copies.errorSaveClient);
@@ -33,7 +33,7 @@ BowsManager.client = (function() {
                     data: {id: clientId},
                     success: function(data) {
                         if(data.success){
-                            if(section == "list") {
+                            if(section == "client-index") {
                                 $("#client-"+clientId).fadeOut("slow");
                             }
                             else {
@@ -136,7 +136,7 @@ BowsManager.collection = (function() {
                 data: params,
                 success: function(data) {
                     if(data.success){
-                        window.location.href = '/collection/details/'+data.id+'/'+data.ownerId+'/'+data.section;
+                            window.location.href = '/collection-details/'+data.id+'/'+data.section;
                     }
                     else {
                         $('.error-message').html("Impossible d'enregistrer le lot");
@@ -149,6 +149,7 @@ BowsManager.collection = (function() {
     function del(){
         $(".collection-delete").click(function() {
             var collectionId = $(this).data('id');
+            var clientId = $(this).data('clientid');
             var section = $(this).data('section');
             if(confirm("Voulez vous vraiment supprimer ce lot?")){
                 $.ajax({
@@ -157,11 +158,15 @@ BowsManager.collection = (function() {
                     data: {id: collectionId},
                     success: function(data) {
                         if(data.success){
-                            if(section == "list") {
+                            if(typeof clientId == "undefined") {
                                 $("#collection-"+collectionId).fadeOut("slow");
                             }
                             else {
-                                window.location.href = '/collection';
+                                var url = "/collection";
+                                if(section.indexOf("client") !== false){
+                                    url = '/client-details/'+ clientId;
+                                }
+                                window.location.href = url;
                             }
                         }
                         else {

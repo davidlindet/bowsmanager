@@ -74,7 +74,7 @@ class CollectionService
     public function save(Collection $collectionModel){
         try {
             $collectionId = $this->collectionDao->saveCollection($collectionModel);
-            $result = array('success'=> true, 'id' => (int) $collectionId, 'ownerId' => $collectionModel->getOwnerId());
+            $result = array('success'=> true, 'id' => (int) $collectionId);
         }
         catch (Exception $exception) {
             error_log($exception);

@@ -14,7 +14,7 @@
         <a href="<?php echo $this->url('collection-edit', array('id' => $collection->getId(), 'section' => $section));?>">
             <?php echo $this->translate("Edit") ?>
         </a>
-        <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-section="details" ><?php
+        <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" data-clientid="<?php echo $collection->getOwnerId() ?>" data-section="<?php echo $section ?>" ><?php
             echo $this->translate("Delete") ?>
         </div>
     </div>
@@ -69,6 +69,7 @@
     echo $this->partial('bowList', array(
         'bows' => $collection->getBows(),
         'collectionId' => $collection->getId(),
+        'section' => $section,
     ));
 ?>
 <?php

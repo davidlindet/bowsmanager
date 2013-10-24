@@ -7,10 +7,12 @@ use Bow\Enum\BowSizeEnum;
     <?php echo $header ?>
 </h1>
 <div class="error-message"></div>
-<a href="<?php echo $this->url('bow') ?>" >Retour</a>
+<a href="<?php
+    echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section))
+?>" ><?php echo $this->translate("Back") ?></a>
 <form id="bow-form" >
 
-    <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $collectionId ?>">
+    <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $bow->getCollectionId() ?>">
     <input type="hidden" name="id" id="id" value="<?php echo $bow->getId() ?>">
 
     <label for="type">Type</label>

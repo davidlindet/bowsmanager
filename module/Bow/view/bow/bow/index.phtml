@@ -7,10 +7,7 @@ use Bow\Enum\BowSizeEnum;
 <h2><?php echo $this->translate("Bows List"); ?></h2>
 <p>
     <a href="<?php
-        $params = array('action'=>'add',
-                        'id' => \Bow\Enum\BowEnum::NEW_BOW,
-                        'collectionId' => $collectionId);
-        echo $this->url('bow', $params);
+        echo $this->url('bow-add', array('collectionId' => $collectionId, 'section' => $section));
     ?>"><?php
         echo $this->translate("Add new bow")
     ?></a>
