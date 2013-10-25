@@ -56,14 +56,18 @@ use Application\Enum\SectionEnum;
                             $currentSectionName = $this->sectionName();
 
                             foreach($navigation as $element){
+                                $active = "";
                                 foreach($element["sections"] as $section){
                                     if(strpos($currentSectionName, $section) !== false){
-                                        $element["class"] .= " active";
+                                        $active = " active";
                                     }
                                 }
                         ?>
-                                <li class="<?php echo $element["class"]; ?>">
-                                    <a href="<?php echo $this->url($element["url"]); ?>"><?php echo $this->translate($element["label"]); ?></a>
+                                <li class="<?php echo $active; ?>">
+                                   <a href="<?php echo $this->url($element["url"]); ?>">
+                                        <span class="<?php echo $element["class"]; ?>"></span>
+                                        <?php echo $this->translate($element["label"]); ?>
+                                   </a>
                                 </li>
                         <?php
                             }
