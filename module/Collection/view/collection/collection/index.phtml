@@ -40,9 +40,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
     <th>
         <?php echo $this->translate("Is sent?"); ?>
     </th>
-    <th>
-        <?php echo $this->translate("Options"); ?>
-    </th>
+    <th>&nbsp;</th>
     <?php
         /**  @var  $collection Collection*/
          foreach ($collections as $collection) :
@@ -72,7 +70,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
                     <img src="/img/content/valid.png">
                 <?php } ?>
             </td>
-            <td>
+            <td class="list-options">
                 <a class="collection edit" href="<?php echo $this->url('collection-edit', array('id' => $collection->getId(), 'section' => $section)); ?>">
                     <img src="/img/collection/edit.png"><?php echo $this->translate("Edit") ?></a>
                 <div class="collection delete" data-id="<?php echo $collection->getId() ?>" >

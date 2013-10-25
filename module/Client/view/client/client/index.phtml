@@ -40,7 +40,7 @@ use Client\Enum\ClientEnum;
             <td>
                <?php echo $this->translate("Collections") . ": ". $client->countCollections() ?>
             </td>
-            <td class="client-options">
+            <td class="list-options">
                 <a class="client edit" href="<?php echo $this->url('client-edit', array('id' => $client->getId()));?>">
                     <img src="/img/client/edit.png"><?php echo $this->translate("Edit") ?>
                 </a>
