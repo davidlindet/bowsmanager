@@ -1,3 +1,24 @@
+h1 {
+   display: inline-block;
+    margin: 20px 10px 20px 0;
+}
+.details dl{
+    float: left;
+    width: 250px;
+    margin-right: 10px;
+}
+dt {
+    float: left;
+    margin-right: 10px;
+}
+dd {
+    padding-left: 80px;
+    padding-bottom: 10px;
+}
+form label {
+    margin-top: 10px;
+}
+
 /**
     Navigation
 */
@@ -81,37 +102,64 @@
     top: 100px;
     right: 50px;
 }
-
 .add,
 .add:hover {
     color: #2d9f16;
 }
-
 .edit,
 .edit:hover {
     color: #f7b400;
 }
-
 .delete,
 .delete:hover {
+    display: inline;
     cursor: pointer;
     color: #d81515;
 }
-
 .delete:hover {
     text-decoration: underline;
 }
-
+.back,
+.back:hover {
+    color: #999;
+}
 /**
     Client
 */
-.client-options .edit{
-    display: block;
-    float: left;
+.table.clients td{
+    line-height: 38px;
 }
-
+.client-options {
+    text-align: right;
+}
 .client-filter {
     margin-right: 10px;
+}
+.collection-list{
+    position: relative;
+    clear: left;
+}
+.collection-list .options{
+    top: 10px;
+}
+
+.options.client-details {
+    right:  120px;
+    width: 205px;
+}
+
+/**
+    Collection
+*/
+.table.collections .collection:hover{
+    background-color: #EEE;
+    cursor: pointer;
+}
+.table.collections .collection .count-bows{
+    padding-left: 30px;
+}
+.bow-list{
+    position: relative;
 }
 
 /**

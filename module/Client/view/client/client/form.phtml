@@ -1,33 +1,29 @@
-<h1>
-    <?php echo $header ?>
-</h1>
+<h1><img src="/img/client/client.png"> <?php echo $header ?></h1>
+<a class="back" href="<?php echo $backUrl ?>" ><img src="/img/content/back.png"><?php echo $this->translate("Back") ?></a>
 <div class="error-message"></div>
-<a href="<?php echo $backUrl ?>" >
-    <?php echo $this->translate("Back") ?>
-</a>
 <form id="client-form" >
     <input type="hidden" name="id" id="id" value="<?php echo $client->getId() ?>">
 
-    <label for="lastName"><?php echo $this->translate("Last Name") ?></label>
-    <input type="text" name="lastName" id="lastName" value="<?php echo $client->getLastName() ?>"><br>
+    <label for="lastName"><?php echo $this->translate("Last Name") ?></label><br />
+    <input type="text" name="lastName" id="lastName" value="<?php echo $client->getLastName() ?>"><br />
 
-    <label for="firstName"><?php echo $this->translate("First Name") ?></label>
-    <input type="text" name="firstName" id="firstName" value="<?php echo $client->getFirstName() ?>"><br>
+    <label for="firstName"><?php echo $this->translate("First Name") ?></label><br />
+    <input type="text" name="firstName" id="firstName" value="<?php echo $client->getFirstName() ?>"><br />
 
-    <label for="address"><?php echo $this->translate("Address") ?></label>
-    <textarea name="address" id="address"><?php echo $client->getAddress() ?></textarea><br>
+    <label for="address"><?php echo $this->translate("Address") ?></label><br />
+    <textarea name="address" id="address"><?php echo $client->getAddress() ?></textarea><br />
 
-    <label for="landline"><?php echo  $this->translate("Landline") ?></label>
-    <input type="text" name="landline" id="landline" value="<?php echo $client->getLandline() ?>"><br>
+    <label for="landline"><?php echo  $this->translate("Landline") ?></label><br />
+    <input type="text" name="landline" id="landline" value="<?php echo $client->getLandline() ?>"><br />
 
-    <label for="mobile"><?php echo $this->translate("Mobile") ?></label>
-    <input type="text" name="mobile" id="mobile" value="<?php echo $client->getMobile() ?>"><br>
+    <label for="mobile"><?php echo $this->translate("Mobile") ?></label><br />
+    <input type="text" name="mobile" id="mobile" value="<?php echo $client->getMobile() ?>"><br />
 
-    <label for="email"><?php echo $this->translate("Email") ?></label>
-    <input type="text" name="email" id="email" value="<?php echo $client->getEmail() ?>"><br>
+    <label for="email"><?php echo $this->translate("Email") ?></label><br />
+    <input type="text" name="email" id="email" value="<?php echo $client->getEmail() ?>"><br />
 
-    <label for="website"><?php echo $this->translate("Website") ?></label>
-    <input type="text" name="website" id="website" value="<?php echo $client->getWebsite() ?>"><br>
+    <label for="website"><?php echo $this->translate("Website") ?></label><br />
+    <input class="item type="text" name="website" id="website" value="<?php echo $client->getWebsite() ?>"><br /><br />
 
     <button type="submit" id="save-client" ><?php echo $this->translate("Save") ?></button>
 </form>

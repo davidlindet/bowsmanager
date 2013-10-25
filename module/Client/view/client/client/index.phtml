@@ -8,7 +8,7 @@ use Client\Enum\ClientEnum;
         <img src="/img/client/add.png"><?php echo $this->translate("Add new client") ?></a>
 </div>
 
-<table class="table">
+<table class="table clients">
     <tr>
         <td colspan="3">
         <?php foreach(ClientEnum::FILTERS() as $filter){ ?>
@@ -21,7 +21,7 @@ use Client\Enum\ClientEnum;
     $firstLetter = null;
     /**  @var  $client Client*/
     foreach ($clients as $client) :
-        $currentFirstLetter = $client->getName();
+        $currentFirstLetter = strtolower($client->getName());
         if($currentFirstLetter[0] != $firstLetter){
             $firstLetter = $currentFirstLetter[0];
             ?>

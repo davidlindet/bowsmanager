@@ -1,39 +1,71 @@
-<h1><?php echo $this->translate("Client Details") ?></h1>
-<div>
-    <a href="<?php echo $this->url('client') ?>" >
-        <?php $this->translate("Back") ?>
-    </a>
-    <a href="<?php echo $this->url('client-edit', array('id' => $client->getId()));?>"><?php
+<h1><img src="/img/client/client.png">
+    <?php echo $this->translate("Client Details") ?>
+</h1>
+<a class="back" href="<?php echo $this->url('client') ?>" ><img src="/img/content/back.png"><?php echo $this->translate("Back") ?></a>
+<div class="options client-details">
+    <a class="client edit" href="<?php echo $this->url('client-edit', array('id' => $client->getId()));?>">
+        <img src="/img/client/edit.png"><?php
        echo $this->translate("Edit")
      ?></a>
     <div class="client delete" data-id="<?php echo $client->getId() ?>" data-section="<?php echo $this->sectionName() ?>" >
-    <?php
+        <img src="/img/client/del.png"><?php
        echo $this->translate("Delete")
     ?>
     </div>
 </div>
-<dl>
-    <dt><?php echo $this->translate("Name") ?>:</dt>
-    <dd><?php echo $client->getName(false) ?></dd>
-    <dt><?php echo $this->translate("Address") ?>:</dt>
-    <dd><?php echo $client->getAddress() ?></dd>
-</dl>
-<dl>
-    <dt><?php echo $this->translate("Landline") ?>:</dt>
-    <dd><?php echo $client->getLandline() ?></dd>
-    <dt><?php echo $this->translate("Mobile") ?>:</dt>
-    <dd><?php echo $client->getMobile() ?></dd>
-</dl>
-<dl>
-    <dt><?php echo $this->translate("Email") ?>:</dt>
-    <dd>
-        <a href="mailto:<?php echo $client->getEmail() ?>" ><?php echo $client->getEmail() ?></a>
-    </dd>
-    <dt><?php echo $this->translate("Website") ?>:</dt>
-    <dd>
-        <a href="<?php echo $client->getWebsite() ?>" ><?php echo $client->getWebsite() ?></a>
-    </dd>
-</dl>
+<?php
+    $name = $client->getName(false);
+    $address = $client->getAddress();
+    $landline = $client->getLandline();
+    $mobile = $client->getMobile();
+    $email = $client->getEmail();
+    $website = $client->getWebsite();
+?>
+<div class="details">
+    <dl>
+        <?php if(!empty($name)) { ?>
+            <dt><?php echo $this->translate("Name") ?>:</dt>
+            <dd><?php echo $name ?></dd>
+        <?php
+        }
+        ?>
+        <?php if(!empty($address)){ ?>
+            <dt><?php echo $this->translate("Address") ?>:</dt>
+            <dd><?php echo nl2br($address) ?></dd>
+        <?php
+        }
+        ?>
+    </dl>
+    <dl>
+        <?php if(!empty($landline)){ ?>
+            <dt><?php echo $this->translate("Landline") ?>:</dt>
+            <dd><?php echo $landline ?></dd>
+        <?php
+        }
+        ?>
+        <?php if(!empty($mobile)){ ?>
+            <dt><?php echo $this->translate("Mobile") ?>:</dt>
+            <dd><?php echo $mobile ?></dd>
+        <?php
+        }
+        ?>
+    </dl>
+    <dl>
+        <?php if(!empty($email)){ ?>
+            <dt><?php echo $this->translate("Email") ?>:</dt>
+            <dd><a href="mailto:<?php echo $email ?>" ><?php echo $email ?></a></dd>
+        <?php
+        }
+        ?>
+        <?php if(!empty($website)){ ?>
+            <dt><?php echo $this->translate("Website") ?>:</dt>
+            <dd><a href="<?php echo $website ?>" ><?php echo $website ?></a></dd>
+        <?php
+            }
+        ?>
+    </dl>
+</div>
+<div class="collection-list">
 <?php
     // Collection List
     echo $this->partial('collectionList', array(
@@ -41,6 +73,7 @@
         'clientId' => $client->getId()
     ));
 ?>
+</div>
 <?php
     $this->placeholder('scripts')->append("
         BowsManager.client.del();

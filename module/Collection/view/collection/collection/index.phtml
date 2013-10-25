@@ -6,21 +6,24 @@ use Application\Enum\SectionEnum;
 $section = $this->sectionName();
 
 echo ($section == SectionEnum::COLLECTION_INDEX) ? "<h1>" : "<h2>";
+?>
+    <img src="/img/collection/header.png" <?php echo ($section == SectionEnum::COLLECTION_INDEX) ? "width='80'" : "width='40'"; ?> >
+<?php
     echo $this->translate('Collections List');
 echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
 ?>
-<p>
-    <a href="<?php echo $this->url('collection-add', array(
+<div class="options">
+    <a class="add" href="<?php echo $this->url('collection-add', array(
                                                         'id' => CollectionEnum::NEW_COLLECTION,
                                                         'clientId' => (isset($clientId)) ? $clientId : false,
                                                         'section' => $section,
         )
     );?>">
-        <?php echo $this->translate("Add new collection"); ?>
+        <img src="/img/collection/add.png"><?php echo $this->translate("Add new collection"); ?>
     </a>
-</p>
+</div>
 
-<table class="table">
+<table class="table collections">
     <th>
         <?php echo $this->translate("Reception Date"); ?>
     </th>
@@ -41,7 +44,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
         /**  @var  $collection Collection*/
          foreach ($collections as $collection) :
     ?>
-        <tr id="collection-<?php echo $collection->getId() ?>">
+        <tr class="collection" id="collection-<?php echo $collection->getId() ?>">
             <td>
                 <?php echo $collection->getReceptionTime() ?>
             </td>
@@ -56,17 +59,17 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
             <?php
             }
             ?>
-            <td>
+            <td class="count-bows">
                 <?php echo $collection->countBows() ?>
             </td>
             <td>
                 <a href="<?php echo $this->url('collection-details',  array('id' => $collection->getId(),'section' => $section)); ?>"><?php
                     echo $this->translate("Details")
                     ?></a>
-                <a href="<?php echo $this->url('collection-edit', array('id' => $collection->getId(), 'section' => $section)); ?>"><?php
+                <a class="collection edit" href="<?php echo $this->url('collection-edit', array('id' => $collection->getId(), 'section' => $section)); ?>"><?php
                     echo $this->translate("Edit")
                     ?></a>
-                <div class="collection-delete" data-id="<?php echo $collection->getId() ?>" ><?php
+                <div class="collection delete" data-id="<?php echo $collection->getId() ?>" ><?php
                     echo $this->translate("Delete")
                     ?><div>
             </td>

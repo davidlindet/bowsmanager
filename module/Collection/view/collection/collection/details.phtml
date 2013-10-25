@@ -64,7 +64,7 @@
         <?php echo $collection->getBillAmount() ?>
     </dd>
 </dl>
-
+<div class="bow-list">
 <?php
     echo $this->partial('bowList', array(
         'bows' => $collection->getBows(),
@@ -72,6 +72,7 @@
         'section' => $section,
     ));
 ?>
+</div>
 <?php
     $this->placeholder('scripts')->append("
         BowsManager.collection.del();
