@@ -1,0 +1,40 @@
+<?php
+use Collection\Model\Collection;
+?>
+<h2>
+<?php
+    echo $this->translate('Collections');
+?>
+</h2>
+<table class="table">
+    <th><?php echo $this->translate("Reception Date"); ?></th>
+    <th><?php echo $this->translate("Client"); ?></th>
+    <th><?php echo $this->translate("Bows"); ?></th>
+    <th><?php echo $this->translate("Options"); ?></th>
+    <?php
+    /**  @var  $collection Collection*/
+    foreach ($collections as $collection) :
+        ?>
+        <tr id="collection-<?php echo $collection->getId() ?>">
+            <td>
+                <?php echo $collection->getReceptionTime() ?>
+            </td>
+            <td>
+                <a href="<?php echo $this->url('client-details', array('id' => $collection->getOwnerId()));?>">
+                    <?php echo  $this->highLight($collection->getOwnerName(), $query) ?>
+                </a>
+            </td>
+            <td>
+                <?php echo $collection->countBows() ?>
+            </td>
+            <td>
+                <a href="<?php echo $this->url('collection-details',  array('id' => $collection->getId())); ?>"><?php
+                    echo $this->translate("Details")
+                    ?></a>
+                <a href="<?php echo $this->url('collection-edit', array('id' => $collection->getId())); ?>"><?php
+                    echo $this->translate("Edit")
+                    ?></a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>

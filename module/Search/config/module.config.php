@@ -26,7 +26,7 @@ return array(
     'view_manager' => array(
         'template_map' => array(
             'searchClientList' => __DIR__ . '/../view/search/search/clientList.phtml',
-//            'collectionList' => __DIR__ . '/../../Collection/view/collection/collection/index.phtml',
+            'searchCollectionList' => __DIR__ . '/../view/search/search/collectionList.phtml',
             'searchBowList' => __DIR__ . '/../view/search/search/bowList.phtml',
         ),
         'template_path_stack' => array(

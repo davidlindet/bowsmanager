@@ -52,6 +52,15 @@ class SearchController extends AbstractActionController
         }
 
         //bow
+        if(in_array(SearchEnum::SEARCH_COLLECTION, $searchTypes)){
+            $collections = $this->getSearchService()->searchCollection($query);
+            $viewModel =  new ViewModel(array('collections' => $collections, 'query' => $query));
+            $viewModel->setTemplate("searchCollectionList");
+            $response['collectionHTML'] = $viewRender->render($viewModel);
+        }
+
+
+        //bow
         if(in_array(SearchEnum::SEARCH_BOW, $searchTypes)){
             $bows = $this->getSearchService()->searchBow($query);
             $viewModel =  new ViewModel(array('bows' => $bows, 'query' => $query));

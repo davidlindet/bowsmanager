@@ -38,6 +38,18 @@ class SearchService
         return $clients;
     }
 
+    public function searchCollection($query){
+        $collections = array();
+
+        if($query){
+            /** @var  $collectionService CollectionService */
+            $collectionService = $this->serviceManager->get('CollectionService');
+            $collections = $collectionService->search($query);
+        }
+
+        return $collections;
+    }
+
     public function searchBow($query){
         $bows = array();
 

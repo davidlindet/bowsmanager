@@ -62,13 +62,7 @@ class CollectionService
 
     public function getAll(){
         $collections = $this->collectionDao->fetchAll();
-        /** @var $collection Collection */
-        foreach($collections as &$collection){
-            $bows = $this->bowService->getAllByCollection($collection->getId());
-            $collection->setBows($bows);
-        }
-
-        return $collections;
+        return $this->setBows($collections);
     }
 
     public function save(Collection $collectionModel){
@@ -99,5 +93,21 @@ class CollectionService
             $result = array('success'=> false, 'error' => $exception);
         }
         return $result;
+    }
+
+    public function search($query) {
+        $collections = $this->collectionDao->fetchAllByQuery($query);
+        return $this->setBows($collections);
+    }
+
+    private function setBows($collections){
+        $finalCollections = array();
+        /** @var $collection Collection */
+        foreach($collections as $collection){
+            $bows = $this->bowService->getAllByCollection($collection->getId());
+            $collection->setBows($bows);
+            $finalCollections[$collection->getId()] = $collection;
+        }
+        return $finalCollections;
     }
 }

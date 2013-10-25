@@ -315,3 +315,9 @@ msgstr "N° de facture"
 
 msgid "Bill Amount"
 msgstr "Montant"
+
+#------------------------------------------
+#       Search
+#------------------------------------------
+msgid "Search"
+msgstr "Search"

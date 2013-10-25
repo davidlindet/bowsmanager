@@ -196,6 +196,7 @@ BowsManager.search = (function() {
 
             $('#client-results').html("");
             $('#bow-results').html("");
+            $('#collection-results').html("");
             $('.error-message').html("");
 
             $.ajax({
@@ -206,6 +207,7 @@ BowsManager.search = (function() {
                     if(data.success){
                         $('#client-results').html(data.clientHTML);
                         $('#bow-results').html(data.bowHTML);
+                        $('#collection-results').html(data.collectionHTML);
                     }
                     else {
                         $('.error-message').html(data.error);

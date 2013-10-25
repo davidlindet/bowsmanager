@@ -58,6 +58,47 @@ class CollectionDao
         return $collections;
     }
 
+    public function fetchAllByQuery($query, $order = CollectionEnum::SORT_NEW_TO_OLD) {
+        $driver = $this->tableGateway->getAdapter()->getDriver();
+
+        if($order == CollectionEnum::SORT_NEW_TO_OLD){
+            $orderSql = "reception_time DESC";
+        }
+        elseif($order == CollectionEnum::SORT_OLD_TO_NEW){
+            $orderSql = "reception_time ASC";
+        }
+
+        $columns = "col.id, owner, reception_time, return_time, package_number, bill_reference, bill_amount, paid_status, first_name, last_name";
+        $sql = "SELECT $columns FROM collection col, client cli WHERE col.owner = cli.id AND
+                    (owner) IN (SELECT id FROM client WHERE last_name LIKE'%$query%')
+                UNION
+                SELECT $columns
+                    FROM collection col, client cli
+                    WHERE col.owner = cli.id
+                      AND package_number LIKE '%$query%'
+                UNION
+                SELECT $columns
+                    FROM collection col, client cli
+                    WHERE col.owner = cli.id
+                      AND bill_reference LIKE '%$query%'
+                    ORDER BY $orderSql
+        ";
+
+        $statement = $driver->createStatement($sql);
+        $result = $statement->execute();
+
+        $resultSet = new ResultSet;
+        $resultSet->initialize($result);
+
+        $collections = array();
+        foreach($resultSet as $data){
+            $collection = new Collection();
+            $collection->exchangeArray($data);
+            $collections[$collection->getId()] = $collection;
+        }
+        return $collections;
+    }
+
     public function fetchAllByOwner($ownerId, $order = CollectionEnum::SORT_NEW_TO_OLD) {
         $select = new Select();
         $select->from("collection");

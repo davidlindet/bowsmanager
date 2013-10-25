@@ -3,19 +3,20 @@ use Collection\Model\Collection;
 use Collection\Enum\CollectionEnum;
 
 ?>
-<h1><?php echo $this->escapeHtml($title); ?></h1>
+<h1><?php echo $this->translate("Search"); ?></h1>
 <form id="search-form" >
     <input type="text" name="query" />
     <select name="type" multiple>
-        <option selected="selected" value="client">Client</option>
-        <option selected="selected"value="bow">Archet</option>
-        <option selected="selected" value="collection">Lot</option>
+        <option selected="selected" value="client"><?php echo $this->translate("Client"); ?></option>
+        <option selected="selected"value="bow"><?php echo $this->translate("Bow"); ?></option>
+        <option selected="selected" value="collection"><?php echo $this->translate("Collection"); ?></option>
     </select>
-    <button type="submit" id="search">Rechercher</button>
+    <button type="submit" id="search"><?php echo $this->translate("Search"); ?></button>
 </form>
 <div class="error-message"></div>
 <div id="client-results"></div>
 <div id="bow-results"></div>
+<div id="collection-results"></div>
 <?php
     $this->placeholder('scripts')->append("BowsManager.search.search()");
 ?>
