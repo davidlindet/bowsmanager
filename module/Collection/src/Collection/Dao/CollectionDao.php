@@ -37,8 +37,8 @@ class CollectionDao
         $sql = "SELECT col.id, owner, reception_time, return_time,
               package_number, bill_reference, bill_amount,
               paid_status, first_name, last_name
-              FROM collection col
-              JOIN client cli
+              FROM bm_collection col
+              JOIN bm_client cli
               ON cli.id = col.owner
               ORDER BY $orderSql;
         ";
@@ -69,16 +69,16 @@ class CollectionDao
         }
 
         $columns = "col.id, owner, reception_time, return_time, package_number, bill_reference, bill_amount, paid_status, first_name, last_name";
-        $sql = "SELECT $columns FROM collection col, client cli WHERE col.owner = cli.id AND
-                    (owner) IN (SELECT id FROM client WHERE last_name LIKE'%$query%')
+        $sql = "SELECT $columns FROM bm_collection col, bm_client cli WHERE col.owner = cli.id AND
+                    (owner) IN (SELECT id FROM bm_client WHERE last_name LIKE'%$query%')
                 UNION
                 SELECT $columns
-                    FROM collection col, client cli
+                    FROM bm_collection col, bm_client cli
                     WHERE col.owner = cli.id
                       AND package_number LIKE '%$query%'
                 UNION
                 SELECT $columns
-                    FROM collection col, client cli
+                    FROM bm_collection col, bm_client cli
                     WHERE col.owner = cli.id
                       AND bill_reference LIKE '%$query%'
                     ORDER BY $orderSql
@@ -101,7 +101,7 @@ class CollectionDao
 
     public function fetchAllByOwner($ownerId, $order = CollectionEnum::SORT_NEW_TO_OLD) {
         $select = new Select();
-        $select->from("collection");
+        $select->from("bm_collection");
         $select->where(array('owner' => $ownerId));
         if($order == CollectionEnum::SORT_NEW_TO_OLD){
             $select->order('reception_time DESC');
@@ -125,8 +125,8 @@ class CollectionDao
         $sql = "SELECT col.id, owner, reception_time, return_time,
               package_number, bill_reference, bill_amount,
               paid_status, first_name, last_name
-              FROM collection col
-              JOIN client cli
+              FROM bm_collection col
+              JOIN bm_client cli
                   ON cli.id = col.owner
               WHERE col.id = $id;
         ";

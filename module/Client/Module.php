@@ -54,7 +54,7 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Client());
-                    return new TableGateway('client', $dbAdapter, null, $resultSetPrototype);
+                    return new TableGateway('bm_client', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );

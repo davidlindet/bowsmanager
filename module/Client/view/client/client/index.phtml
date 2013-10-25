@@ -2,7 +2,7 @@
 use Client\Model\Client;
 use Client\Enum\ClientEnum;
 ?>
-<h1><?php echo $this->translate("Client List"); ?></h1>
+<h1><img src="/img/client-back.png"><?php echo $this->translate("Client List"); ?></h1>
 <p>
     <a href="<?php echo $this->url('client-add', array('id' => ClientEnum::NEW_CLIENT));?>">
         <?php echo $this->translate("Add new client") ?>

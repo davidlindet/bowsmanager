@@ -52,7 +52,7 @@ class ClientDao
         elseif($order == ClientEnum::SORT_ZA){
             $orderSql = "ORDER BY last_name DESC";
         }
-        $sql = "SELECT $columns FROM client $orderSql;";
+        $sql = "SELECT $columns FROM bm_client $orderSql;";
 
         $statement = $driver->createStatement($sql);
         $result = $statement->execute();
@@ -80,9 +80,9 @@ class ClientDao
             $orderSql = "last_name DESC";
         }
 
-        $sql = "SELECT * FROM client WHERE last_name LIKE '%$query%'
+        $sql = "SELECT * FROM bm_client WHERE last_name LIKE '%$query%'
                 UNION
-                SELECT * FROM client WHERE first_name LIKE '%$query%' ORDER BY $orderSql
+                SELECT * FROM bm_client WHERE first_name LIKE '%$query%' ORDER BY $orderSql
               ;
         ";
 
@@ -122,7 +122,7 @@ class ClientDao
                 $columns .= $dataRequired[$i];
             }
         }
-        $sql = "SELECT $columns FROM client WHERE id = $id;";
+        $sql = "SELECT $columns FROM bm_client WHERE id = $id;";
 
         $statement = $driver->createStatement($sql);
         $result = $statement->execute();

@@ -53,7 +53,7 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Bow());
-                    return new TableGateway('bow', $dbAdapter, null, $resultSetPrototype);
+                    return new TableGateway('bm_bow', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );

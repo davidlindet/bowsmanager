@@ -33,7 +33,7 @@ class BowDao
     public function fetchAllByCollection($collectionId)
     {
         $select = new Select();
-        $select->from("bow");
+        $select->from("bm_bow");
         $select->where(array('collection_id' => $collectionId));
         $select->order('id ASC');
         $resultSet = $this->tableGateway->selectWith($select);
@@ -51,26 +51,26 @@ class BowDao
         $sql = false;
 
         if(strtolower($query) == strtolower(BowTypeEnum::COPY(BowTypeEnum::ALTO))){
-            $sql =   "SELECT * FROM bow b WHERE b.type = " . BowTypeEnum::ALTO;
+            $sql =   "SELECT * FROM bm_bow b WHERE b.type = " . BowTypeEnum::ALTO;
         }
         elseif(strtolower($query) == strtolower(BowTypeEnum::COPY(BowTypeEnum::CELLO))){
-            $sql =   "SELECT * FROM bow b WHERE b.type = " . BowTypeEnum::CELLO;
+            $sql =   "SELECT * FROM bm_bow b WHERE b.type = " . BowTypeEnum::CELLO;
         }
         elseif(strtolower($query) == strtolower(BowTypeEnum::COPY(BowTypeEnum::VIOLIN))){
-            $sql =   "SELECT * FROM bow b WHERE b.type = " . BowTypeEnum::VIOLIN;
+            $sql =   "SELECT * FROM bm_bow b WHERE b.type = " . BowTypeEnum::VIOLIN;
         }
         elseif(strtolower($query) == strtolower(BowTypeEnum::COPY(BowTypeEnum::DOUBLE_BASS))){
-            $sql =   "SELECT * FROM bow b WHERE b.type = " . BowTypeEnum::DOUBLE_BASS;
+            $sql =   "SELECT * FROM bm_bow b WHERE b.type = " . BowTypeEnum::DOUBLE_BASS;
         }
 
         if(!$sql) {
-            $sql = "SELECT * FROM bow WHERE description LIKE '%$query%'
+            $sql = "SELECT * FROM bm_bow WHERE description LIKE '%$query%'
                     UNION
-                    SELECT * FROM bow WHERE work_to_do LIKE '%$query%'
+                    SELECT * FROM bm_bow WHERE work_to_do LIKE '%$query%'
                     UNION
-                    SELECT * FROM bow WHERE status LIKE '%$query%'
+                    SELECT * FROM bm_bow WHERE status LIKE '%$query%'
                     UNION
-                    SELECT * FROM bow WHERE comments LIKE '%$query%'
+                    SELECT * FROM bm_bow WHERE comments LIKE '%$query%'
             ";
         }
 
