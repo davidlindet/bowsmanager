@@ -11,22 +11,24 @@
 .nav.navbar-nav .client
 {
     background: url("../img/sprite.png");
-    width: 35px;
+    width: 28px;
     height: 35px;
     display: block;
     background-repeat: no-repeat;
     float: left;
     padding-right: 0px;
-    margin-right: 10px;
+    margin-right: 5px;
     margin-top: 5px;
-    background-position: -36px 0px;
+    background-position: -27px 5px;
+    background-size: 130px;
 }
 
 .nav.navbar-nav a:hover .client,
 .nav.navbar-nav .active .client
 {
     background: url("../img/sprite.png");
-    background-position: 0px 0px;
+    background-position: 0px 5px;
+    background-size: 130px;
 }
 
 /**

@@ -8,22 +8,4 @@
         padding-bottom: 0px;
         line-height: 40px;
     }
-
-    .nav.navbar-nav .client
-    {
-        background: url("../img/sprite.png");
-        width: 35px;
-        height: 35px;
-        display: block;
-        background-repeat: no-repeat;
-        float: left;
-        padding-right: 0px;
-        margin-right: 10px;
-        background-position: -36px 0px;
-    }
-
-    .nav.navbar-nav a:hover .client{
-        background: url("../img/sprite.png");
-        background-position: 0px 0px;
-    }
 }
