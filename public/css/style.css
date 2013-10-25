@@ -36,30 +36,5 @@ div.container a.brand {
     padding: 8px 20px 12px 40px;
 }
 
-/**
-    Navigation
-*/
-.nav.navbar-nav a{
-    padding-top: 0px;
-    height: 40px;
-    padding-bottom: 0px;
-    line-height: 40px;
-}
 
-.nav.navbar-nav .client
-{
-    background: url("../img/sprite.png");
-    width: 35px;
-    height: 35px;
-    display: block;
-    background-repeat: no-repeat;
-    float: left;
-    padding-right: 0px;
-    margin-right: 10px;
-    background-position: 0px 0px;
-}
-
-.nav.navbar-nav .client:hover{
-    background: url("../img/sprite.png");
-}
 
