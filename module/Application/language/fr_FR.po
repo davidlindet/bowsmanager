@@ -320,4 +320,4 @@ msgstr "Montant"
 #       Search
 #------------------------------------------
 msgid "Search"
-msgstr "Search"
+msgstr "Rechercher"

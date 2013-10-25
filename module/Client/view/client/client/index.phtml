@@ -2,16 +2,15 @@
 use Client\Model\Client;
 use Client\Enum\ClientEnum;
 ?>
-<h1><img src="/img/client-back.png"><?php echo $this->translate("Client List"); ?></h1>
-<p>
-    <a href="<?php echo $this->url('client-add', array('id' => ClientEnum::NEW_CLIENT));?>">
-        <?php echo $this->translate("Add new client") ?>
-    </a>
-</p>
+<h1><img src="/img/client/header.png"><?php echo $this->translate("Client List"); ?></h1>
+<div class="options">
+    <a class="add" href="<?php echo $this->url('client-add', array('id' => ClientEnum::NEW_CLIENT));?>">
+        <img src="/img/client/add.png"><?php echo $this->translate("Add new client") ?></a>
+</div>
 
 <table class="table">
     <tr>
-        <td colspan="2">
+        <td colspan="3">
         <?php foreach(ClientEnum::FILTERS() as $filter){ ?>
             <a href="#" class="client-filter" id="<?php echo $filter; ?>" ><?php echo $filter; ?></a>
         <?php } ?>
@@ -41,12 +40,12 @@ use Client\Enum\ClientEnum;
             <td>
                <?php echo $this->translate("Collections") . ": ". $client->countCollections() ?>
             </td>
-            <td>
-                <a href="<?php echo $this->url('client-edit', array('id' => $client->getId()));?>">
-                    <?php echo $this->translate("Edit") ?>
+            <td class="client-options">
+                <a class="client edit" href="<?php echo $this->url('client-edit', array('id' => $client->getId()));?>">
+                    <img src="/img/client/edit.png"><?php echo $this->translate("Edit") ?>
                 </a>
-                <div class="client-delete" data-id="<?php echo $client->getId() ?>" data-section="<?php echo $this->sectionName();
-                ?>" >
+                <div class="client delete" data-id="<?php echo $client->getId() ?>" data-section="<?php echo $this->sectionName();
+                ?>" > <img src="/img/client/del.png">
                     <?php echo $this->translate("Delete") ?>
                 <div>
             </td>

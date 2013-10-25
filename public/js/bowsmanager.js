@@ -23,7 +23,7 @@ BowsManager.client = (function() {
     }
 
     function del(){
-        $(".client-delete").click(function() {
+        $(".client.delete").click(function() {
             var clientId = $(this).data('id');
             var section = $(this).data('section');
             if(confirm(BowsManager.copies.deleteClient)){

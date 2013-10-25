@@ -1,34 +1,117 @@
 /**
     Navigation
 */
+.navbar-inverse .navbar-brand {
+    color: #ffffff;
+}
+
 .nav.navbar-nav a{
     padding-top: 0px;
     height: 50px;
+    padding-left: 12px;
     padding-bottom: 0px;
     line-height: 50px;
 }
 
-.nav.navbar-nav .client
+.nav.navbar-nav .icon
 {
-    background: url("../img/sprite.png");
     width: 28px;
     height: 35px;
     display: block;
-    background-repeat: no-repeat;
     float: left;
     padding-right: 0px;
-    margin-right: 5px;
+    margin-right: 7px;
     margin-top: 5px;
-    background-position: -27px 5px;
-    background-size: 130px;
+    background-repeat: no-repeat;
 }
 
+.nav.navbar-nav .client
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -32px 5px;
+}
 .nav.navbar-nav a:hover .client,
 .nav.navbar-nav .active .client
 {
-    background: url("../img/sprite.png");
+    background: url("../img/sprites/nav.png");
     background-position: 0px 5px;
-    background-size: 130px;
+}
+
+.nav.navbar-nav .collection
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -32px -32px;
+}
+.nav.navbar-nav a:hover .collection,
+.nav.navbar-nav .active .collection
+{
+    background: url("../img/sprites/nav.png");
+    background-position: 0px -32px;
+}
+
+.nav.navbar-nav .search
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -34px -65px;
+}
+.nav.navbar-nav a:hover .search,
+.nav.navbar-nav .active .search
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -2px -65px;
+}
+
+.nav.navbar-nav .home
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -34px -95px;
+}
+.nav.navbar-nav a:hover .home,
+.nav.navbar-nav .active .home
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -3px -95px;
+}
+
+/**
+    Options
+*/
+.options {
+    position: absolute;
+    top: 100px;
+    right: 50px;
+}
+
+.add,
+.add:hover {
+    color: #2d9f16;
+}
+
+.edit,
+.edit:hover {
+    color: #f7b400;
+}
+
+.delete,
+.delete:hover {
+    cursor: pointer;
+    color: #d81515;
+}
+
+.delete:hover {
+    text-decoration: underline;
+}
+
+/**
+    Client
+*/
+.client-options .edit{
+    display: block;
+    float: left;
+}
+
+.client-filter {
+    margin-right: 10px;
 }
 
 /**
