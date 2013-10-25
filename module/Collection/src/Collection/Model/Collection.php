@@ -126,7 +126,7 @@ class Collection
      */
     public function isSent()
     {
-        return $this->returnTime ? true : false;
+        return ($this->returnTime == CollectionEnum::NO_RETURN_TIME) ? false : true;
     }
 
     /**

@@ -128,6 +128,12 @@ BowsManager.bow = (function() {
 
 BowsManager.collection = (function() {
 
+    function details(){
+        $(".table.collections .collection").click(function() {
+            window.location.href = $(this).data('url');
+        });
+    }
+
     function add(){
         $("#collection-form").submit(function( event ) {
             event.preventDefault();
@@ -181,6 +187,7 @@ BowsManager.collection = (function() {
     }
 
     return {
+        details: details,
         add: add,
         del: del
     }

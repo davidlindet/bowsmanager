@@ -316,6 +316,9 @@ msgstr "N° de facture"
 msgid "Bill Amount"
 msgstr "Montant"
 
+msgid "Is sent?"
+msgstr "Renvoyé?"
+
 #------------------------------------------
 #       Search
 #------------------------------------------

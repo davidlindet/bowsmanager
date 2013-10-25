@@ -151,6 +151,9 @@ form label {
 /**
     Collection
 */
+.table.collections .collection td{
+    line-height: 40px;
+}
 .table.collections .collection:hover{
     background-color: #EEE;
     cursor: pointer;
