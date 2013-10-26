@@ -4,14 +4,14 @@ use Bow\Enum\BowTypeEnum;
 use Bow\Enum\BowSizeEnum;
 
 ?>
-<h2><?php echo $this->translate("Bows List"); ?></h2>
-<p>
-    <a href="<?php
-        echo $this->url('bow-add', array('collectionId' => $collectionId, 'section' => $section));
-    ?>"><?php
+<h2><img src="/img/bow/header.png" width="50" /> <?php echo $this->translate("Bows List"); ?></h2>
+<div class="options">
+    <a class="add" href="<?php
+    echo $this->url('bow-add', array('collectionId' => $collectionId, 'section' => $section));
+    ?>"><img src="/img/bow/add.png" /><?php
         echo $this->translate("Add new bow")
-    ?></a>
-</p>
+        ?></a>
+</div>
 
 <table class="table bows">
     <tr>
@@ -31,14 +31,18 @@ use Bow\Enum\BowSizeEnum;
         <tr class="bow" id="bow-<?php echo $bow->getId() ?>" data-url="<?php echo $detailUrl ?>" >
             <td><?php echo $this->translate(BowTypeEnum::COPY($bow->getType()));?></td>
             <td><?php echo $this->translate(BowSizeEnum::COPY($bow->getSize()));?></td>
-            <td><?php echo $this->escapeHtml($bow->getDescription());?></td>
-            <td><?php echo $this->escapeHtml($bow->getWorkToDo());?></td>
-            <td><?php echo $this->escapeHtml($bow->getStatus());?></td>
-            <td><?php echo $this->escapeHtml($bow->getIsDone());?></td>
-            <td><?php echo $this->escapeHtml($bow->getComments());?></td>
+            <td><?php echo nl2br($bow->getDescription());?></td>
+            <td><?php echo nl2br($bow->getWorkToDo());?></td>
+            <td><?php echo nl2br($bow->getStatus());?></td>
             <td>
-                <a class="edit" href="<?php echo $this->url('bow-edit', array('id' => $bow->getId(), 'section' => $section));?>"><?php echo $this->translate("Edit") ?></a>
-                <div class="bow delete" data-id="<?php echo $bow->getId() ?>" ><?php echo $this->translate("Delete") ?><div>
+                <?php if($bow->getIsDone()) { ?>
+                    <img src="/img/content/valid.png">
+                <?php } ?>
+            </td>
+            <td><?php echo nl2br($bow->getComments());?></td>
+            <td>
+                <a class="edit" href="<?php echo $this->url('bow-edit', array('id' => $bow->getId(), 'section' => $section));?>"><img src="/img/bow/edit.png" /><?php echo $this->translate("Edit") ?></a>
+                <div class="bow delete" data-id="<?php echo $bow->getId() ?>" ><img src="/img/bow/del.png" /><?php echo $this->translate("Delete") ?><div>
             </td>
         </tr>
     <?php endforeach; ?>

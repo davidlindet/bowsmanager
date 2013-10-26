@@ -45,7 +45,7 @@
     <label for="billAmount"><?php echo $this->translate("Bill Amount") ?></label><br/>
     <input type="text" name="billAmount" id="billAmount" value="<?php echo $collection->getBillAmount() ?>"><br>
 
-    <label for="paidStatus"><?php echo $this->translate("Is paid?") ?></label><br/>
+    <label for="paidStatus"><?php echo $this->translate("Is paid?") ?></label>
     <input type="checkbox" name="paidStatus" id="paidStatus" <?php echo $collection->isPaid() ? "checked='checked'": ""; ?> /><br>
 
     <br/>

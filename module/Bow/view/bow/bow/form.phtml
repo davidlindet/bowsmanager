@@ -3,19 +3,19 @@ use Bow\Enum\BowTypeEnum;
 use Bow\Enum\BowSizeEnum;
 ?>
 
-<h1>
+<h1><img src="/img/bow/header.png" width="80" />
     <?php echo $header ?>
 </h1>
+<a class="back" href="<?php
+echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section))
+?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
 <div class="error-message"></div>
-<a href="<?php
-    echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section))
-?>" ><?php echo $this->translate("Back") ?></a>
 <form id="bow-form" >
     <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
     <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $bow->getCollectionId() ?>">
     <input type="hidden" name="id" id="id" value="<?php echo $bow->getId() ?>">
 
-    <label for="type"><?php echo $this->translate("Type") ?></label>
+    <label for="type"><?php echo $this->translate("Type") ?></label><br />
     <select name="type" id="type" >
         <?php
             foreach(BowTypeEnum::COPIES(true) as $value => $copy) {
@@ -27,7 +27,7 @@ use Bow\Enum\BowSizeEnum;
     </select>
     <br />
 
-    <label for="size"><?php echo $this->translate("Size") ?></label>
+    <label for="size"><?php echo $this->translate("Size") ?></label><br />
     <select name="size" id="size" >
         <?php
             foreach(BowSizeEnum::COPIES(true) as $value => $copy) {
@@ -39,34 +39,36 @@ use Bow\Enum\BowSizeEnum;
     </select>
     <br />
 
-    <label for="description"><?php echo $this->translate("Description") ?></label>
-    <textarea name="description" id="description">
-        <?php echo $bow->getDescription() ?>
-    </textarea>
-    <br />
 
-    <label for="workToDo"><?php echo $this->translate("Work to do") ?></label>
-    <textarea name="workToDo" id="workToDo">
-        <?php echo $bow->getWorkToDo() ?>
-    </textarea>
+    <ul>
+        <li>
+            <label for="description"><?php echo $this->translate("Description") ?></label><br />
+            <textarea name="description" id="description">
+                <?php echo $bow->getDescription() ?>
+            </textarea>
+        </li>
+        <li>
+            <label for="workToDo"><?php echo $this->translate("Work to do") ?></label><br />
+            <textarea name="workToDo" id="workToDo">
+                <?php echo $bow->getWorkToDo() ?>
+            </textarea>
+        </li>
+        <li>
+            <label  for="status"><?php echo $this->translate("Status") ?></label><br />
+            <textarea name="status" id="status">
+                <?php echo $bow->getStatus() ?>
+            </textarea>
+        </li>
+    </ul>
+    <br class="clearfix" />
+        <label for="comments"><?php echo $this->translate("Comments") ?></label><br />
+        <textarea name="comments" id="comments">
+            <?php echo $bow->getComments() ?>
+        </textarea>
     <br />
-
-    <label for="status"><?php echo $this->translate("Status") ?></label>
-    <textarea name="status" id="status">
-        <?php echo $bow->getStatus() ?>
-    </textarea>
-    <br />
-
-    <label for="isDone"><?php echo $this->translate("Is done?") ?></label>
-    <input type="checkbox" name="isDone" id="isDone" <?php echo ($bow->getIsDone()) ? "checked='checked'" : "" ?> />
-    <br />
-
-    <label for="comments"><?php echo $this->translate("Comments") ?></label>
-    <textarea name="comments" id="comments">
-        <?php echo $bow->getComments() ?>
-    </textarea>
-    <br />
-
+        <label for="isDone"><?php echo $this->translate("Is done?") ?></label>
+        <input type="checkbox" name="isDone" id="isDone" <?php echo ($bow->getIsDone()) ? "checked='checked'" : "" ?> />
+    <br /><br />
     <button type="submit" id="save-bow" ><?php echo $this->translate("Save") ?></button>
 </form>
 <?php

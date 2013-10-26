@@ -1,5 +1,5 @@
 h1 {
-   display: inline-block;
+    display: inline-block;
     margin: 20px 10px 20px 0;
 }
 .details dl{
@@ -18,11 +18,29 @@ dd {
 form label {
     margin-top: 10px;
 }
+form ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+form ul li {
+    float: left;
+    width:  250px;
+    padding-left: 0;
+    margin-right: 20px;
+}
+form textarea {
+    width: 250px;
+    height: 150px;
+    border: 1px solid #AAAAAA;
+}
 .table.clients .client:hover,
 .table.collections .collection:hover,
 .table.bows .bow:hover{
     background-color: #EEE;
     cursor: pointer;
+}
+.clearfix{
+    clear: left;
 }
 
 /**
@@ -148,7 +166,6 @@ form label {
 .collection-list .options{
     top: 10px;
 }
-
 .options.client-details {
     right:  120px;
     width: 205px;
@@ -166,6 +183,9 @@ form label {
 .bow-list{
     position: relative;
     clear: left;
+}
+.bow-list .options{
+    top: 10px;
 }
 
 /**
