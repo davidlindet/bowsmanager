@@ -18,6 +18,7 @@ use Application\Enum\SectionEnum;
             ->prependStylesheet($this->basePath() . '/css/bowsmanager-responsive.css')
             ->prependStylesheet($this->basePath() . '/css/bowsmanager.css')
             ->prependStylesheet($this->basePath() . '/css/style.css')
+            ->prependStylesheet($this->basePath() . '/css/jquery-ui-1.10.3.custom.min.css')
             ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
             ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
         ?>
@@ -27,6 +28,7 @@ use Application\Enum\SectionEnum;
             ->prependFile($this->basePath() . '/js/bowsmanager.js')
             ->prependFile($this->basePath() . '/js/lib/plugins.js')
             ->prependFile($this->basePath() . '/js/lib/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/lib/jquery-ui-1.10.3.custom.min.js')
             ->prependFile($this->basePath() . '/js/lib/jquery.min.js')
             ->prependFile($this->basePath() . '/js/lib/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
             ->prependFile($this->basePath() . '/js/lib/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))

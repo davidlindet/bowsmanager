@@ -31,18 +31,21 @@
     ?>
 
     <label for="receptionTime"><?php echo $this->translate("Reception Date") ?></label><br/>
-    <input type="text" name="receptionTime" id="receptionTime" value="<?php echo $collection->getReceptionTime() ?>"><br>
+    <input type="text" name="receptionTime" class="datepicker" id="receptionTime" value="<?php echo $collection->getReceptionTime() ?>"><br>
 
     <label for="packageNumber"><?php echo $this->translate("Package Number") ?></label><br/>
     <input type="text" name="packageNumber" id="packageNumber" value="<?php echo $collection->getPackageNumber() ?>"><br>
 
     <label for="returnTime"><?php echo $this->translate("Return Date") ?></label><br/>
-    <input type="text" name="returnTime" id="returnTime" value="<?php echo $collection->getReturnTime() ?>"><br>
+    <input type="text" name="returnTime" class="datepicker" id="returnTime" value="<?php echo $collection->getReturnTime() ?>"><br>
     <br/>
     <button type="submit" id="save-collection" ><?php echo $this->translate("Save") ?></button>
 </form>
 <?php
-    $this->placeholder('scripts')->append("BowsManager.collection.add()");
+    $this->placeholder('scripts')->append("
+        BowsManager.tools.datepicker();
+        BowsManager.collection.add()
+    ");
 ?>
 
 

@@ -319,6 +319,9 @@ msgstr "Montant"
 msgid "Is sent?"
 msgstr "Renvoyé?"
 
+msgid "Is paid?"
+msgstr "Réglé?"
+
 #------------------------------------------
 #       Search
 #------------------------------------------

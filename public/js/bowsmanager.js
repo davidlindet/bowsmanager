@@ -1,5 +1,17 @@
 var BowsManager = {};
 
+BowsManager.tools = (function() {
+
+    function datepicker(){
+        var $input = $(".datepicker").click(function() { return $(this); });
+        $input.datepicker({ dateFormat: 'dd-mm-yy'}).val();
+    }
+
+    return {
+        datepicker: datepicker
+    }
+})();
+
 BowsManager.client = (function() {
 
     function add(){
@@ -155,7 +167,7 @@ BowsManager.collection = (function() {
     }
 
     function del(){
-        $(".collection-delete").click(function() {
+        $(".collection.delete").click(function() {
             var collectionId = $(this).data('id');
             var clientId = $(this).data('clientid');
             var section = $(this).data('section');

@@ -40,6 +40,9 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
     <th>
         <?php echo $this->translate("Is sent?"); ?>
     </th>
+    <th>
+        <?php echo $this->translate("Is paid?"); ?>
+    </th>
     <th>&nbsp;</th>
     <?php
         /**  @var  $collection Collection*/
@@ -62,11 +65,16 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
             <?php
             }
             ?>
-            <td class="count-bows">
+            <td class="center">
                 <?php echo $collection->countBows() ?>
             </td>
-            <td class="count-bows">
+            <td class="center">
                 <?php if($collection->isSent()) { ?>
+                    <img src="/img/content/valid.png">
+                <?php } ?>
+            </td>
+            <td class="center">
+                <?php if($collection->isPaid()) { ?>
                     <img src="/img/content/valid.png">
                 <?php } ?>
             </td>
