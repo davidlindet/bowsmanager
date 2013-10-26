@@ -38,6 +38,7 @@ class CollectionController extends AbstractActionController
     {
         return new ViewModel(array(
             'collections' => $this->getCollectionService()->getAll(),
+            'header' => 'Collections List',
         ));
     }
 

@@ -202,7 +202,7 @@ class Collection
      */
     public function setReturnTime($returnTime)
     {
-        $this->returnTime = $returnTime;
+        $this->returnTime = $returnTime ? $returnTime : CollectionEnum::NO_RETURN_TIME;
     }
 
     /**

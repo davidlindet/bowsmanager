@@ -12,6 +12,7 @@ namespace Application\Enum;
 class SectionEnum {
 
     const HOME = "index-";
+    const INDEX_INDEX = "index-index";
 
     const CLIENT = "client-";
     const CLIENT_INDEX = "client-index";

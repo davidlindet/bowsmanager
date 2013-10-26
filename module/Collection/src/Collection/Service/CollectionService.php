@@ -65,6 +65,41 @@ class CollectionService
         return $this->setBows($collections);
     }
 
+    public function getCollectionsNotSent(){
+        $order = CollectionEnum::SORT_NEW_TO_OLD;
+
+        $where = array(
+            array(
+                "key" => CollectionEnum::ATTR_RETURN_TIME,
+                "clause" => "=",
+                "value" => CollectionEnum::NO_RETURN_TIME,
+            )
+        );
+
+        $collections = $this->collectionDao->fetchAll($order, $where);
+        return $this->setBows($collections);
+    }
+
+    public function getCollectionsNotPaid(){
+        $order = CollectionEnum::SORT_NEW_TO_OLD;
+
+        $where = array(
+            array(
+                "key" => CollectionEnum::ATTR_RETURN_TIME,
+                "clause" => ">",
+                "value" => CollectionEnum::NO_RETURN_TIME,
+            ),
+            array(
+                "key" => CollectionEnum::ATTR_PAID_STATUS,
+                "clause" => "=",
+                "value" => "false",
+            ),
+        );
+
+        $collections = $this->collectionDao->fetchAll($order, $where);
+        return $this->setBows($collections);
+    }
+
     public function save(Collection $collectionModel){
         try {
             $collectionId = $this->collectionDao->saveCollection($collectionModel);

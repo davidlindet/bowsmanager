@@ -280,6 +280,12 @@ msgstr "Remarques"
 msgid "Collections List"
 msgstr "Liste des lots"
 
+msgid "Collections Not Sent"
+msgstr "Lots non renvoyés"
+
+msgid "Collections Not Paid"
+msgstr "Lots non réglés"
+
 msgid "Collections"
 msgstr "Lots"
 

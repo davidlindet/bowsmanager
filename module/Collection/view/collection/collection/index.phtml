@@ -9,7 +9,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "<h1>" : "<h2>";
 ?>
     <img src="/img/collection/header.png" <?php echo ($section == SectionEnum::COLLECTION_INDEX) ? "width='80'" : "width='40'"; ?> >
 <?php
-    echo $this->translate('Collections List');
+    echo $this->translate($header);
 echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
 ?>
 <div class="options">

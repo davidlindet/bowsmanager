@@ -12,10 +12,29 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
+use Collection\Service\CollectionService;
+
 class IndexController extends AbstractActionController
 {
+    /**
+     * @var $collectionService CollectionService
+     */
+    protected $collectionService;
+
+    public function getCollectionService()
+    {
+        if (!$this->collectionService) {
+            $this->collectionService = $this->getServiceLocator()->get('CollectionService');
+        }
+        return $this->collectionService;
+    }
+
     public function indexAction()
     {
-        return new ViewModel();
+        return new ViewModel(array(
+            'collectionsNotSent' => $this->getCollectionService()->getCollectionsNotSent(),
+            'collectionsNotPaid' => $this->getCollectionService()->getCollectionsNotPaid(),
+        ));
     }
+
 }

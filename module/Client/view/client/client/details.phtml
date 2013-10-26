@@ -70,7 +70,8 @@
     // Collection List
     echo $this->partial('collectionList', array(
         'collections' => $client->getCollections(),
-        'clientId' => $client->getId()
+        'clientId' => $client->getId(),
+        'header' => 'Collections List',
     ));
 ?>
 </div>

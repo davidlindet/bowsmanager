@@ -24,7 +24,7 @@ class CollectionDao
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll($order = CollectionEnum::SORT_NEW_TO_OLD) {
+    public function fetchAll($order = CollectionEnum::SORT_NEW_TO_OLD, $where = array()) {
         $driver = $this->tableGateway->getAdapter()->getDriver();
 
         if($order == CollectionEnum::SORT_NEW_TO_OLD){
@@ -34,12 +34,23 @@ class CollectionDao
             $orderSql = "reception_time ASC";
         }
 
+        $whereSql = (empty($where)) ? "" : "WHERE ";
+        for($i = 0; $i < count($where); $i++){
+            $data = $where[$i];
+            $whereSql .= $data['key'] . $data['clause'] . $data['value'];
+
+            if($i < count($where) -1){
+                $whereSql .= " AND ";
+            }
+        }
+
         $sql = "SELECT col.id, owner, reception_time, return_time,
               package_number, bill_reference, bill_amount,
               paid_status, first_name, last_name
               FROM bm_collection col
-              JOIN bm_client cli
-              ON cli.id = col.owner
+                  JOIN bm_client cli
+                    ON cli.id = col.owner
+              $whereSql
               ORDER BY $orderSql;
         ";
 
