@@ -19,7 +19,8 @@ form label {
     margin-top: 10px;
 }
 .table.clients .client:hover,
-.table.collections .collection:hover{
+.table.collections .collection:hover,
+.table.bows .bow:hover{
     background-color: #EEE;
     cursor: pointer;
 }

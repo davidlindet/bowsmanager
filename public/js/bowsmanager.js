@@ -15,8 +15,10 @@ BowsManager.tools = (function() {
 BowsManager.client = (function() {
 
     function details(){
-        $(".table.clients .client").click(function() {
-            window.location.href = $(this).data('url');
+        $(".table.clients .client td").click(function() {
+            if(!$(this).hasClass("list-options")) {
+                window.location.href = $(this).parent().data('url');
+            }
         });
     }
 
@@ -90,6 +92,14 @@ BowsManager.client = (function() {
 
 BowsManager.bow = (function() {
 
+    function details(){
+        $(".table.bows .bow td").click(function() {
+            if(!$(this).hasClass("list-options")) {
+                window.location.href = $(this).parent().data('url');
+            }
+        });
+    }
+
     function add(){
         $("#bow-form").submit(function( event ) {
             event.preventDefault();
@@ -111,7 +121,7 @@ BowsManager.bow = (function() {
     }
 
     function del(){
-        $(".bow-delete").click(function() {
+       $(".bow-delete").click(function() {
             var bowId = $(this).data('id');
             var section = $(this).data('section');
             var collectionId = $(this).data('collectionid');
@@ -140,6 +150,7 @@ BowsManager.bow = (function() {
     }
 
     return {
+        details: details,
         add: add,
         del: del
     }
@@ -148,8 +159,10 @@ BowsManager.bow = (function() {
 BowsManager.collection = (function() {
 
     function details(){
-        $(".table.collections .collection").click(function() {
-            window.location.href = $(this).data('url');
+        $(".table.collections .collection td").click(function() {
+            if(!$(this).hasClass("list-options")) {
+                window.location.href = $(this).parent().data('url');
+            }
         });
     }
 
@@ -203,6 +216,7 @@ BowsManager.collection = (function() {
                 });
             }
         });
+        return;
     }
 
     return {

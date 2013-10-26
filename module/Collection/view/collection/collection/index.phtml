@@ -81,7 +81,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
             <td class="list-options">
                 <a class="collection edit" href="<?php echo $this->url('collection-edit', array('id' => $collection->getId(), 'section' => $section)); ?>">
                     <img src="/img/collection/edit.png"><?php echo $this->translate("Edit") ?></a>
-                <div class="collection delete" data-id="<?php echo $collection->getId() ?>" >
+                <div class="collection delete" data-id="<?php echo $collection->getId() ?>" data-section="<?php echo $section ?>" >
                     <img src="/img/collection/del.png"><?php echo $this->translate("Delete") ?><div>
             </td>
         </tr>
