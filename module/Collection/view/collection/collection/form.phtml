@@ -2,6 +2,13 @@
 <a class="back" href="<?php echo $backUrl ?>" ><img src="/img/content/back.png">
 <?php echo $this->translate("Back") ?></a>
 <div class="error-message"></div>
+
+<?php
+    if(empty($clients) && $collection->getOwnerId() === null){
+        echo $this->translate("Please add a client first!");
+    }
+    else {
+?>
 <form id="collection-form" >
     <input type="hidden" name="section" value="<?php echo $section ?>">
     <input type="hidden" name="id" id="id" value="<?php echo $collection->getId() ?>">
@@ -56,6 +63,9 @@
         BowsManager.tools.datepicker();
         BowsManager.collection.add()
     ");
+?>
+<?php
+    }
 ?>
 
 

@@ -221,6 +221,9 @@ msgstr "Remarques"
 #       Collection
 #------------------------------------------
 
+msgid "Please add a client first!"
+msgstr "Ajouter un client!"
+
 msgid "Collections List"
 msgstr "Liste des lots"
 
