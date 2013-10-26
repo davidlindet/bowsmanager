@@ -1,21 +1,23 @@
 <?php
 use Collection\Model\Collection;
+
+$section = $this->sectionName();
 ?>
-<h2>
-<?php
-    echo $this->translate('Collections');
-?>
-</h2>
-<table class="table">
+<h2><img src="/img/collection/header.png" width="50" /><?php echo $this->translate('Collections'); ?></h2>
+<table class="table collections">
     <th><?php echo $this->translate("Reception Date"); ?></th>
     <th><?php echo $this->translate("Client"); ?></th>
     <th><?php echo $this->translate("Bows"); ?></th>
-    <th><?php echo $this->translate("Options"); ?></th>
+    <th> <?php echo $this->translate("Is sent?"); ?></th>
+    <th><?php echo $this->translate("Is paid?"); ?></th>
+    <th>&nbsp;</th>
     <?php
     /**  @var  $collection Collection*/
     foreach ($collections as $collection) :
         ?>
-        <tr id="collection-<?php echo $collection->getId() ?>">
+        <tr class="collection" id="collection-<?php echo $collection->getId() ?>"
+            data-url="<?php echo $this->url('collection-details',  array('id' => $collection->getId(),'section' => $section)); ?>"
+            >
             <td>
                 <?php echo $collection->getReceptionTime() ?>
             </td>
@@ -24,16 +26,23 @@ use Collection\Model\Collection;
                     <?php echo  $this->highLight($collection->getOwnerName(), $query) ?>
                 </a>
             </td>
-            <td>
-                <?php echo $collection->countBows() ?>
+            <td class="center"><?php echo $collection->countBows() ?></td>
+
+            <td class="center">
+                <?php if($collection->isSent()) { ?>
+                    <img src="/img/content/valid.png">
+                <?php } ?>
             </td>
             <td>
-                <a href="<?php echo $this->url('collection-details',  array('id' => $collection->getId())); ?>"><?php
-                    echo $this->translate("Details")
-                    ?></a>
-                <a href="<?php echo $this->url('collection-edit', array('id' => $collection->getId())); ?>"><?php
-                    echo $this->translate("Edit")
-                    ?></a>
+                <?php if($collection->isPaid()) { ?>
+                    <img src="/img/content/valid.png">
+                <?php } ?>
+            </td>
+            <td class="list-options">
+                <a class="collection edit" href="<?php echo $this->url('collection-edit', array('id' => $collection->getId(), 'section' => $section)); ?>">
+                    <img src="/img/collection/edit.png"><?php echo $this->translate("Edit") ?></a>
+                <div class="collection delete" data-id="<?php echo $collection->getId() ?>" data-section="<?php echo $section ?>" >
+                    <img src="/img/collection/del.png"><?php echo $this->translate("Delete") ?><div>
             </td>
         </tr>
     <?php endforeach; ?>

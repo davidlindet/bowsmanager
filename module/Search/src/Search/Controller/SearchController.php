@@ -39,6 +39,7 @@ class SearchController extends AbstractActionController
 
         $response = array('success' => false,
                             'clientHTML' => false,
+                            'collectionHTML' => false,
                             'bowHTML' => false,
                             'query' => $query
                             );

@@ -1,11 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: ZendSkeletonApplication\n"
+"Project-Id-Version: BowsManagerApplication\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-05 22:32-0700\n"
-"PO-Revision-Date: 2012-07-05 23:36-0700\n"
-"Last-Translator: Evan Coury <me@evancoury.com>\n"
-"Language-Team: ZF Contibutors <zf-devteam@zend.com>\n"
+"POT-Creation-Date: 2013-10-16 09:00-0700\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,59 +24,6 @@ msgstr "Accueil"
 #: ../view/layout/layout.phtml:50
 msgid "All rights reserved."
 msgstr "Tous droits réservés."
-
-#: ../view/application/index/index.phtml:2
-#, php-format
-msgid "Welcome to %sZend Framework 2%s"
-msgstr "Bienvenue dans le %sZend Framework 2%s"
-
-#: ../view/application/index/index.phtml:3
-#, php-format
-msgid "Congratulations! You have successfully installed the %sZF2 Skeleton Application%s. You are currently running Zend Framework version %s. This skeleton can serve as a simple starting point for you to begin building your application on ZF2."
-msgstr "Félicitations ! Vous avez installé avec succès le %sZF2 Skeleton Application%s. Vous utilisez actuellement Zend Framework version %s. Cette structure peut vous servir comme un point de départ simple pour démarrer la construction de votre application avec ZF2."
-
-#: ../view/application/index/index.phtml:4
-msgid "Fork Zend Framework 2 on GitHub"
-msgstr "Faites un Fork de Zend Framework 2 sur GitHub"
-
-#: ../view/application/index/index.phtml:10
-msgid "Follow Development"
-msgstr "Suivre le développement"
-
-#: ../view/application/index/index.phtml:11
-#, php-format
-msgid "Zend Framework 2 is under active development. If you are interested in following the development of ZF2, there is a special ZF2 portal on the official Zend Framework website which provides links to the ZF2 %swiki%s, %sdev blog%s, %sissue tracker%s, and much more. This is a great resource for staying up to date with the latest developments!"
-msgstr "Zend Framework 2 est en cours de développement. Si vous êtes intéressé pour suivre l'évolution de ZF2, il existe un portail dédié à ZF2 sur le site officiel Zend Framework qui propose des liens vers le %swiki%s ZF2, %sdev blog%s, %ssuivi des problèmes%s, et bien plus encore. Il s'agit d'une excellente ressource pour rester à jour sur les dernières évolutions !"
-
-#: ../view/application/index/index.phtml:12
-msgid "ZF2 Development Portal"
-msgstr "Portail sur le développement de ZF2"
-
-#: ../view/application/index/index.phtml:16
-msgid "Discover Modules"
-msgstr "Découvrez les modules"
-
-#: ../view/application/index/index.phtml:17
-#, php-format
-msgid "The community is working on developing a community site to serve as a repository and gallery for ZF2 modules. The project is available %son GitHub%s. The site is currently live and currently contains a list of some of the modules already available for ZF2."
-msgstr "La communauté travaille sur le développement d'un site communautaire avec l'objectif de servir de dépôt et de galerie  pour les modules ZF2. Le projet est disponible %ssur GitHub%s. Le site est déjà en ligne, et contient une liste non exhaustive des modules déjà disponibles pour ZF2."
-
-#: ../view/application/index/index.phtml:18
-msgid "Explore ZF2 Modules"
-msgstr "Explorer les modules ZF2"
-
-#: ../view/application/index/index.phtml:22
-msgid "Help &amp; Support"
-msgstr "Aide &amp; support"
-
-#: ../view/application/index/index.phtml:23
-#, php-format
-msgid "If you need any help or support while developing with ZF2, you may reach us via IRC: %s#zftalk on Freenode%s. We'd love to hear any questions or feedback you may have regarding the beta releases. Alternatively, you may subscribe and post questions to the %smailing lists%s."
-msgstr "Si vous avez besoin d'aide ou de support en développant avec ZF2, vous pouvez nous joindre sur IRC : %s#zftalk sur Freenode%s. Nous aimerions avoir vos questions ou vos commentaires que vous pourriez avoir au sujet des versions bêta. Sinon, vous pouvez vous abonner, et poser des questions sur la %sliste de diffusion%s."
-
-#: ../view/application/index/index.phtml:24
-msgid "Ping us on IRC"
-msgstr "Rejoignez-nous sur IRC"
 
 #: ../view/error/index.phtml:1
 msgid "An error occurred"
@@ -333,3 +277,10 @@ msgstr "Réglé?"
 #------------------------------------------
 msgid "Search"
 msgstr "Rechercher"
+
+msgid "Keywords"
+msgstr "Mots-clés"
+
+msgid "In"
+msgstr "Dans"
+

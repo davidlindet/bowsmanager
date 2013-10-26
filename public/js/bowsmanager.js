@@ -245,9 +245,23 @@ BowsManager.search = (function() {
                 data: params,
                 success: function(data) {
                     if(data.success){
-                        $('#client-results').html(data.clientHTML);
-                        $('#bow-results').html(data.bowHTML);
-                        $('#collection-results').html(data.collectionHTML);
+                        if(data.clientHTML){
+                            $('#client-results').html(data.clientHTML);
+                            BowsManager.client.details();
+                            BowsManager.client.del();
+                        }
+
+                        if(data.bowHTML){
+                            $('#bow-results').html(data.bowHTML);
+                            BowsManager.bow.details();
+                            BowsManager.bow.del();
+                        }
+
+                        if(data.collectionHTML){
+                            $('#collection-results').html(data.collectionHTML);
+                            BowsManager.collection.details();
+                            BowsManager.collection.del();
+                        }
                     }
                     else {
                         $('.error-message').html(data.error);

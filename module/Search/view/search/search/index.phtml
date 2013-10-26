@@ -3,14 +3,16 @@ use Collection\Model\Collection;
 use Collection\Enum\CollectionEnum;
 
 ?>
-<h1><?php echo $this->translate("Search"); ?></h1>
+<h1><img src="/img/search/header.png" width="80" /><?php echo $this->translate("Search"); ?></h1>
 <form id="search-form" >
-    <input type="text" name="query" />
-    <select name="type" multiple>
-        <option selected="selected" value="client"><?php echo $this->translate("Client"); ?></option>
-        <option selected="selected"value="bow"><?php echo $this->translate("Bow"); ?></option>
-        <option selected="selected" value="collection"><?php echo $this->translate("Collection"); ?></option>
-    </select>
+    <label for="query" ><?php echo $this->translate("Keywords") ?></label>
+    <input type="text" id="query" name="query" /><br />
+
+    <label for="type" ><?php echo $this->translate("In") ?></label>
+    <input type="checkbox" checked="checked" name="type[]" value="client"><?php echo $this->translate("Client"); ?>
+    <input type="checkbox" checked="checked" name="type[]" value="bow"><?php echo $this->translate("Bow"); ?>
+    <input type="checkbox" checked="checked" name="type[]" value="collection"><?php echo $this->translate("Collection"); ?>
+    <br />
     <button type="submit" id="search"><?php echo $this->translate("Search"); ?></button>
 </form>
 <div class="error-message"></div>

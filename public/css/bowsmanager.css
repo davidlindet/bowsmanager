@@ -207,3 +207,12 @@ form textarea {
     color: red;
     font-weight: bold;
 }
+
+#search-form {
+    position: relative;
+}
+#search-form #search{
+    position: absolute;
+    top: 5px;
+    left: 300px;
+}

@@ -12,4 +12,8 @@
     .options {
         position: static;
     }
+
+    #search-form #search{
+        position: static;
+    }
 }

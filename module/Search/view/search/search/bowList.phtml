@@ -2,9 +2,11 @@
 use Bow\Model\Bow;
 use Bow\Enum\BowTypeEnum;
 use Bow\Enum\BowSizeEnum;
+
+$section = $this->sectionName();
 ?>
-<h2><?php echo $this->translate("Bows") ?></h2>
-<table class="table">
+<h2><img src="/img/bow/header.png" width="50" /><?php echo $this->translate("Bows") ?></h2>
+<table class="table bows">
     <tr>
         <th><?php echo $this->translate("Type") ?></th>
         <th><?php echo $this->translate("Size") ?></th>
@@ -18,18 +20,24 @@ use Bow\Enum\BowSizeEnum;
 
     <?php /**  @var  $bow Bow*/?>
     <?php foreach ($bows as $bow) : ?>
-        <tr id="bow-<?php echo $bow->getId() ?>" >
+        <?php $detailUrl = $this->url('bow-details', array('id' => $bow->getId(), 'section' => $section)); ?>
+        <tr class="bow" id="bow-<?php echo $bow->getId() ?>" data-url="<?php echo $detailUrl ?>" >
             <td><?php echo $this->highLight($this->translate(BowTypeEnum::COPY($bow->getType())), $query);?></td>
             <td><?php echo $this->highLight($this->translate(BowSizeEnum::COPY($bow->getSize())), $query);?></td>
-            <td><?php echo $this->highLight($bow->getDescription(), $query);?></td>
-            <td><?php echo $this->highLight($bow->getWorkToDo(), $query);?></td>
-            <td><?php echo $this->highLight($bow->getStatus(), $query);?></td>
-            <td><?php echo $bow->getIsDone() ?></td>
-            <td><?php echo $this->highLight($bow->getComments(), $query);?></td>
+            <td><?php echo nl2br($this->highLight($bow->getDescription(), $query));?></td>
+            <td><?php echo nl2br($this->highLight($bow->getWorkToDo(), $query));?></td>
+            <td><?php echo nl2br($this->highLight($bow->getStatus(), $query));?></td>
             <td>
-                <a href="<?php echo $this->url('bow-details', array('id' => $bow->getId()));?>"><?php echo $this->translate("Details") ?></a>
-                <a href="<?php echo $this->url('bow-edit', array('id' => $bow->getId()));?>"><?php echo $this->translate("Edit") ?></a>
+                <?php if($bow->getIsDone()) { ?>
+                    <img src="/img/content/valid.png">
+                <?php } ?>
+            </td>
+            <td><?php echo $this->highLight($bow->getComments(), $query);?></td>
+            <td class="list-options">
+                <a class="edit" href="<?php echo $this->url('bow-edit', array('id' => $bow->getId(), 'section' => $section));?>"><img src="/img/bow/edit.png" /></a>
+                <div class="bow delete" data-id="<?php echo $bow->getId() ?>" ><img src="/img/bow/del.png" /><div>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
+
