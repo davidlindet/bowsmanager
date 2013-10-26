@@ -121,7 +121,7 @@ BowsManager.bow = (function() {
     }
 
     function del(){
-       $(".bow-delete").click(function() {
+       $(".bow.delete").click(function() {
             var bowId = $(this).data('id');
             var section = $(this).data('section');
             var collectionId = $(this).data('collectionid');

@@ -40,9 +40,9 @@ use Bow\Enum\BowSizeEnum;
                 <?php } ?>
             </td>
             <td><?php echo nl2br($bow->getComments());?></td>
-            <td>
-                <a class="edit" href="<?php echo $this->url('bow-edit', array('id' => $bow->getId(), 'section' => $section));?>"><img src="/img/bow/edit.png" /><?php echo $this->translate("Edit") ?></a>
-                <div class="bow delete" data-id="<?php echo $bow->getId() ?>" ><img src="/img/bow/del.png" /><?php echo $this->translate("Delete") ?><div>
+            <td class="list-options">
+                <a class="edit" href="<?php echo $this->url('bow-edit', array('id' => $bow->getId(), 'section' => $section));?>"><img src="/img/bow/edit.png" /></a>
+                <div class="bow delete" data-id="<?php echo $bow->getId() ?>" ><img src="/img/bow/del.png" /><div>
             </td>
         </tr>
     <?php endforeach; ?>

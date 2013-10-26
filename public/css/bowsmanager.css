@@ -149,6 +149,7 @@ form textarea {
 }
 .list-options {
     text-align: right;
+    width: 220px;
 }
 /**
     Client
@@ -186,6 +187,17 @@ form textarea {
 }
 .bow-list .options{
     top: 10px;
+}
+.bow-list .list-options {
+    text-align: right;
+    width: 100px;
+}
+
+/**
+    Bows
+*/
+.details.bows dd{
+    padding-left: 0px;
 }
 
 /**
