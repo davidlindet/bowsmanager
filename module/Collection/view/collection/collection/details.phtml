@@ -13,60 +13,86 @@ echo $backUrl;
 
 <div class="options">
     <a class="edit" href="<?php echo $this->url('collection-edit', array('id' => $collection->getId(), 'section' => $section));?>">
-        <img src="/img/collection/edit.png"><?php echo $this->translate("Edit") ?>
-    </a>
+        <img src="/img/collection/edit.png"><?php echo $this->translate("Edit") ?></a>
     <div class="collection delete" data-id="<?php echo $collection->getId() ?>" data-clientid="<?php echo $collection->getOwnerId() ?>" data-section="<?php echo $section ?>" >
-        <img src="/img/collection/del.png">
-        <?php
-        echo $this->translate("Delete") ?>
+        <img src="/img/collection/del.png"><?php echo $this->translate("Delete") ?>
     </div>
 </div>
-<dl>
-    <dt>
-        <?php echo $this->translate("Client") ?>
-    </dt>
-    <dd>
-        <a href="<?php echo $this->url('client-details', array('id' => $collection->getOwnerId())) ?>">
-            <?php echo $collection->getOwnerName() ?>
-        </a>
-    </dd>
-    <dt>
-        <?php echo $this->translate("Reception Date") ?>
-    </dt>
-    <dd>
-        <?php echo $collection->getReceptionTime() ?>
-    </dd>
-    <dt>
-        <?php echo $this->translate("Bows") ?>
-    </dt>
-    <dd>
-        <?php echo $collection->countBows() ?>
-    </dd>
-    <dt>
-        <?php echo $this->translate("Return Date") ?>
-    </dt>
-    <dd>
-        <?php echo $collection->getReturnTime() ?>
-    </dd>
-    <dt>
-        <?php echo $this->translate("Package Number") ?>
-    </dt>
-    <dd>
-        <?php echo $collection->getPackageNumber() ?>
-    </dd>
-    <dt>
-        <?php echo $this->translate("Bill Reference") ?>
-    </dt>
-    <dd>
-        <?php echo $collection->getBillReference() ?>
-    </dd>
-    <dt>
-        <?php echo $this->translate("Bill Amount") ?>
-    </dt>
-    <dd>
-        <?php echo $collection->getBillAmount() ?>
-    </dd>
-</dl>
+<?php
+    $ownerName = $collection->getOwnerName();
+    $receptionTime = $collection->getReceptionTime();
+    $countBows = $collection->countBows();
+    $returnTime = $collection->getReturnTime();
+    $packageNumber = $collection->getPackageNumber();
+    $billReference = $collection->getBillReference();
+    $billAmount = $collection->getBillAmount();
+    $paidStatus = $collection->isPaid();
+?>
+<div class="details">
+    <dl>
+        <?php if(!empty($ownerName)) { ?>
+            <dt><?php echo $this->translate("Client") ?></dt>
+            <dd>
+                <a href="<?php echo $this->url('client-details', array('id' => $collection->getOwnerId())) ?>">
+                    <?php echo $ownerName ?>
+                </a>
+            </dd>
+        <?php
+        }
+        ?>
+        <?php if(!empty($receptionTime)){ ?>
+            <dt><?php echo $this->translate("Reception Date") ?></dt>
+            <dd><?php echo $receptionTime ?></dd>
+        <?php
+        }
+        ?>
+        <?php if(!empty($countBows)){ ?>
+            <dt><?php echo $this->translate("Bows") ?></dt>
+            <dd><?php echo $countBows ?></dd>
+        <?php
+        }
+        ?>
+    </dl>
+    <dl>
+        <?php if(!empty($returnTime)){ ?>
+            <dt><?php echo $this->translate("Return Date") ?></dt>
+            <dd><?php echo $returnTime ?></dd>
+        <?php
+        }
+        ?>
+        <?php if(!empty($packageNumber)){ ?>
+            <dt><?php echo $this->translate("Package Number") ?></dt>
+            <dd><?php echo $packageNumber ?></dd>
+        <?php
+        }
+        ?>
+    </dl>
+    <dl>
+        <?php if(!empty($billReference)){ ?>
+            <dt><?php echo $this->translate("Bill Reference") ?></dt>
+            <dd><?php echo $billReference ?></dd>
+        <?php
+        }
+        ?>
+        <?php if(!empty($billAmount)){ ?>
+            <dt><?php echo $this->translate("Bill Amount") ?></dt>
+            <dd><?php echo $billAmount ?></dd>
+        <?php
+        }
+        ?>
+        <?php if(!empty($paidStatus)){ ?>
+            <dt><?php echo $this->translate("Is paid?") ?></dt>
+            <dd>
+                <?php if($paidStatus) { ?>
+                    <img width="25" src="/img/content/valid.png">
+                <?php } ?>
+            </dd>
+        <?php
+        }
+        ?>
+    </dl>
+</div>
+
 <div class="bow-list">
 <?php
     echo $this->partial('bowList', array(

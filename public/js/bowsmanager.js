@@ -14,6 +14,12 @@ BowsManager.tools = (function() {
 
 BowsManager.client = (function() {
 
+    function details(){
+        $(".table.clients .client").click(function() {
+            window.location.href = $(this).data('url');
+        });
+    }
+
     function add(){
         $("#client-form").submit(function( event ) {
             event.preventDefault();
@@ -75,6 +81,7 @@ BowsManager.client = (function() {
     }
 
     return {
+        details: details,
         add: add,
         del: del,
         listInitFilters : listInitFilters

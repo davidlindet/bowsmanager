@@ -33,11 +33,21 @@
     <label for="receptionTime"><?php echo $this->translate("Reception Date") ?></label><br/>
     <input type="text" name="receptionTime" class="datepicker" id="receptionTime" value="<?php echo $collection->getReceptionTime() ?>"><br>
 
+    <label for="returnTime"><?php echo $this->translate("Return Date") ?></label><br/>
+    <input type="text" name="returnTime" class="datepicker" id="returnTime" value="<?php echo $collection->getReturnTime() ?>"><br>
+
     <label for="packageNumber"><?php echo $this->translate("Package Number") ?></label><br/>
     <input type="text" name="packageNumber" id="packageNumber" value="<?php echo $collection->getPackageNumber() ?>"><br>
 
-    <label for="returnTime"><?php echo $this->translate("Return Date") ?></label><br/>
-    <input type="text" name="returnTime" class="datepicker" id="returnTime" value="<?php echo $collection->getReturnTime() ?>"><br>
+    <label for="billReference"><?php echo $this->translate("Bill Reference") ?></label><br/>
+    <input type="text" name="billReference" id="billReference" value="<?php echo $collection->getBillReference() ?>"><br>
+
+    <label for="billAmount"><?php echo $this->translate("Bill Amount") ?></label><br/>
+    <input type="text" name="billAmount" id="billAmount" value="<?php echo $collection->getBillAmount() ?>"><br>
+
+    <label for="paidStatus"><?php echo $this->translate("Is paid?") ?></label><br/>
+    <input type="checkbox" name="paidStatus" id="paidStatus" <?php echo $collection->isPaid() ? "checked='checked'": ""; ?> /><br>
+
     <br/>
     <button type="submit" id="save-collection" ><?php echo $this->translate("Save") ?></button>
 </form>

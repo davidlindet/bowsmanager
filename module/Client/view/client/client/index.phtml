@@ -31,22 +31,19 @@ use Client\Enum\ClientEnum;
         <?php
         }
         ?>
-        <tr class="data <?php echo $firstLetter ?>" id="client-<?php echo $client->getId() ?>">
-            <td>
-                <a href="<?php echo $this->url('client-details', array('id' => $client->getId()));?>">
-                    <?php echo $this->escapeHtml($client->getName());?>
-                </a>
-            </td>
+        <?php
+            $detailUrl =  $this->url('client-details', array('id' => $client->getId()));
+        ?>
+        <tr class="data client <?php echo $firstLetter ?>" id="client-<?php echo $client->getId() ?>" data-url="<?php echo $detailUrl ?>" >
+            <td><?php echo $this->escapeHtml($client->getName());?></td>
             <td>
                <?php echo $this->translate("Collections") . ": ". $client->countCollections() ?>
             </td>
             <td class="list-options">
                 <a class="client edit" href="<?php echo $this->url('client-edit', array('id' => $client->getId()));?>">
-                    <img src="/img/client/edit.png"><?php echo $this->translate("Edit") ?>
-                </a>
+                    <img src="/img/client/edit.png"><?php echo $this->translate("Edit") ?></a>
                 <div class="client delete" data-id="<?php echo $client->getId() ?>" data-section="<?php echo $this->sectionName();
-                ?>" > <img src="/img/client/del.png">
-                    <?php echo $this->translate("Delete") ?>
+                ?>" > <img src="/img/client/del.png"><?php echo $this->translate("Delete") ?>
                 <div>
             </td>
         </tr>
@@ -55,6 +52,7 @@ use Client\Enum\ClientEnum;
 <?php
     $this->placeholder('scripts')->append("
         BowsManager.client.listInitFilters();
+        BowsManager.client.details();
         BowsManager.client.del();
     ");
 ?>

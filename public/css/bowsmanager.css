@@ -18,6 +18,11 @@ dd {
 form label {
     margin-top: 10px;
 }
+.table.clients .client:hover,
+.table.collections .collection:hover{
+    background-color: #EEE;
+    cursor: pointer;
+}
 
 /**
     Navigation
@@ -154,15 +159,12 @@ form label {
 .table.collections .collection td{
     line-height: 40px;
 }
-.table.collections .collection:hover{
-    background-color: #EEE;
-    cursor: pointer;
-}
 .table.collections .collection .center{
     padding-left: 30px;
 }
 .bow-list{
     position: relative;
+    clear: left;
 }
 
 /**
