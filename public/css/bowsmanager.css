@@ -43,6 +43,12 @@ form textarea {
     clear: left;
 }
 
+.error-message {
+    color: red;
+    padding-left: 10px;
+    font-size: 18px;
+}
+
 /**
     Navigation
 */

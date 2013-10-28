@@ -9,7 +9,7 @@ use Bow\Enum\BowSizeEnum;
 <a class="back" href="<?php
 echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section))
 ?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
-<div class="error-message"></div>
+<div class="error-message bow"></div>
 <form id="bow-form" >
     <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
     <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $bow->getCollectionId() ?>">
@@ -69,7 +69,9 @@ echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'se
         <label for="isDone"><?php echo $this->translate("Is done?") ?></label>
         <input type="checkbox" name="isDone" id="isDone" <?php echo ($bow->getIsDone()) ? "checked='checked'" : "" ?> />
     <br /><br />
-    <button type="submit" id="save-bow" ><?php echo $this->translate("Save") ?></button>
+    <div id="save-bow">
+        <button type="submit" ><?php echo $this->translate("Save") ?></button>
+    </div>
 </form>
 <?php
     $this->placeholder('scripts')->append("BowsManager.bow.add()");

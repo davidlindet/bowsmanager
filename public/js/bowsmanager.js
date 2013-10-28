@@ -25,6 +25,7 @@ BowsManager.client = (function() {
     function add(){
         $("#client-form").submit(function( event ) {
             event.preventDefault();
+            $("#save-client").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
             var params = $("#client-form").serializeForm();
             $.ajax({
                 url: "/client-save",
@@ -35,7 +36,7 @@ BowsManager.client = (function() {
                         window.location.href = '/client-details/'+data.id;
                     }
                     else {
-                        $('.error-message').html(BowsManager.copies.errorSaveClient);
+                        $('.error-message.client').html(data.error);
                     }
                 }
             });
@@ -61,7 +62,7 @@ BowsManager.client = (function() {
                             }
                         }
                         else {
-                            $('.error-message').html("Impossible de supprimer un client");
+                            $('.error-message.client').html(data.error);
                         }
                     }
                 });
@@ -77,7 +78,7 @@ BowsManager.client = (function() {
                 $(".data").show();
             }
             else {
-                $("."+filter).show();
+                $("."+filter.toLowerCase()).show();
             }
         });
     }
@@ -103,6 +104,7 @@ BowsManager.bow = (function() {
     function add(){
         $("#bow-form").submit(function( event ) {
             event.preventDefault();
+            $("#save-bow").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
             var params = $("#bow-form").serializeForm();
             $.ajax({
                 url: "/bow-save",
@@ -113,7 +115,7 @@ BowsManager.bow = (function() {
                         window.location.href = '/collection-details/'+data.collectionId+'/'+data.section;
                     }
                     else {
-                        $('.error-message').html("Impossible d'enregistrer l'archet");
+                        $('.error-message.bow').html(data.error);
                     }
                 }
             });
@@ -126,7 +128,7 @@ BowsManager.bow = (function() {
             var section = $(this).data('section');
             var collectionId = $(this).data('collectionid');
 
-            if(confirm("Voulez vous vraiment supprimer cet archet?")){
+            if(confirm(BowsManager.copies.deleteBow)){
                 $.ajax({
                     url: "/bow-delete",
                     method: "POST",
@@ -141,7 +143,7 @@ BowsManager.bow = (function() {
                             }
                         }
                         else {
-                            $('.error-message').html("Impossible de supprimer l'archet");
+                            $('.error-message.bow').html(data.error);
                         }
                     }
                 });
@@ -169,6 +171,7 @@ BowsManager.collection = (function() {
     function add(){
         $("#collection-form").submit(function( event ) {
             event.preventDefault();
+            $("#save-collection").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
             var params = $("#collection-form").serializeForm();
             $.ajax({
                 url: "/collection-save",
@@ -179,7 +182,7 @@ BowsManager.collection = (function() {
                             window.location.href = '/collection-details/'+data.id+'/'+data.section;
                     }
                     else {
-                        $('.error-message').html("Impossible d'enregistrer le lot");
+                        $('.error-message.collection').html(data.error);
                     }
                 }
             });
@@ -191,7 +194,7 @@ BowsManager.collection = (function() {
             var collectionId = $(this).data('id');
             var clientId = $(this).data('clientid');
             var section = $(this).data('section');
-            if(confirm("Voulez vous vraiment supprimer ce lot?")){
+            if(confirm(BowsManager.copies.deleteCollection)){
                 $.ajax({
                     url: "/collection-delete",
                     method: "POST",
@@ -210,7 +213,7 @@ BowsManager.collection = (function() {
                             }
                         }
                         else {
-                            $('.error-message').html("Impossible de supprimer la collection");
+                            $('.error-message.collection').html(data.error);
                         }
                     }
                 });
@@ -237,7 +240,7 @@ BowsManager.search = (function() {
             $('#client-results').html("");
             $('#bow-results').html("");
             $('#collection-results').html("");
-            $('.error-message').html("");
+            $('.error-message.search').html("");
 
             $.ajax({
                 url: "/search/search",
@@ -264,7 +267,7 @@ BowsManager.search = (function() {
                         }
                     }
                     else {
-                        $('.error-message').html(data.error);
+                        $('.error-message.search').html(data.error);
                     }
                 }
             });

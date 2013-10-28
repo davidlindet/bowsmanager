@@ -7,6 +7,7 @@ use Client\Enum\ClientEnum;
     <a class="add" href="<?php echo $this->url('client-add', array('id' => ClientEnum::NEW_CLIENT));?>">
         <img src="/img/client/add.png"><?php echo $this->translate("Add new client") ?></a>
 </div>
+<div class="error-message client"></div>
 
 <table class="table clients">
     <tr>

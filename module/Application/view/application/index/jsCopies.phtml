@@ -1,10 +1,14 @@
 <?php
+$loading = $this->translate("Loading...");
 $deleteClient = $this->translate("Do you really want to delete this client?");
-$errorSaveClient = $this->translate("Impossible to save this client");
+$deleteBow = $this->translate("Do you really want to delete this bow?");
+$deleteCollection = $this->translate("Do you really want to delete this collection?");
 ?>
 <script type='text/javascript'>
     BowsManager.copies = {
+        loading:  "<?php echo $loading ?>",
         deleteClient: "<?php echo $deleteClient ?>",
-        errorSaveClient: "<?php echo $errorSaveClient ?>"
+        deleteBow: "<?php echo $deleteBow ?>",
+        deleteCollection: "<?php echo $deleteCollection ?>"
     };
 </script>

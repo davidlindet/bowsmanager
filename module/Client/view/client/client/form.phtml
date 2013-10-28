@@ -1,6 +1,6 @@
 <h1><img src="/img/client/client.png"> <?php echo $header ?></h1>
 <a class="back" href="<?php echo $backUrl ?>" ><img src="/img/content/back.png"><?php echo $this->translate("Back") ?></a>
-<div class="error-message"></div>
+<div class="error-message client"></div>
 <form id="client-form" >
     <input type="hidden" name="id" id="id" value="<?php echo $client->getId() ?>">
 
@@ -25,7 +25,9 @@
     <label for="website"><?php echo $this->translate("Website") ?></label><br />
     <input class="item type="text" name="website" id="website" value="<?php echo $client->getWebsite() ?>"><br /><br />
 
-    <button type="submit" id="save-client" ><?php echo $this->translate("Save") ?></button>
+    <div id="save-client">
+        <button type="submit"  ><?php echo $this->translate("Save") ?></button>
+    </div>
 </form>
 <?php
     $this->placeholder('scripts')->append("BowsManager.client.add()");
