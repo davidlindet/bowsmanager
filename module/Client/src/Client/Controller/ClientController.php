@@ -96,7 +96,7 @@ class ClientController extends AbstractActionController
 
         /** @var $clientModel Client */
         $clientModel = $this->getClientService()->getById($params['id']);
-        $success = $this->getClientService()->delete($clientModel->getId());
+        $success = $this->getClientService()->delete($clientModel);
 
         $result = new JsonModel($success);
 

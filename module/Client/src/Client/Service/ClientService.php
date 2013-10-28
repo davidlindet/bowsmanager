@@ -68,9 +68,13 @@ class ClientService
         return $result;
     }
 
-    public function delete($clientId){
+    public function delete(Client $client){
         try {
-            $this->clientDao->deleteClient($clientId);
+            $collections = $client->getCollections();
+            foreach($collections as $collection) {
+                $this->collectionService->delete($collection);
+            }
+            $this->clientDao->deleteClient($client->getId());
             $result = array('success'=> true);
         }
         catch (Exception $exception) {

@@ -160,8 +160,8 @@ msgstr "Email"
 msgid "Website"
 msgstr "Site Web"
 
-msgid "Do you really want to delete this client?"
-msgstr "Voulez-vous vraiment supprimer ce client?"
+msgid "Do you really want to delete this client, his collections and bows?"
+msgstr "Voulez-vous vraiment supprimer ce client, ses lots et ses archets?"
 
 msgid "Impossible to save this client"
 msgstr "Impossible d'enregistrer ce client"
@@ -281,8 +281,8 @@ msgstr "Renvoyé?"
 msgid "Is paid?"
 msgstr "Réglé?"
 
-msgid "Do you really want to delete this collection?"
-msgstr "Voulez-vous vraiment supprimer ce lot?"
+msgid "Do you really want to delete this collection and bows relative to it?"
+msgstr "Voulez-vous vraiment supprimer ce lot et les archets qu'il contient?"
 
 #------------------------------------------
 #       Search
