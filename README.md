@@ -1,18 +1,17 @@
-/*****************************
-*   DESCRIPTION
-*****************************/
+--
+DESCRIPTION
+--
 This is a web application based on Zend Framework 2.
 With it, a bow maker can manage his client list, bows collections he receives and operations made on bows.
 
 v1 : manage clients, collections and bows
 
-/*****************************
-*   TABLES STRUCTURES
-*****************************/
+--
+TABLES STRUCTURES
+--
 
---
--- Structure of table `bm_bow`
---
+
+* Structure of table `bm_bow`
 
 CREATE TABLE IF NOT EXISTS `bm_bow` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -29,9 +28,7 @@ CREATE TABLE IF NOT EXISTS `bm_bow` (
 
 -- --------------------------------------------------------
 
---
--- Structure of table `bm_client`
---
+* Structure of table `bm_client`
 
 CREATE TABLE IF NOT EXISTS `bm_client` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -48,9 +45,8 @@ CREATE TABLE IF NOT EXISTS `bm_client` (
 
 -- --------------------------------------------------------
 
---
--- Structure of table `bm_collection`
---
+
+* Structure of table `bm_collection`
 
 CREATE TABLE IF NOT EXISTS `bm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
