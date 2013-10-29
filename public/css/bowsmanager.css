@@ -157,6 +157,11 @@ form textarea {
     text-align: right;
     width: 220px;
 }
+.del-attachment,
+.del-attachment:hover {
+    color: red;
+    text-decoration: line-through;
+}
 /**
     Client
 */
@@ -204,6 +209,17 @@ form textarea {
 */
 .details.bows dd{
     padding-left: 0px;
+}
+.details.bows .attachment{
+    width: 1000px;
+}
+.details.bows .attachment ul{
+    list-style-type: none;
+    padding-left: 0;
+}
+.details.bows .attachment ul li{
+    float: left;
+    margin-left: 10px;
 }
 
 /**

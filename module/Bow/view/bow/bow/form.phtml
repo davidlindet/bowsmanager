@@ -61,9 +61,26 @@ echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'se
         </li>
     </ul>
     <br class="clearfix" />
-        <label for="attachment"><?php echo $this->translate("Attachment") ?></label><br />
-        <input type="file" name="attachment" id="bow-attachment" multiple ><br />
-
+    <ul>
+        <li>
+            <label for="attachment"><?php echo $this->translate("Add Attachments") ?></label><br />
+            <input type="file" name="attachment" id="bow-attachment" multiple ><br />
+        </li>
+        <?php if($bow->hasAttachments()){?>
+            <li>
+                <label for="files"><?php echo $this->translate("Remove Attachments") ?></label><br />
+                <?php foreach($bow->getAttachments() as $attachment) { ?>
+                    <div>
+                        <input type="checkbox" class="files" name="del-attachment[]" value="<?php echo $attachment ?>">
+                        <a target="_blank"href="/img/attachment/<?php echo $attachment; ?>" >
+                            <?php echo $attachment; ?>
+                        </a>
+                    </div>
+                <?php } ?>
+            </li>
+        <?php } ?>
+    </ul>
+    <br class="clearfix" />
         <label for="comments"><?php echo $this->translate("Comments") ?></label><br />
         <textarea name="comments" id="comments">
             <?php echo $bow->getComments() ?>

@@ -25,7 +25,7 @@ class UploadController extends AbstractActionController
         if($id){
             /** @var CollectionService $collectionService */
             $collectionService = $this->getServiceLocator()->get('CollectionService');
-            $response = $this->upload("collection", $id, $collectionService);
+            $response = $this->upload("col", $id, $collectionService);
         }
 
         return new JsonModel($response);
@@ -60,7 +60,8 @@ class UploadController extends AbstractActionController
                     //check if no errors
                     if ($error == UPLOAD_ERR_OK) {
                         $ext = pathinfo($_FILES["images"]["name"][$key], PATHINFO_EXTENSION);
-                        $fileName = $modelType . "-" . $modelId . "-" . $key . "-" . time() .".". $ext;
+                        $originalName = str_replace(".".$ext, "", $_FILES["images"]["name"][$key]);
+                        $fileName = $modelType . "-" . $modelId . "-" . $key . "-" . time() . "-" . $originalName .".". $ext;
                         //upload files
                         move_uploaded_file( $_FILES["images"]["tmp_name"][$key], $path . $fileName);
                         $model->addAttachment($fileName);

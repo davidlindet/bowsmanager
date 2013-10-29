@@ -19,8 +19,6 @@ BowsManager.tools = (function() {
         }
 
         function upload(moduleName, objectId, formdata, callBack){
-            console.log(formdata);
-
             $.ajax({
                 url: "/upload-" + moduleName + "?id=" + objectId,
                 type: "POST",
@@ -28,7 +26,7 @@ BowsManager.tools = (function() {
                 processData: false,
                 contentType: false,
                 success: function (res) {
-                   // callBack();
+                   callBack();
                 }
             });
         }
@@ -137,6 +135,16 @@ BowsManager.bow = (function() {
     }
 
     function add(){
+        $(".files").on("change", function(){
+            var $file = $(this).parent().children("a");
+            if(!$file.hasClass("del-attachment")){
+                $file.addClass("del-attachment");
+            }
+            else {
+                $file.removeClass("del-attachment");
+            }
+        });
+
         $("#bow-form").submit(function( event ) {
             event.preventDefault();
             $("#save-bow").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);

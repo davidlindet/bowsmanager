@@ -94,6 +94,18 @@ msgstr "résout en %s"
 msgid "Exception"
 msgstr "Exception"
 
+msgid "Attachments"
+msgstr "Pièces jointes"
+
+msgid "Add Attachments"
+msgstr "Ajouter Pièces jointes"
+
+msgid "Remove Attachments"
+msgstr "Supprimer Pièces jointes"
+
+msgid "Attachment"
+msgstr "PJ"
+
 #------------------------------------------
 #       Options
 #------------------------------------------

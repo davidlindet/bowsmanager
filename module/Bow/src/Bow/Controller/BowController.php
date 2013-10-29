@@ -58,6 +58,12 @@ class BowController extends AbstractActionController
         $bowModel->setIsDone((isset($params['isDone']) &&  $params['isDone'] == "on") ? true : false);
         $bowModel->setComments($params['comments']);
 
+        if(isset($params['del-attachment'])){
+            foreach($params['del-attachment'] as $attachment) {
+                $bowModel->removeAttachment($attachment);
+            }
+        }
+
         $result = $this->getBowService()->save($bowModel);
         $result['section'] = $params['section'];
         $result['collectionId'] = $params['collectionId'];

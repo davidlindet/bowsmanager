@@ -63,28 +63,14 @@ class Bow
         $this->status = (!empty($data['status'])) ? $data['status'] : null;
         $this->isDone = (isset($data['is_done'])) ? (boolean) $data['is_done'] : null;
         $this->comments = (!empty($data['comments'])) ? $data['comments'] : null;
-        $this->attachments = (!empty($data['attachments'])) ? explode("--", $data['attachments']) : array();
-    }
 
-    /**
-     * @param mixed $attachments
-     */
-    public function setAttachments($attachments)
-    {
-        $this->attachments = $attachments;
-    }
-
-    public function addAttachment($attachment)
-    {
-        $this->attachments[] = $attachment;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAttachments()
-    {
-        return $this->attachments;
+        $attachements = array();
+        if(!empty($data['attachments'])) {
+            foreach(explode("--", $data['attachments']) as $attachement){
+                $attachements[$attachement] = $attachement;
+            }
+        }
+        $this->attachments =  $attachements;
     }
 
     /**
@@ -223,5 +209,35 @@ class Bow
         return $this->workToDo;
     }
 
+    /**
+     * @param mixed $attachments
+     */
+    public function setAttachments($attachments)
+    {
+        $this->attachments = $attachments;
+    }
 
+    public function addAttachment($attachment)
+    {
+        $this->attachments[$attachment] = $attachment;
+    }
+
+    public function removeAttachment($attachment)
+    {
+        unset($this->attachments[$attachment]);
+        unlink(__DIR__ . "/../../../../../public/img/attachment/" . $attachment);
+    }
+
+    public function hasAttachments()
+    {
+        return empty($this->attachments) ? false : true;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
+    }
 }

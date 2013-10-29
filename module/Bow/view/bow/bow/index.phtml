@@ -23,6 +23,7 @@ use Bow\Enum\BowSizeEnum;
         <th><?php echo $this->translate("Status") ?></th>
         <th><?php echo $this->translate("Is done?") ?></th>
         <th><?php echo $this->translate("Comments") ?></th>
+        <th><?php echo $this->translate("Attachment") ?></th>
         <th>&nbsp;</th>
     </tr>
 
@@ -41,6 +42,11 @@ use Bow\Enum\BowSizeEnum;
                 <?php } ?>
             </td>
             <td><?php echo nl2br($bow->getComments());?></td>
+            <td>
+                <?php if($bow->hasAttachments()) { ?>
+                    <img src="/img/content/attachment.png">
+                <?php } ?>
+            </td>
             <td class="list-options">
                 <a class="edit" href="<?php echo $this->url('bow-edit', array('id' => $bow->getId(), 'section' => $section));?>"><img src="/img/bow/edit.png" /></a>
                 <div class="bow delete" data-id="<?php echo $bow->getId() ?>" ><img src="/img/bow/del.png" /><div>

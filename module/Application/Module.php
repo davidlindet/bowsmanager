@@ -26,6 +26,11 @@ class Module
             return $viewHelper;
         });
 
+        $viewHelperManager->setFactory('fileType', function($sm) use ($e) {
+            $viewHelper = new View\Helper\FileType();
+            return $viewHelper;
+        });
+
         $translator = $e->getApplication()->getServiceManager()->get('translator');
         $translator->setLocale('fr_FR');
     }

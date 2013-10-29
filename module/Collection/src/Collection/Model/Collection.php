@@ -65,7 +65,6 @@ class Collection
         $this->billReference =(!empty($data['bill_reference'])) ? $data['bill_reference'] : null;
         $this->billAmount =(isset($data['bill_amount'])) ? $data['bill_amount'] : null;
         $this->paidStatus = (isset($data['paid_status'])) ? $data['paid_status'] : false;
-        $this->attachments = (!empty($data['attachments'])) ? explode("--", $data['attachments']) : array();
     }
 
     /**

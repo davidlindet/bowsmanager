@@ -47,10 +47,36 @@
                 }
             ?>
         </dd>
-
+    </dl>
+    <dl>
         <dt><?php echo $this->translate("Comments") ?></dt><br />
         <dd><?php echo nl2br($bow->getComments()) ?></dd>
     </dl>
+    <dl class="clearfix">
+
+    <dt><?php echo $this->translate("Attachments") ?></dt><br />
+        <dd class="attachment">
+            <ul>
+                <?php
+                foreach($bow->getAttachments() as $attachment){
+                    ?>
+                    <li>
+                        <?php if($this->fileType()->isImage($attachment)){?>
+                            <a target="_blank" href="<?php echo "/img/attachment/" . $attachment ?>" >
+                                <img src="<?php echo "/img/attachment/" . $attachment ?>" width="150" height="150" /><br />
+                                <?php echo $this->fileType()->getOriginalName($attachment) ?>
+                            </a>
+                        <?php } else { ?>
+                            <a target="_blank" href="<?php echo "/img/attachment/" . $attachment ?>" >
+                                <?php echo $this->fileType()->getOriginalName($attachment) ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                <?php }?>
+            </ul>
+        </dd>
+    </dl>
+
 </div>
 <?php
 $this->placeholder('scripts')->append("
