@@ -169,7 +169,7 @@ class CollectionDao
             'bill_reference'  => $collection->getBillReference(),
             'bill_amount'  => $collection->getBillAmount(),
             'paid_status'  => $collection->isPaid(),
-            'attachments'  => implode("--", $collection->getAttachments()),
+            'attachments'  => $collection->hasAttachments() ? implode("--", $collection->getAttachments()) : "",
         );
 
         $id = (int) $collection->getId();
