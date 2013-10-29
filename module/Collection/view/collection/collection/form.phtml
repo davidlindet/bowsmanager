@@ -52,9 +52,22 @@
             <input type="text" name="billReference" id="billReference" value="<?php echo $collection->getBillReference() ?>">
         </li>
         <li>
-            <label for="attachment"><?php echo $this->translate("Attachment") ?></label>
-            <input type="file" name="attachment" id="bill-attachment" multiple >
+            <label for="attachment"><?php echo $this->translate("Add Attachments") ?></label><br />
+            <input type="file" name="attachment" id="bill-attachment" multiple ><br />
         </li>
+        <?php if($collection->hasAttachments()){?>
+            <li>
+                <label for="files"><?php echo $this->translate("Remove Attachments") ?></label><br />
+                <?php foreach($collection->getAttachments() as $attachment) { ?>
+                    <div>
+                        <input type="checkbox" class="files" name="del-attachment[]" value="<?php echo $attachment ?>">
+                        <a target="_blank"href="/img/attachment/<?php echo $attachment; ?>" >
+                            <?php echo $this->fileType()->getOriginalName($attachment); ?>
+                        </a>
+                    </div>
+                <?php } ?>
+            </li>
+        <?php } ?>
     </ul>
     <br class="clearfix" />
 

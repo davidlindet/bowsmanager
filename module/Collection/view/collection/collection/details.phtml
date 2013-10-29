@@ -79,7 +79,33 @@ echo $backUrl;
     <dl>
         <?php if(!empty($billReference)){ ?>
             <dt><?php echo $this->translate("Bill Reference") ?></dt>
-            <dd><?php echo $billReference ?></dd>
+            <dd>
+            <?php
+                if($collection->hasAttachments()) {
+                    $files = $collection->getAttachments();
+
+                    if(count($files) == 1){
+            ?>
+                    <a target="_blank"href="/img/attachment/<?php echo array_shift($files); ?>" >
+                        <?php echo $billReference ?>
+                    </a>
+            <?php
+                    }
+                    else {
+            ?>
+                    <?php echo $billReference ?><br />
+            <?php
+                        foreach($files as $attachment) {
+            ?>
+                    <a target="_blank"href="/img/attachment/<?php echo $attachment; ?>" >
+                        <?php echo $this->fileType()->getOriginalName($attachment) ?>
+                    </a><br />
+            <?php
+                        }
+                    }
+                }
+            ?>
+            </dd>
         <?php
         }
         ?>

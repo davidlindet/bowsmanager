@@ -2,3 +2,4 @@
 /vendor
 config/autoload/local.php
 public/.htpasswd
+public/img/attachment/

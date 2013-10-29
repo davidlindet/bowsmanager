@@ -57,6 +57,11 @@ class CollectionController extends AbstractActionController
         $paidStatus = isset($params['paidStatus']) && $params['paidStatus'] == "on" ? true : false;
         $collectionModel->setPaidStatus($paidStatus);
 
+        if(isset($params['del-attachment'])){
+            foreach($params['del-attachment'] as $attachment) {
+                $collectionModel->removeAttachment($attachment);
+            }
+        }
 
         $result = $this->getCollectionService()->save($collectionModel);
         $result['section'] = $params['section'];

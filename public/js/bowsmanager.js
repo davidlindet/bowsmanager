@@ -37,9 +37,22 @@ BowsManager.tools = (function() {
         }
     })();
 
+    function updateStyleDeleteAttachment() {
+        $(".files").on("change", function(){
+            var $file = $(this).parent().children("a");
+            if(!$file.hasClass("del-attachment")){
+                $file.addClass("del-attachment");
+            }
+            else {
+                $file.removeClass("del-attachment");
+            }
+        });
+    }
+
     return {
         datepicker: datepicker,
-        attachment: attachment
+        attachment: attachment,
+        updateStyleDeleteAttachment: updateStyleDeleteAttachment
     }
 })();
 
@@ -135,15 +148,7 @@ BowsManager.bow = (function() {
     }
 
     function add(){
-        $(".files").on("change", function(){
-            var $file = $(this).parent().children("a");
-            if(!$file.hasClass("del-attachment")){
-                $file.addClass("del-attachment");
-            }
-            else {
-                $file.removeClass("del-attachment");
-            }
-        });
+        BowsManager.tools.updateStyleDeleteAttachment();
 
         $("#bow-form").submit(function( event ) {
             event.preventDefault();
@@ -222,6 +227,8 @@ BowsManager.collection = (function() {
     }
 
     function add(){
+        BowsManager.tools.updateStyleDeleteAttachment();
+
         $("#collection-form").submit(function( event ) {
             event.preventDefault();
             $("#save-collection").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);

@@ -46,7 +46,7 @@ class CollectionDao
 
         $sql = "SELECT col.id, owner, reception_time, return_time,
               package_number, bill_reference, bill_amount,
-              paid_status, first_name, last_name
+              paid_status, attachments, first_name, last_name
               FROM bm_collection col
                   JOIN bm_client cli
                     ON cli.id = col.owner
@@ -79,7 +79,7 @@ class CollectionDao
             $orderSql = "reception_time ASC";
         }
 
-        $columns = "col.id, owner, reception_time, return_time, package_number, bill_reference, bill_amount, paid_status, first_name, last_name";
+        $columns = "col.id, owner, reception_time, return_time, package_number, bill_reference, bill_amount, paid_status, attachments, first_name, last_name";
         $sql = "SELECT $columns FROM bm_collection col, bm_client cli WHERE col.owner = cli.id AND
                     (owner) IN (SELECT id FROM bm_client WHERE last_name LIKE'%$query%')
                 UNION
@@ -135,7 +135,7 @@ class CollectionDao
 
         $sql = "SELECT col.id, owner, reception_time, return_time,
               package_number, bill_reference, bill_amount,
-              paid_status, first_name, last_name
+              paid_status, attachments, first_name, last_name
               FROM bm_collection col
               JOIN bm_client cli
                   ON cli.id = col.owner

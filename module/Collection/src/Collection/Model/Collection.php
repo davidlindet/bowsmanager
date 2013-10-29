@@ -65,6 +65,14 @@ class Collection
         $this->billReference =(!empty($data['bill_reference'])) ? $data['bill_reference'] : null;
         $this->billAmount =(isset($data['bill_amount'])) ? $data['bill_amount'] : null;
         $this->paidStatus = (isset($data['paid_status'])) ? $data['paid_status'] : false;
+
+        $attachements = array();
+        if(!empty($data['attachments'])) {
+            foreach(explode("--", $data['attachments']) as $attachement){
+                $attachements[$attachement] = $attachement;
+            }
+        }
+        $this->attachments =  $attachements;
     }
 
     /**
@@ -263,7 +271,18 @@ class Collection
 
     public function addAttachment($attachment)
     {
-        $this->attachments[] = $attachment;
+        $this->attachments[$attachment] = $attachment;
+    }
+
+    public function removeAttachment($attachment)
+    {
+        unset($this->attachments[$attachment]);
+        unlink(__DIR__ . "/../../../../../public/img/attachment/" . $attachment);
+    }
+
+    public function hasAttachments()
+    {
+        return empty($this->attachments) ? false : true;
     }
 
     /**
@@ -273,5 +292,7 @@ class Collection
     {
         return $this->attachments;
     }
+
+
 
 }
