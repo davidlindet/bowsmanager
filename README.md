@@ -5,9 +5,10 @@ This is a web application based on Zend Framework 2.
 With it, a bow maker can manage his client list, bows collections he receives and operations made on bows.
 
 v1 : manage clients, collections and bows
+v1.1 : add attachments for collections and bows
 
 --
-TABLES STRUCTURES
+TABLES STRUCTURES V1
 --
 
 
@@ -59,3 +60,9 @@ CREATE TABLE IF NOT EXISTS `bm_collection` (
   `paid_status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
+
+--
+TABLES STRUCTURES V1.1
+--
+ALTER TABLE  `bm_bow` ADD  `attachments` TEXT NOT NULL
+ALTER TABLE  `bm_collection` ADD  `attachments` TEXT NOT NULL
