@@ -23,6 +23,7 @@ class Collection
     private $billAmount; // Float
     private $paidStatus; // boolean
     private $bows;
+    private $attachments;
 
     public function __Construct($id = 0,
                                 $ownerId = null,
@@ -43,6 +44,7 @@ class Collection
         $this->billAmount = $billAmount;
         $this->paidStatus = $paidStatus;
         $this->bows = array();
+        $this->attachments = array();
     }
 
     public function exchangeArray($data)
@@ -63,6 +65,7 @@ class Collection
         $this->billReference =(!empty($data['bill_reference'])) ? $data['bill_reference'] : null;
         $this->billAmount =(isset($data['bill_amount'])) ? $data['bill_amount'] : null;
         $this->paidStatus = (isset($data['paid_status'])) ? $data['paid_status'] : false;
+        $this->attachments = (!empty($data['attachments'])) ? explode("--", $data['attachments']) : array();
     }
 
     /**
@@ -250,4 +253,26 @@ class Collection
     public function removeBow(int $bowId){
         unset($this->bows[$bowId]);
     }
+
+    /**
+     * @param mixed $attachments
+     */
+    public function setAttachments($attachments)
+    {
+        $this->attachments = $attachments;
+    }
+
+    public function addAttachment($attachment)
+    {
+        $this->attachments[] = $attachment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
+    }
+
 }

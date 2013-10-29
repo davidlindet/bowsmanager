@@ -50,6 +50,8 @@ class Bow
      */
     private $comments;
 
+    private $attachments;
+
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? (int) $data['id'] : null;
@@ -61,6 +63,28 @@ class Bow
         $this->status = (!empty($data['status'])) ? $data['status'] : null;
         $this->isDone = (isset($data['is_done'])) ? (boolean) $data['is_done'] : null;
         $this->comments = (!empty($data['comments'])) ? $data['comments'] : null;
+        $this->attachments = (!empty($data['attachments'])) ? explode("--", $data['attachments']) : array();
+    }
+
+    /**
+     * @param mixed $attachments
+     */
+    public function setAttachments($attachments)
+    {
+        $this->attachments = $attachments;
+    }
+
+    public function addAttachment($attachment)
+    {
+        $this->attachments[] = $attachment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
     }
 
     /**

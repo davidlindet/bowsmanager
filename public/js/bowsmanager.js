@@ -7,8 +7,41 @@ BowsManager.tools = (function() {
         $input.datepicker({ dateFormat: 'dd-mm-yy'}).val();
     }
 
+    var attachment = (function(){
+        function getData(attachmentId, module){
+            var formdata = new FormData();
+            $(attachmentId).on("change", function(){
+                for (var i = 0 ; i < this.files.length; i++) {
+                    formdata.append("images[]", this.files[i]);
+                }
+            });
+            module.attachment = formdata;
+        }
+
+        function upload(moduleName, objectId, formdata, callBack){
+            console.log(formdata);
+
+            $.ajax({
+                url: "/upload-" + moduleName + "?id=" + objectId,
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                   // callBack();
+                }
+            });
+        }
+
+        return {
+            getData: getData,
+            upload: upload
+        }
+    })();
+
     return {
-        datepicker: datepicker
+        datepicker: datepicker,
+        attachment: attachment
     }
 })();
 
@@ -93,6 +126,8 @@ BowsManager.client = (function() {
 
 BowsManager.bow = (function() {
 
+    var attachment = false;
+
     function details(){
         $(".table.bows .bow td").click(function() {
             if(!$(this).hasClass("list-options")) {
@@ -112,7 +147,14 @@ BowsManager.bow = (function() {
                 data: params,
                 success: function(data) {
                     if(data.success){
-                        window.location.href = '/collection-details/'+data.collectionId+'/'+data.section;
+                        var callback = function(){
+                            window.location.href = '/collection-details/'+data.collectionId+'/'+data.section;
+                        };
+                        BowsManager.tools.attachment.upload("bow",
+                            data.id,
+                            BowsManager.bow.attachment,
+                            callback
+                        );
                     }
                     else {
                         $('.error-message.bow').html(data.error);
@@ -152,6 +194,7 @@ BowsManager.bow = (function() {
     }
 
     return {
+        attachment: attachment,
         details: details,
         add: add,
         del: del
@@ -159,6 +202,8 @@ BowsManager.bow = (function() {
 })();
 
 BowsManager.collection = (function() {
+
+    var attachment = false;
 
     function details(){
         $(".table.collections .collection td").click(function() {
@@ -179,7 +224,14 @@ BowsManager.collection = (function() {
                 data: params,
                 success: function(data) {
                     if(data.success){
+                        var callback = function(){
                             window.location.href = '/collection-details/'+data.id+'/'+data.section;
+                        };
+                        BowsManager.tools.attachment.upload("collection",
+                                                                data.id,
+                                                                BowsManager.collection.attachment,
+                                                                callback
+                                                            );
                     }
                     else {
                         $('.error-message.collection').html(data.error);
@@ -223,6 +275,7 @@ BowsManager.collection = (function() {
     }
 
     return {
+        attachment: attachment,
         details: details,
         add: add,
         del: del

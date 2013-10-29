@@ -10,7 +10,7 @@ use Bow\Enum\BowSizeEnum;
 echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section))
 ?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
 <div class="error-message bow"></div>
-<form id="bow-form" >
+<form id="bow-form" enctype="multipart/form-data">
     <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
     <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $bow->getCollectionId() ?>">
     <input type="hidden" name="id" id="id" value="<?php echo $bow->getId() ?>">
@@ -61,6 +61,9 @@ echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'se
         </li>
     </ul>
     <br class="clearfix" />
+        <label for="attachment"><?php echo $this->translate("Attachment") ?></label><br />
+        <input type="file" name="attachment" id="bow-attachment" multiple ><br />
+
         <label for="comments"><?php echo $this->translate("Comments") ?></label><br />
         <textarea name="comments" id="comments">
             <?php echo $bow->getComments() ?>
@@ -74,5 +77,8 @@ echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'se
     </div>
 </form>
 <?php
-    $this->placeholder('scripts')->append("BowsManager.bow.add()");
+    $this->placeholder('scripts')->append("
+        BowsManager.tools.attachment.getData('#bow-attachment', BowsManager.bow);
+        BowsManager.bow.add();
+    ");
 ?>

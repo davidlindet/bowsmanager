@@ -9,7 +9,7 @@
     }
     else {
 ?>
-<form id="collection-form" >
+<form id="collection-form" enctype="multipart/form-data">
     <input type="hidden" name="section" value="<?php echo $section ?>">
     <input type="hidden" name="id" id="id" value="<?php echo $collection->getId() ?>">
 
@@ -46,11 +46,20 @@
     <label for="packageNumber"><?php echo $this->translate("Package Number") ?></label><br/>
     <input type="text" name="packageNumber" id="packageNumber" value="<?php echo $collection->getPackageNumber() ?>"><br>
 
-    <label for="billReference"><?php echo $this->translate("Bill Reference") ?></label><br/>
-    <input type="text" name="billReference" id="billReference" value="<?php echo $collection->getBillReference() ?>"><br>
+    <ul>
+        <li>
+            <label for="billReference"><?php echo $this->translate("Bill Reference") ?></label><br/>
+            <input type="text" name="billReference" id="billReference" value="<?php echo $collection->getBillReference() ?>">
+        </li>
+        <li>
+            <label for="attachment"><?php echo $this->translate("Attachment") ?></label>
+            <input type="file" name="attachment" id="bill-attachment" multiple >
+        </li>
+    </ul>
+    <br class="clearfix" />
 
     <label for="billAmount"><?php echo $this->translate("Bill Amount") ?></label><br/>
-    <input type="text" name="billAmount" id="billAmount" value="<?php echo $collection->getBillAmount() ?>"><br>
+    <input type="text" name="billAmount" id="billAmount" value="<?php echo $collection->getBillAmount() ?>"><br />
 
     <label for="paidStatus"><?php echo $this->translate("Is paid?") ?></label>
     <input type="checkbox" name="paidStatus" id="paidStatus" <?php echo $collection->isPaid() ? "checked='checked'": ""; ?> /><br>
@@ -63,6 +72,7 @@
 <?php
     $this->placeholder('scripts')->append("
         BowsManager.tools.datepicker();
+        BowsManager.tools.attachment.getData('#bill-attachment', BowsManager.collection);
         BowsManager.collection.add()
     ");
 ?>

@@ -111,6 +111,7 @@ class BowDao
             'status'  => $bow->getStatus(),
             'is_done'  => $bow->getIsDone(),
             'comments'  => $bow->getComments(),
+            'attachments'  => implode("--", $bow->getAttachments()),
         );
 
         $id = (int)$bow->getId();
