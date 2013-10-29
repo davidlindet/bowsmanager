@@ -4,8 +4,8 @@ DESCRIPTION
 This is a web application based on Zend Framework 2.
 With it, a bow maker can manage his client list, bows collections he receives and operations made on bows.
 
-v1 : manage clients, collections and bows
-v1.1 : add attachments for collections and bows
+* v1 : manage clients, collections and bows
+* v1.1 : add attachments for collections and bows
 
 --
 TABLES STRUCTURES V1
