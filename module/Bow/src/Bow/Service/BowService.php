@@ -50,6 +50,12 @@ class BowService
 
     public function delete($bowId){
         try {
+            //delete all attachments related to this bow
+            $bowModel = $this->getById($bowId);
+            foreach($bowModel->getAttachments() as $attachment) {
+                $bowModel->removeAttachment($attachment);
+            }
+            //delete bow in the database
             $this->bowDao->deleteBow($bowId);
             $result = array('success'=> true);
         }

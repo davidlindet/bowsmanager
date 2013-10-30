@@ -120,6 +120,11 @@ class CollectionService
                 $this->bowService->delete($bow->getId());
             }
 
+            //delete all attachments related to this collection
+            foreach($collection->getAttachments() as $attachment) {
+                $collection->removeAttachment($attachment);
+            }
+
             $this->collectionDao->deleteCollection($collection->getId());
             $result = array('success'=> true);
         }
@@ -135,6 +140,11 @@ class CollectionService
         return $this->setBows($collections);
     }
 
+    /**
+     * For each collections get and set bows related to them
+     * @param $collections
+     * @return array
+     */
     private function setBows($collections){
         $finalCollections = array();
         /** @var $collection Collection */

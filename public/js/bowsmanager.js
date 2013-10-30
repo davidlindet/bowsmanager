@@ -1,13 +1,29 @@
 var BowsManager = {};
 
+/**
+ * Generic tools
+ */
 BowsManager.tools = (function() {
 
+    /**
+     * Calendar - used in collection form
+     */
     function datepicker(){
         var $input = $(".datepicker").click(function() { return $(this); });
         $input.datepicker({ dateFormat: 'dd-mm-yy'}).val();
     }
 
-    var attachment = (function(){
+    /**
+     * Upload files with AJAX
+     */
+    var attachment = (function() {
+
+        /**
+         * Get informations about each files we want to upload
+         * when their selected
+         * @param attachmentId
+         * @param module
+         */
         function getData(attachmentId, module){
             var formdata = new FormData();
             $(attachmentId).on("change", function(){
@@ -18,6 +34,13 @@ BowsManager.tools = (function() {
             module.attachment = formdata;
         }
 
+        /**
+         *  Upload files with ajax
+         * @param moduleName
+         * @param objectId
+         * @param formdata
+         * @param callBack
+         */
         function upload(moduleName, objectId, formdata, callBack){
             $.ajax({
                 url: "/upload-" + moduleName + "?id=" + objectId,
@@ -37,6 +60,10 @@ BowsManager.tools = (function() {
         }
     })();
 
+    /**
+     * Change the style of files we want to delete in
+     * collection and bow form
+     */
     function updateStyleDeleteAttachment() {
         $(".files").on("change", function(){
             var $file = $(this).parent().children("a");
@@ -56,8 +83,16 @@ BowsManager.tools = (function() {
     }
 })();
 
+
+/**
+ * Functions related to clients
+ */
 BowsManager.client = (function() {
 
+    /**
+     * In client list when user click on a client row
+     * He's forward on client details page
+     */
     function details(){
         $(".table.clients .client td").click(function() {
             if(!$(this).hasClass("list-options")) {
@@ -66,6 +101,10 @@ BowsManager.client = (function() {
         });
     }
 
+    /**
+     * Update style form to add or update a client
+     * and send data to save
+     */
     function add(){
         $("#client-form").submit(function( event ) {
             event.preventDefault();
@@ -87,6 +126,9 @@ BowsManager.client = (function() {
         });
     }
 
+    /**
+     * Send data to delete client
+     */
     function del(){
         $(".client.delete").click(function() {
             var clientId = $(this).data('id');
@@ -98,10 +140,12 @@ BowsManager.client = (function() {
                     data: {id: clientId},
                     success: function(data) {
                         if(data.success){
+                            // if on list client page hide the row
                             if(section == "client-index") {
                                 $("#client-"+clientId).fadeOut("slow");
                             }
                             else {
+                                // we're on client details page so forward on list client page
                                 window.location.href = '/client';
                             }
                         }
@@ -114,6 +158,10 @@ BowsManager.client = (function() {
         });
     }
 
+    /**
+     * Display / Hide client rows
+     * When user click on filter
+     */
     function listInitFilters(){
         $(".client-filter").click(function() {
             var filter = this.id;
@@ -135,10 +183,20 @@ BowsManager.client = (function() {
     }
 })();
 
+/**
+ * Functions related to bows
+ */
 BowsManager.bow = (function() {
 
+    /**
+     * Files to update
+     */
     var attachment = false;
 
+    /**
+     * In bow list when user click on a bow row
+     * He's forward on bow details page
+     */
     function details(){
         $(".table.bows .bow td").click(function() {
             if(!$(this).hasClass("list-options")) {
@@ -147,13 +205,20 @@ BowsManager.bow = (function() {
         });
     }
 
+    /**
+     * Update style form to add or update a bow
+     * and send data to save
+     */
     function add(){
+        // init - update style of file list we want to delete (update form)
         BowsManager.tools.updateStyleDeleteAttachment();
 
+        // init action done when submit form
         $("#bow-form").submit(function( event ) {
             event.preventDefault();
             $("#save-bow").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
             var params = $("#bow-form").serializeForm();
+            //Send data to save
             $.ajax({
                 url: "/bow-save",
                 method: "POST",
@@ -161,8 +226,10 @@ BowsManager.bow = (function() {
                 success: function(data) {
                     if(data.success){
                         var callback = function(){
+                            // return on collection details page
                             window.location.href = '/collection-details/'+data.collectionId+'/'+data.section;
                         };
+                        //upload files
                         BowsManager.tools.attachment.upload("bow",
                             data.id,
                             BowsManager.bow.attachment,
@@ -177,6 +244,9 @@ BowsManager.bow = (function() {
         });
     }
 
+    /**
+     * Send data to delete bow
+     */
     function del(){
        $(".bow.delete").click(function() {
             var bowId = $(this).data('id');
@@ -190,10 +260,12 @@ BowsManager.bow = (function() {
                     data: {id: bowId},
                     success: function(data) {
                         if(data.success){
+                            // on bow list page so hide row
                             if(typeof section == "undefined") {
                                 $("#bow-"+bowId).fadeOut("slow");
                             }
                             else {
+                                //on bow details page so return on collection details page
                                 window.location.href = '/collection-details/'+collectionId+'/'+section;
                             }
                         }
@@ -214,10 +286,20 @@ BowsManager.bow = (function() {
     }
 })();
 
+/**
+ * Functions related to collections
+ */
 BowsManager.collection = (function() {
 
+    /**
+     * Files to update
+     */
     var attachment = false;
 
+    /**
+     * In bow list when user click on a collection row
+     * He's forward on collection details page
+     */
     function details(){
         $(".table.collections .collection td").click(function() {
             if(!$(this).hasClass("list-options")) {
@@ -226,9 +308,15 @@ BowsManager.collection = (function() {
         });
     }
 
+    /**
+     * Update style form to add or update a collection
+     * and send data to save
+     */
     function add(){
+        // init - update style of file list we want to delete (update form)
         BowsManager.tools.updateStyleDeleteAttachment();
 
+        // init action done when submit form
         $("#collection-form").submit(function( event ) {
             event.preventDefault();
             $("#save-collection").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
@@ -242,6 +330,7 @@ BowsManager.collection = (function() {
                         var callback = function(){
                             window.location.href = '/collection-details/'+data.id+'/'+data.section;
                         };
+                        //upload files
                         BowsManager.tools.attachment.upload("collection",
                                                                 data.id,
                                                                 BowsManager.collection.attachment,
@@ -256,6 +345,9 @@ BowsManager.collection = (function() {
         });
     }
 
+    /**
+     * Send data to delete collection
+     */
     function del(){
         $(".collection.delete").click(function() {
             var collectionId = $(this).data('id');
@@ -269,9 +361,11 @@ BowsManager.collection = (function() {
                     success: function(data) {
                         if(data.success){
                             if(typeof clientId == "undefined") {
+                                // on collection list page so hide row
                                 $("#collection-"+collectionId).fadeOut("slow");
                             }
                             else {
+                                //on collection details page so return on client details page
                                 var url = "/collection";
                                 if(section.indexOf("client") !== false){
                                     url = '/client-details/'+ clientId;
@@ -297,6 +391,9 @@ BowsManager.collection = (function() {
     }
 })();
 
+/**
+ * Functions related to the search
+ */
 BowsManager.search = (function() {
 
     function search(){
@@ -305,6 +402,7 @@ BowsManager.search = (function() {
             event.preventDefault();
             var params = $("#search-form").serializeForm();
 
+            //reset results
             $('#client-results').html("");
             $('#bow-results').html("");
             $('#collection-results').html("");
@@ -316,18 +414,21 @@ BowsManager.search = (function() {
                 data: params,
                 success: function(data) {
                     if(data.success){
+                        //update client results
                         if(data.clientHTML){
                             $('#client-results').html(data.clientHTML);
                             BowsManager.client.details();
                             BowsManager.client.del();
                         }
 
+                        //update bow results
                         if(data.bowHTML){
                             $('#bow-results').html(data.bowHTML);
                             BowsManager.bow.details();
                             BowsManager.bow.del();
                         }
 
+                        //update collection results
                         if(data.collectionHTML){
                             $('#collection-results').html(data.collectionHTML);
                             BowsManager.collection.details();
