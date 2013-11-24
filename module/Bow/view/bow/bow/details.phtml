@@ -10,6 +10,10 @@
 <div class="error-message bow"></div>
 <div class="details bows">
     <dl>
+        <dt><?php echo $this->translate("#") ?></dt>
+        <dd>
+            <?php echo $bow->getNumber() ?>
+        </dd>
         <dt><?php echo $this->translate("Type") ?></dt>
         <dd>
             <?php echo $this->translate(\Bow\Enum\BowTypeEnum::COPY($bow->getType())) ?>

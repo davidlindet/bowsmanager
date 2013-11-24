@@ -6,6 +6,7 @@ With it, a bow maker can manage his client list, bows collections he receives an
 
 * v1 : manage clients, collections and bows
 * v1.1 : add attachments for collections and bows
+* v1.1a : add bow number. When you add a bow to a collection a number is generate to identify it.
 
 --
 TABLES STRUCTURES V1
@@ -66,3 +67,8 @@ TABLES STRUCTURES V1.1
 --
 ALTER TABLE  `bm_bow` ADD  `attachments` TEXT NOT NULL
 ALTER TABLE  `bm_collection` ADD  `attachments` TEXT NOT NULL
+
+--
+TABLES STRUCTURE v1.1a
+--
+ALTER TABLE  `bm_bow` ADD  `number` INT NOT NULL AFTER  `id` ;

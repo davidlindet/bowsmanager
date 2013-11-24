@@ -17,6 +17,8 @@ use Bow\Model\Bow;
 use Bow\Enum\BowEnum;
 use Bow\Service\BowService;
 
+use Collection\Service\CollectionService;
+
 class BowController extends AbstractActionController
 {
     /**
@@ -49,6 +51,7 @@ class BowController extends AbstractActionController
         /** @var $bowModel Bow */
         $bowModel = $this->getBowService()->getById($params['id']);
 
+        $bowModel->setNumber((int) $params['number']);
         $bowModel->setCollectionId((int) $params['collectionId']);
         $bowModel->setType((int) $params['type']);
         $bowModel->setSize((int) $params['size']);
@@ -75,9 +78,14 @@ class BowController extends AbstractActionController
         $collectionId = $this->getEvent()->getRouteMatch()->getParam('collectionId', false);
         $section = $this->params()->fromRoute('section', false);
 
+        /** @var CollectionService $collectionService */
+        $collectionService = $this->getServiceLocator()->get('CollectionService');
+        $collectionModel = $collectionService->getById($collectionId);
+
         /** @var $bowModel Bow */
         $bowModel = $this->getBowService()->getById(BowEnum::NEW_BOW);
         $bowModel->setCollectionId($collectionId);
+        $bowModel->setNumber($this->getBowService()->getNextBowNumber($collectionModel));
 
         return new ViewModel(array(
             'bow' => $bowModel,

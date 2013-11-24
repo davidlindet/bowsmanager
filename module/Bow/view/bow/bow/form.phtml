@@ -14,6 +14,9 @@ echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'se
     <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
     <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $bow->getCollectionId() ?>">
     <input type="hidden" name="id" id="id" value="<?php echo $bow->getId() ?>">
+    <input type="hidden" name="number" id="number" value="<?php echo $bow->getNumber() ?>">
+
+    <p><b><?php echo $this->translate("#") ?></b> <?php echo $bow->getNumber() ?></p>
 
     <label for="type"><?php echo $this->translate("Type") ?></label><br />
     <select name="type" id="type" >

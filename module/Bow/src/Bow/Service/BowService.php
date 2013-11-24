@@ -11,6 +11,7 @@ namespace Bow\Service;
 use Bow\Model\Bow;
 use Bow\Dao\BowDao;
 use Bow\Enum\BowEnum;
+use Collection\Model\Collection;
 
 class BowService
 {
@@ -68,5 +69,9 @@ class BowService
 
     public function search($query) {
         return $this->bowDao->fetchAllByQuery($query);
+    }
+
+    public function getNextBowNumber(Collection $collection){
+        return $collection->countBows() + 1;
     }
 }

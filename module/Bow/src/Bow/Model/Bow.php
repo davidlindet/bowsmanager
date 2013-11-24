@@ -12,6 +12,8 @@ class Bow
 {
     private $id;
 
+    private $number;
+
     private $collectionId;
 
     /**
@@ -55,6 +57,7 @@ class Bow
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? (int) $data['id'] : null;
+        $this->number = (isset($data['number'])) ? (int) $data['number'] : null;
         $this->collectionId = (isset($data['collection_id'])) ? (int) $data['collection_id'] : null;
         $this->type = (isset($data['type'])) ? (int) $data['type'] : null;
         $this->size =(isset($data['size'])) ? (int) $data['size'] : null;
@@ -71,6 +74,22 @@ class Bow
             }
         }
         $this->attachments =  $attachements;
+    }
+
+    /**
+     * @param mixed $number
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumber()
+    {
+        return $this->number;
     }
 
     /**

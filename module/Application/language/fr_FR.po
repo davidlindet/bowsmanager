@@ -106,6 +106,9 @@ msgstr "Supprimer Pièces jointes"
 msgid "Attachment"
 msgstr "PJ"
 
+msgid "#"
+msgstr "N°"
+
 #------------------------------------------
 #       Options
 #------------------------------------------
