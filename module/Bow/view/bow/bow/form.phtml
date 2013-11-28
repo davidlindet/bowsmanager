@@ -46,21 +46,15 @@ echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'se
     <ul>
         <li>
             <label for="description"><?php echo $this->translate("Description") ?></label><br />
-            <textarea name="description" id="description">
-                <?php echo $bow->getDescription() ?>
-            </textarea>
+            <textarea name="description" id="description"><?php echo $bow->getDescription() ?></textarea>
         </li>
         <li>
             <label for="workToDo"><?php echo $this->translate("Work to do") ?></label><br />
-            <textarea name="workToDo" id="workToDo">
-                <?php echo $bow->getWorkToDo() ?>
-            </textarea>
+            <textarea name="workToDo" id="workToDo"><?php echo $bow->getWorkToDo() ?></textarea>
         </li>
         <li>
             <label  for="status"><?php echo $this->translate("Status") ?></label><br />
-            <textarea name="status" id="status">
-                <?php echo $bow->getStatus() ?>
-            </textarea>
+            <textarea name="status" id="status"><?php echo $bow->getStatus() ?></textarea>
         </li>
     </ul>
     <br class="clearfix" />
@@ -85,9 +79,7 @@ echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'se
     </ul>
     <br class="clearfix" />
         <label for="comments"><?php echo $this->translate("Comments") ?></label><br />
-        <textarea name="comments" id="comments">
-            <?php echo $bow->getComments() ?>
-        </textarea>
+        <textarea name="comments" id="comments"><?php echo $bow->getComments() ?></textarea>
     <br />
         <label for="isDone"><?php echo $this->translate("Is done?") ?></label>
         <input type="checkbox" name="isDone" id="isDone" <?php echo ($bow->getIsDone()) ? "checked='checked'" : "" ?> />
