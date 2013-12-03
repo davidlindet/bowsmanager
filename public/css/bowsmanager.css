@@ -142,7 +142,11 @@ form textarea {
     margin: 100px auto;
     padding: 0px 20px 20px 20px;
 }
-
+.popup.loading {
+    font-size: 50px;
+    padding: 250px 200px;
+    margin: 100px auto 300px auto;
+}
 /**
     Options
 */

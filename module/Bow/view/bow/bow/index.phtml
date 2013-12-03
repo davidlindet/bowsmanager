@@ -38,7 +38,7 @@ use Bow\Enum\BowSizeEnum;
             <td><?php echo nl2br($bow->getDescription());?></td>
             <td><?php echo nl2br($bow->getWorkToDo());?></td>
             <td><?php echo nl2br($bow->getStatus());?></td>
-            <td>
+            <td class="<?php echo ($bow->getIsDone()) ? "": "bow-is-it-done"; ?>" data-id="<?php echo $bow->getId() ?>" >
                 <?php if($bow->getIsDone()) { ?>
                     <img src="/img/content/valid.png">
                 <?php } ?>
@@ -61,5 +61,6 @@ $this->placeholder('scripts')->append("
         BowsManager.bow.details();
         BowsManager.bow.edit();
         BowsManager.bow.del();
+        BowsManager.bow.done();
     ");
 ?>

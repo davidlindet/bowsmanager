@@ -199,7 +199,7 @@ BowsManager.bow = (function() {
      */
     function details(){
         $(".table.bows .bow td").click(function() {
-            if(!$(this).hasClass("list-options")) {
+            if(!$(this).hasClass("list-options") && !$(this).hasClass("bow-is-it-done")) {
                 window.location.href = $(this).parent().data('url');
             }
         });
@@ -249,6 +249,8 @@ BowsManager.bow = (function() {
      */
     function edit(){
         $(".bow.edit").click(function() {
+            $("body").append("<div class='overlay'><div class='popup loading'> <img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading +"</div></div>");
+
             var bowId = $(this).data('id');
             var section = $(this).data('section');
 
@@ -256,7 +258,7 @@ BowsManager.bow = (function() {
                 url: "/bow-edit/"+bowId+"/"+section+"/ajax",
                 method: "GET",
                 success: function(data) {
-                    $("body").append("<div class='overlay'><div class='popup'>"+data+"</div></div>");
+                    $(".overlay .popup").removeClass("loading").html(data);
                     $(".back.ajax").click(function(){
                         $(".overlay").remove();
                     });
@@ -299,12 +301,41 @@ BowsManager.bow = (function() {
         });
     }
 
+    /**
+     * Display a confirm and if positive change isDone status
+     * to true
+     */
+    function done() {
+        $(".bow-is-it-done").click(function(e) {
+            e.stopPropagation();
+            var $isDoneElement = $(this);
+            var bowId = $isDoneElement.data('id');
+            if(confirm(BowsManager.copies.isDoneBow)){
+                $.ajax({
+                    url: "/bow-is-done",
+                    method: "POST",
+                    data: {id: bowId},
+                    success: function(data) {
+                        if(data.success){
+                            $isDoneElement.removeClass("bow-is-it-done").html("<img src='/img/content/valid.png' />");
+                        }
+                        else {
+                            $('.error-message.bow').html(data.error);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
     return {
         attachment: attachment,
         details: details,
         add: add,
         edit: edit,
-        del: del
+        del: del,
+        done: done
     }
 })();
 

@@ -238,6 +238,9 @@ msgstr "Remarques"
 msgid "Do you really want to delete this bow?"
 msgstr "Voulez-vous vraiment supprimer cet archet?"
 
+msgid "Is that bow really done?"
+msgstr "Cet archet est-il terminé?"
+
 #------------------------------------------
 #       Collection
 #------------------------------------------

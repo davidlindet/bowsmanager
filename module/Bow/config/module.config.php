@@ -73,6 +73,16 @@ return array(
                     ),
                 ),
             ),
+            'bow-is-done' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/bow-is-done',
+                    'defaults' => array(
+                        'controller' => 'Bow\Controller\Bow',
+                        'action'     => 'isDone',
+                    ),
+                ),
+            ),
         ),
     ),
     'view_manager' => array(
