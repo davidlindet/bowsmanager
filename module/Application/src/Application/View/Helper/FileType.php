@@ -13,7 +13,7 @@ use Zend\View\Helper\AbstractHelper;
 class FileType extends AbstractHelper
 {
     public function isImage($fileName) {
-        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
         $results = false;
         if($ext == "jpg" || $ext == "png" || $ext == "gif") {
