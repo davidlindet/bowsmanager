@@ -36,7 +36,7 @@ return array(
             'bow-edit' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/bow-edit[/][:id][/][:section]',
+                    'route'    => '/bow-edit[/][:id][/][:section][/][:mode]',
                     'defaults' => array(
                         'controller' => 'Bow\Controller\Bow',
                         'action'     => 'edit',
@@ -77,6 +77,7 @@ return array(
     ),
     'view_manager' => array(
         'template_map' => array(
+            'layout/empty' => __DIR__ . '/../../Application/view/layout/empty.phtml',
             'formBow' => __DIR__ . '/../view/bow/bow/form.phtml',
         ),
         'template_path_stack' => array(

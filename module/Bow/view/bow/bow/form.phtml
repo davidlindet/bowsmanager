@@ -1,15 +1,23 @@
 <?php
-use Bow\Enum\BowTypeEnum;
-use Bow\Enum\BowSizeEnum;
+    use Application\Enum\ModeEnum;
+    use Bow\Enum\BowTypeEnum;
+    use Bow\Enum\BowSizeEnum;
 ?>
 
 <h1><img src="/img/bow/header.png" width="80" />
     <?php echo $header ?>
 </h1>
-<a class="back" href="<?php
-echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section))
-?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
+
+<?php if($mode == ModeEnum::MODE_AJAX) { ?>
+    <span class="back ajax"><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></span>
+<?php } else { ?>
+    <a class="back" href="<?php
+    echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section))
+    ?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
+<?php } ?>
+
 <div class="error-message bow"></div>
+
 <form id="bow-form" enctype="multipart/form-data">
     <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
     <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $bow->getCollectionId() ?>">
@@ -89,8 +97,9 @@ echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'se
     </div>
 </form>
 <?php
-    $this->placeholder('scripts')->append("
+    $this->placeholder("scripts")->append("
         BowsManager.tools.attachment.getData('#bow-attachment', BowsManager.bow);
         BowsManager.bow.add();
     ");
+
 ?>

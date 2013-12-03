@@ -8,6 +8,7 @@
  */
 namespace Bow\Controller;
 
+use Application\Enum\ModeEnum;
 use Application\Enum\SectionEnum;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -90,6 +91,7 @@ class BowController extends AbstractActionController
         return new ViewModel(array(
             'bow' => $bowModel,
             'section' => $section,
+            'mode' => BowEnum::MODE_REGULAR,
         ));
     }
 
@@ -97,6 +99,11 @@ class BowController extends AbstractActionController
     {
         $bowId = $this->getEvent()->getRouteMatch()->getParam('id', BowEnum::NEW_BOW);
         $section = $this->params()->fromRoute('section', false);
+        $mode = $this->params()->fromRoute('mode', false);
+
+        if($mode == ModeEnum::MODE_AJAX){
+            $this->layout('layout/empty');
+        }
 
         /** @var $bowModel Bow */
         $bowModel = $this->getBowService()->getById($bowId);
@@ -104,6 +111,7 @@ class BowController extends AbstractActionController
         return new ViewModel(array(
             'bow' => $bowModel,
             'section' => $section,
+            'mode' => $mode,
         ));
     }
 

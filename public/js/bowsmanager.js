@@ -245,6 +245,27 @@ BowsManager.bow = (function() {
     }
 
     /**
+     * Display a popup to edit bow data
+     */
+    function edit(){
+        $(".bow.edit").click(function() {
+            var bowId = $(this).data('id');
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/bow-edit/"+bowId+"/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    $("body").append("<div class='overlay'><div class='popup'>"+data+"</div></div>");
+                    $(".back.ajax").click(function(){
+                        $(".overlay").remove();
+                    });
+                }
+            });
+        });
+    }
+
+    /**
      * Send data to delete bow
      */
     function del(){
@@ -282,6 +303,7 @@ BowsManager.bow = (function() {
         attachment: attachment,
         details: details,
         add: add,
+        edit: edit,
         del: del
     }
 })();

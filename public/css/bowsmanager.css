@@ -125,6 +125,25 @@ form textarea {
 }
 
 /**
+    Popups
+*/
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+}
+
+.popup {
+    background: #FFF;
+    border: 2px #555555 solid;
+    width: 70%;
+    margin: 100px auto;
+    padding: 0px 20px 20px 20px;
+}
+
+/**
     Options
 */
 .options {
@@ -151,7 +170,11 @@ form textarea {
 }
 .back,
 .back:hover {
+    cursor: pointer;
     color: #999;
+}
+.back:hover {
+    text-decoration: underline;
 }
 .list-options {
     text-align: right;
@@ -202,6 +225,9 @@ form textarea {
 .bow-list .list-options {
     text-align: right;
     width: 100px;
+}
+.bow-list .list-options .edit{
+    float: left;
 }
 
 /**

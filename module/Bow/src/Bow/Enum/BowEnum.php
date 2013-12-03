@@ -12,7 +12,9 @@ namespace Bow\Enum;
 class BowEnum {
     const NEW_BOW = 0;
 
+    /* How to sort bows in collections */
     const SORT_NATIVE = 0;
     const SORT_OLD_NEW = 1;
     const SORT_NEW_OLD = 2;
+
 }

@@ -52,6 +52,9 @@ class Bow
      */
     private $comments;
 
+    /**
+     * Pictures of the bow
+     */
     private $attachments;
 
     public function exchangeArray($data)
@@ -76,6 +79,20 @@ class Bow
         $this->attachments =  $attachements;
     }
 
+    /************
+     * ID
+     ************/
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /************
+     * NUMBER
+     ************/
     /**
      * @param mixed $number
      */
@@ -92,6 +109,10 @@ class Bow
         return $this->number;
     }
 
+
+    /************
+     * COLLECTION ID
+     ************/
     /**
      * @param mixed $collectionId
      */
@@ -108,94 +129,9 @@ class Bow
         return (int) $this->collectionId;
     }
 
-    /**
-     * @param mixed $comments
-     */
-    public function setComments($comments)
-    {
-        $this->comments = $comments;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getComments()
-    {
-        return $this->comments;
-    }
-
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $isDone
-     */
-    public function setIsDone($isDone)
-    {
-        $this->isDone = $isDone;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIsDone()
-    {
-        return $this->isDone;
-    }
-
-    /**
-     * @param mixed $size
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * @param mixed $status
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
+    /************
+     * TYPE
+     ************/
     /**
      * @param mixed $type
      */
@@ -212,6 +148,47 @@ class Bow
         return $this->type;
     }
 
+    /************
+     * SIZE
+     ************/
+    /**
+     * @param mixed $size
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /************
+     * DESCRIPTION
+     ************/
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return stripslashes($this->description);
+    }
+
+    /************
+     * WORK TO DO
+     ************/
     /**
      * @param mixed $workToDo
      */
@@ -225,31 +202,75 @@ class Bow
      */
     public function getWorkToDo()
     {
-        return $this->workToDo;
+        return stripslashes($this->workToDo);
     }
 
+    /************
+     * STATUS
+     ************/
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return stripslashes($this->status);
+    }
+
+    /************
+     * IS DONE
+     ************/
+    /**
+     * @param mixed $isDone
+     */
+    public function setIsDone($isDone)
+    {
+        $this->isDone = $isDone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsDone()
+    {
+        return $this->isDone;
+    }
+
+    /************
+     * COMMENTS
+     ************/
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return stripslashes($this->comments);
+    }
+
+    /************
+     * ATTACHEMENTS
+     ************/
     /**
      * @param mixed $attachments
      */
     public function setAttachments($attachments)
     {
         $this->attachments = $attachments;
-    }
-
-    public function addAttachment($attachment)
-    {
-        $this->attachments[$attachment] = $attachment;
-    }
-
-    public function removeAttachment($attachment)
-    {
-        unset($this->attachments[$attachment]);
-        unlink(__DIR__ . "/../../../../../public/img/attachment/" . $attachment);
-    }
-
-    public function hasAttachments()
-    {
-        return empty($this->attachments) ? false : true;
     }
 
     /**
@@ -259,4 +280,31 @@ class Bow
     {
         return $this->attachments;
     }
+
+    /**
+     * @param $attachment add 1 file
+     */
+    public function addAttachment($attachment)
+    {
+        $this->attachments[$attachment] = $attachment;
+    }
+
+    /**
+     * @param $attachment remove 1 file (from the server as well)
+     */
+    public function removeAttachment($attachment)
+    {
+        unset($this->attachments[$attachment]);
+        unlink(__DIR__ . "/../../../../../public/img/attachment/" . $attachment);
+    }
+
+    /**
+     * @return bool contain files
+     */
+    public function hasAttachments()
+    {
+        return empty($this->attachments) ? false : true;
+    }
+
+
 }

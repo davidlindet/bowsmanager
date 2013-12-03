@@ -50,7 +50,7 @@ use Bow\Enum\BowSizeEnum;
                 <?php } ?>
             </td>
             <td class="list-options">
-                <a class="edit" href="<?php echo $this->url('bow-edit', array('id' => $bow->getId(), 'section' => $section));?>"><img src="/img/bow/edit.png" /></a>
+                <div class="bow edit" data-id="<?php echo $bow->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/bow/edit.png" /></div>
                 <div class="bow delete" data-id="<?php echo $bow->getId() ?>" ><img src="/img/bow/del.png" /><div>
             </td>
         </tr>
@@ -59,6 +59,7 @@ use Bow\Enum\BowSizeEnum;
 <?php
 $this->placeholder('scripts')->append("
         BowsManager.bow.details();
+        BowsManager.bow.edit();
         BowsManager.bow.del();
     ");
 ?>
