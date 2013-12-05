@@ -1,5 +1,6 @@
 body {
     position: relative;
+    min-height: 1000px;
 }
 h1 {
     display: inline-block;
