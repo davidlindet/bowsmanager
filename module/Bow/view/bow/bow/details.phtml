@@ -1,11 +1,11 @@
-<h1><img src="/img/bow/header.png" width="50" /> <?php  echo $this->translate("Bow") ?></h1>
+<h1><img src="/img/bow/header.png" width="50" /><?php  echo $this->translate("Bow") ?></h1>
 <a class="back" href="<?php echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section)) ?>" >
     <img src="/img/content/back.png" /><?php echo $this->translate("Back")?></a>
 <div class="options">
     <a class="bow edit" href="<?php echo $this->url('bow-edit', array('id' => $bow->getId(), 'section' => $section));?>">
-        <img src="/img/bow/edit.png" />Edit</a>
+        <img src="/img/bow/edit.png" /><?php  echo $this->translate("Edit") ?></a>
     <div class="bow delete" data-id="<?php echo $bow->getId() ?>" data-collectionid="<?php echo $bow->getCollectionId() ?>" data-section="<?php echo $section ?>" >
-        <img src="/img/bow/del.png" />Delete</div>
+        <img src="/img/bow/del.png" /><?php  echo $this->translate("Delete") ?></div>
 </div>
 <div class="error-message bow"></div>
 <div class="details bows">
