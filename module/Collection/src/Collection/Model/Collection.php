@@ -8,22 +8,45 @@
  */
 namespace Collection\Model;
 
+use Bill\Model\Bill;
 use Collection\Enum\CollectionEnum;
 use Bow\Model\Bow;
 
 class Collection
 {
     private $id;
-    private $ownerId; // int
-    private $ownerName; // String
-    private $receptionTime; // timestamp
-    private $returnTime; // timestamp
-    private $packageNumber; // String
-    private $billReference; // String
-    private $billAmount; // Float
-    private $paidStatus; // boolean
+    /**
+     * @var int
+     */
+    private $ownerId;
+    /**
+     * @var string
+     */
+    private $ownerName;
+    /**
+     * @var int (timestamp)
+     */
+    private $receptionTime;
+    /**
+     * @var int (timestamp)
+     */
+    private $returnTime;
+    /**
+     * @var string
+     */
+    private $packageNumber;
+    /**
+     * @var array
+     */
+    private $bills;
+    /**
+     * @var boolean
+     */
+    private $paidStatus;
+    /**
+     * @var array
+     */
     private $bows;
-    private $attachments;
 
     public function __Construct($id = 0,
                                 $ownerId = null,
@@ -31,8 +54,6 @@ class Collection
                                 $receptionTime = false,
                                 $returnTime = CollectionEnum::NO_RETURN_TIME,
                                 $packageNumber = false,
-                                $billReference = false,
-                                $billAmount = false,
                                 $paidStatus = false){
         $this->id = $id;
         $this->ownerId = $ownerId;
@@ -40,11 +61,9 @@ class Collection
         $this->receptionTime = ($receptionTime) ? $receptionTime : time();
         $this->returnTime = $returnTime;
         $this->packageNumber = $packageNumber;
-        $this->billReference = $billReference;
-        $this->billAmount = $billAmount;
+        $this->bills = array();
         $this->paidStatus = $paidStatus;
         $this->bows = array();
-        $this->attachments = array();
     }
 
     public function exchangeArray($data)
@@ -62,17 +81,7 @@ class Collection
         $this->receptionTime =(!empty($data['reception_time'])) ? $data['reception_time'] : false;
         $this->returnTime =(!empty($data['return_time'])) ? $data['return_time'] : CollectionEnum::NO_RETURN_TIME;
         $this->packageNumber =(!empty($data['package_number'])) ? $data['package_number'] : null;
-        $this->billReference =(!empty($data['bill_reference'])) ? $data['bill_reference'] : null;
-        $this->billAmount =(isset($data['bill_amount'])) ? (float) $data['bill_amount'] : null;
         $this->paidStatus = (isset($data['paid_status'])) ? $data['paid_status'] : false;
-
-        $attachements = array();
-        if(!empty($data['attachments'])) {
-            foreach(explode("--", $data['attachments']) as $attachement){
-                $attachements[$attachement] = $attachement;
-            }
-        }
-        $this->attachments =  $attachements;
     }
 
     /**
@@ -198,41 +207,40 @@ class Collection
     }
 
     /*******************
-     *  BILL REFERENCE
+     *  BILL
      *******************/
     /**
-     * @param string $billReference
+     * @param int $billId
      */
-    public function setBillReference($billReference)
+    public function setBills($bills)
     {
-        $this->billReference = $billReference;
+        $this->bills = $bills;
     }
 
     /**
      * @return string
      */
-    public function getBillReference()
+    public function getBills()
     {
-        return stripslashes($this->billReference);
-    }
-
-    /*******************
-     *  BILL AMOUNT
-     *******************/
-    /**
-     * @param float $billAmount
-     */
-    public function setBillAmount($billAmount)
-    {
-        $this->billAmount = (float) $billAmount;
+        return $this->bills;
     }
 
     /**
-     * @return float
+     * @return int
      */
-    public function getBillAmount()
-    {
-        return (float) $this->billAmount;
+    public function countBills(){
+        return count($this->bills);
+    }
+
+    /**
+     * @param Bill $bill
+     */
+    public function addBill(Bill $bill){
+        $this->bills[$bill->getId()] = $bill;
+    }
+
+    public function removeBill(int $billId){
+        unset($this->bills[$billId]);
     }
 
     /*******************
@@ -289,41 +297,6 @@ class Collection
 
     public function removeBow(int $bowId){
         unset($this->bows[$bowId]);
-    }
-
-    /*******************
-     *  ATTACHEMENTS
-     *******************/
-    /**
-     * @param mixed $attachments
-     */
-    public function setAttachments($attachments)
-    {
-        $this->attachments = $attachments;
-    }
-
-    public function addAttachment($attachment)
-    {
-        $this->attachments[$attachment] = $attachment;
-    }
-
-    public function removeAttachment($attachment)
-    {
-        unset($this->attachments[$attachment]);
-        unlink(__DIR__ . "/../../../../../public/img/attachment/" . $attachment);
-    }
-
-    public function hasAttachments()
-    {
-        return empty($this->attachments) ? false : true;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAttachments()
-    {
-        return $this->attachments;
     }
 
 }

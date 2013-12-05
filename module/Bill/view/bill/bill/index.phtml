@@ -1,0 +1,44 @@
+<?php
+use Bill\Model\Bill;
+?>
+<h2><img src="/img/bow/header.png" width="50" /> <?php echo $this->translate("Bills List"); ?></h2>
+<div class="options">
+    <a class="add" href="<?php echo $this->url('bill-add'); ?>"><img src="/img/bow/add.png" /><?php
+        echo $this->translate("Add new bill") ?></a>
+</div>
+<div class="error-message bill"></div>
+
+<table class="table bills">
+    <tr>
+        <th><?php echo $this->translate("Reference") ?></th>
+        <th><?php echo $this->translate("Amount") ?></th>
+        <th><?php echo $this->translate("Attachment") ?></th>
+        <th>&nbsp;</th>
+    </tr>
+
+    <?php /**  @var  $bill Bill*/?>
+    <?php foreach ($bills as $bill) : ?>
+        <?php $detailUrl = $this->url('$bill-details', array('id' => $bill->getId(), 'section' => $section)); ?>
+        <tr class="bill" id="bill-<?php echo $bill->getId() ?>" data-url="<?php echo $detailUrl ?>" >
+            <td><?php echo $bill->getReference(); ?></td>
+            <td><?php echo $bill->getAmount(); ?></td>
+            <td>
+                <?php if($bow->hasAttachments()) { ?>
+                    <img src="/img/content/attachment.png">
+                <?php } ?>
+            </td>
+            <td class="list-options">
+                <div class="bow edit" data-id="<?php echo $bow->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/bow/edit.png" /></div>
+                <div class="bow delete" data-id="<?php echo $bow->getId() ?>" ><img src="/img/bow/del.png" /><div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<?php
+$this->placeholder('scripts')->append("
+        BowsManager.bow.details();
+        BowsManager.bow.edit();
+        BowsManager.bow.del();
+        BowsManager.bow.done();
+    ");
+?>

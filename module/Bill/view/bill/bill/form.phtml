@@ -1,0 +1,105 @@
+<?php
+    use Application\Enum\ModeEnum;
+    use Bow\Enum\BowTypeEnum;
+    use Bow\Enum\BowSizeEnum;
+?>
+
+<h1><img src="/img/bow/header.png" width="80" />
+    <?php echo $header ?>
+</h1>
+
+<?php if($mode == ModeEnum::MODE_AJAX) { ?>
+    <span class="back ajax"><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></span>
+<?php } else { ?>
+    <a class="back" href="<?php
+    echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section))
+    ?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
+<?php } ?>
+
+<div class="error-message bow"></div>
+
+<form id="bow-form" enctype="multipart/form-data">
+    <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
+    <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $bow->getCollectionId() ?>">
+    <input type="hidden" name="id" id="id" value="<?php echo $bow->getId() ?>">
+    <input type="hidden" name="number" id="number" value="<?php echo $bow->getNumber() ?>">
+
+    <p><b><?php echo $this->translate("#") ?></b> <?php echo $bow->getNumber() ?></p>
+
+    <label for="type"><?php echo $this->translate("Type") ?></label><br />
+    <select name="type" id="type" >
+        <?php
+            foreach(BowTypeEnum::COPIES(true) as $value => $copy) {
+        ?>
+            <option value="<?php echo $value ?>" <?php echo ($value == $bow->getType()) ? "selected='selected'" : "";?> ><?php echo $this->translate($copy) ?></option>
+        <?php
+            }
+        ?>
+    </select>
+    <br />
+
+    <label for="size"><?php echo $this->translate("Size") ?></label><br />
+    <select name="size" id="size" >
+        <?php
+            foreach(BowSizeEnum::COPIES(true) as $value => $copy) {
+        ?>
+            <option value="<?php echo $value ?>" <?php echo ($value == $bow->getSize()) ? "selected='selected'" : "";?> ><?php echo $this->translate($copy) ?></option>
+        <?php
+            }
+        ?>
+    </select>
+    <br />
+
+
+    <ul>
+        <li>
+            <label for="description"><?php echo $this->translate("Description") ?></label><br />
+            <textarea name="description" id="description"><?php echo $bow->getDescription() ?></textarea>
+        </li>
+        <li>
+            <label for="workToDo"><?php echo $this->translate("Work to do") ?></label><br />
+            <textarea name="workToDo" id="workToDo"><?php echo $bow->getWorkToDo() ?></textarea>
+        </li>
+        <li>
+            <label  for="status"><?php echo $this->translate("Status") ?></label><br />
+            <textarea name="status" id="status"><?php echo $bow->getStatus() ?></textarea>
+        </li>
+    </ul>
+    <br class="clearfix" />
+    <ul>
+        <li>
+            <label for="attachment"><?php echo $this->translate("Add Attachments") ?></label><br />
+            <input type="file" name="attachment" id="bow-attachment" multiple ><br />
+        </li>
+        <?php if($bow->hasAttachments()){?>
+            <li>
+                <label for="files"><?php echo $this->translate("Remove Attachments") ?></label><br />
+                <?php foreach($bow->getAttachments() as $attachment) { ?>
+                    <div>
+                        <input type="checkbox" class="files" name="del-attachment[]" value="<?php echo $attachment ?>">
+                        <a target="_blank"href="/img/attachment/<?php echo $attachment; ?>" >
+                            <?php echo $this->fileType()->getOriginalName($attachment); ?>
+                        </a>
+                    </div>
+                <?php } ?>
+            </li>
+        <?php } ?>
+    </ul>
+    <br class="clearfix" />
+        <label for="comments"><?php echo $this->translate("Comments") ?></label><br />
+        <textarea name="comments" id="comments"><?php echo $bow->getComments() ?></textarea>
+    <br />
+        <label for="isDone"><?php echo $this->translate("Is done?") ?></label>
+        <input type="checkbox" name="isDone" id="isDone" <?php echo ($bow->getIsDone()) ? "checked='checked'" : "" ?> />
+    <br /><br />
+    <div id="save-bow">
+        <button type="submit" ><?php echo $this->translate("Save") ?></button>
+    </div>
+</form>
+<?php
+    $this->placeholder("scripts")->append("
+        BowsManager.tools.attachment.getData('#bow-attachment', BowsManager.bow);
+        BowsManager.bow.add();
+    ");
+
+?>

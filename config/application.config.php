@@ -7,6 +7,7 @@ return array(
         'Client',
         'Collection',
         'Search',
+        'Bill',
         'Upload',
     ),
 

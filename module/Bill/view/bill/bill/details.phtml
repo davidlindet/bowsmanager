@@ -1,0 +1,89 @@
+<h1><img src="/img/bow/header.png" width="50" /> <?php  echo $this->translate("Bow") ?></h1>
+<a class="back" href="<?php echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section)) ?>" >
+    <img src="/img/content/back.png" /><?php echo $this->translate("Back")?></a>
+<div class="options">
+    <a class="bow edit" href="<?php echo $this->url('bow-edit', array('id' => $bow->getId(), 'section' => $section));?>">
+        <img src="/img/bow/edit.png" />Edit</a>
+    <div class="bow delete" data-id="<?php echo $bow->getId() ?>" data-collectionid="<?php echo $bow->getCollectionId() ?>" data-section="<?php echo $section ?>" >
+        <img src="/img/bow/del.png" />Delete</div>
+</div>
+<div class="error-message bow"></div>
+<div class="details bows">
+    <dl>
+        <dt><?php echo $this->translate("#") ?></dt>
+        <dd>
+            <?php echo $bow->getNumber() ?>
+        </dd>
+        <dt><?php echo $this->translate("Type") ?></dt>
+        <dd>
+            <?php echo $this->translate(\Bow\Enum\BowTypeEnum::COPY($bow->getType())) ?>
+        </dd>
+        <dt><?php echo $this->translate("Size") ?></dt>
+        <dd>
+            <?php echo  $this->translate(\Bow\Enum\BowSizeEnum::COPY($bow->getSize())) ?>
+        </dd>
+    </dl>
+    <dl class="clearfix">
+        <dt><?php echo $this->translate("Description") ?></dt><br />
+        <dd><?php echo nl2br($bow->getDescription()) ?></dd>
+    </dl>
+    <dl>
+        <dt><?php echo $this->translate("Work to do") ?></dt><br />
+        <dd><?php echo nl2br($bow->getWorkToDo()) ?></dd>
+    </dl>
+    <dl>
+        <dt><?php echo $this->translate("Status") ?></dt><br />
+        <dd><?php echo nl2br($bow->getStatus()) ?></dd>
+    </dl>
+    <dl class="clearfix">
+        <dt><?php echo $this->translate("Is done?") ?></dt><br />
+        <dd>
+            <?php
+                if($bow->getIsDone()){
+            ?>
+                <img src="/img/content/valid.png" />
+            <?php
+                }
+                else {
+            ?>
+                <img src="/img/content/invalid.png" />
+            <?php
+                }
+            ?>
+        </dd>
+    </dl>
+    <dl>
+        <dt><?php echo $this->translate("Comments") ?></dt><br />
+        <dd><?php echo nl2br($bow->getComments()) ?></dd>
+    </dl>
+    <dl class="clearfix">
+
+    <dt><?php echo $this->translate("Attachments") ?></dt><br />
+        <dd class="attachment">
+            <ul>
+                <?php
+                foreach($bow->getAttachments() as $attachment){
+                    ?>
+                    <li>
+                        <?php if($this->fileType()->isImage($attachment)){?>
+                            <a target="_blank" href="<?php echo "/img/attachment/" . $attachment ?>" >
+                                <img src="<?php echo "/img/attachment/" . $attachment ?>" width="150" height="150" /><br />
+                                <?php echo $this->fileType()->getOriginalName($attachment) ?>
+                            </a>
+                        <?php } else { ?>
+                            <a target="_blank" href="<?php echo "/img/attachment/" . $attachment ?>" >
+                                <?php echo $this->fileType()->getOriginalName($attachment) ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                <?php }?>
+            </ul>
+        </dd>
+    </dl>
+
+</div>
+<?php
+$this->placeholder('scripts')->append("
+        BowsManager.bow.del();
+    ");
+?>

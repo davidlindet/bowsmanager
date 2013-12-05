@@ -9,6 +9,7 @@
 namespace Collection\Service;
 
 use Bow\Service\BowService;
+use Bill\Service\BillService;
 
 use Collection\Dao\CollectionDao;
 use Collection\Model\Collection;
@@ -28,9 +29,15 @@ class CollectionService
      */
     protected $bowService;
 
-    public function __construct($collectionDao, $bowService){
+    /**
+     * @var $billService BillService
+     */
+    protected $billService;
+
+    public function __construct($collectionDao, $bowService, $billService){
         $this->collectionDao = $collectionDao;
         $this->bowService = $bowService;
+        $this->billService = $billService;
     }
 
     public function getById($collectionId){
@@ -43,6 +50,9 @@ class CollectionService
             $collection = $this->collectionDao->getCollection($collectionId);
             $bows = $this->bowService->getAllByCollection($collection->getId());
             $collection->setBows($bows);
+
+            $bills = $this->billService->getAllByCollection($collectionId);
+            $collection->setBills($bills);
         }
         return $collection;
     }

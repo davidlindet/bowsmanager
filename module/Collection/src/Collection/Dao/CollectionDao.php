@@ -45,8 +45,7 @@ class CollectionDao
         }
 
         $sql = "SELECT col.id, owner, reception_time, return_time,
-              package_number, bill_reference, bill_amount,
-              paid_status, attachments, first_name, last_name
+              package_number, first_name, last_name
               FROM bm_collection col
                   JOIN bm_client cli
                     ON cli.id = col.owner
@@ -79,7 +78,7 @@ class CollectionDao
             $orderSql = "reception_time ASC";
         }
 
-        $columns = "col.id, owner, reception_time, return_time, package_number, bill_reference, bill_amount, paid_status, attachments, first_name, last_name";
+        $columns = "col.id, owner, reception_time, return_time, package_number, first_name, last_name";
         $sql = "SELECT $columns FROM bm_collection col, bm_client cli WHERE col.owner = cli.id AND
                     (owner) IN (SELECT id FROM bm_client WHERE last_name LIKE'%$query%')
                 UNION
@@ -87,11 +86,6 @@ class CollectionDao
                     FROM bm_collection col, bm_client cli
                     WHERE col.owner = cli.id
                       AND package_number LIKE '%$query%'
-                UNION
-                SELECT $columns
-                    FROM bm_collection col, bm_client cli
-                    WHERE col.owner = cli.id
-                      AND bill_reference LIKE '%$query%'
                     ORDER BY $orderSql
         ";
 
@@ -134,8 +128,7 @@ class CollectionDao
         $driver = $this->tableGateway->getAdapter()->getDriver();
 
         $sql = "SELECT col.id, owner, reception_time, return_time,
-              package_number, bill_reference, bill_amount,
-              paid_status, attachments, first_name, last_name
+              package_number, first_name, last_name
               FROM bm_collection col
               JOIN bm_client cli
                   ON cli.id = col.owner
@@ -166,10 +159,6 @@ class CollectionDao
             'reception_time'  => $collection->getReceptionTime(false),
             'return_time' => $collection->getReturnTime(false),
             'package_number'  => $collection->getPackageNumber(),
-            'bill_reference'  => $collection->getBillReference(),
-            'bill_amount'  => $collection->getBillAmount(),
-            'paid_status'  => $collection->isPaid(),
-            'attachments'  => $collection->hasAttachments() ? implode("--", $collection->getAttachments()) : "",
         );
 
         $id = (int) $collection->getId();

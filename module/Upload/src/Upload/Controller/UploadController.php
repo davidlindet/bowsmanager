@@ -11,26 +11,50 @@ namespace Upload\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\JsonModel;
 
-use Collection\Service\CollectionService;
 use Bow\Service\BowService;
+use Bill\Service\BillService;
+use Upload\Service\UploadService;
 
 class UploadController extends AbstractActionController
 {
+    /**
+     * @var $uploadService UploadService
+     */
+    protected $uploadService;
 
-    public function collectionAction()
+    public function getUploadService()
+    {
+        if (!$this->uploadService) {
+            $this->uploadService = $this->getServiceLocator()->get('UploadService');
+        }
+        return $this->uploadService;
+    }
+
+    /**
+     * Upload a bill
+     * @return JsonModel
+     */
+    public function billAction()
     {
         $response = array('success' => false);
         $id = $this->params()->fromQuery('id', false);
 
-        if($id){
-            /** @var CollectionService $collectionService */
-            $collectionService = $this->getServiceLocator()->get('CollectionService');
-            $response = $this->upload("col", $id, $collectionService);
+        //if there is a file to upload
+        if(!empty($_FILES)){
+            // if it's relative to a collection
+            if($id){
+                /** @var BillService $billService */
+                $billService = $this->getServiceLocator()->get('BillService');
+                $response = $this->getUploadService()->uploadBill($id, $billService);
+            }
         }
-
         return new JsonModel($response);
     }
 
+    /**
+     * Upload bow's attachments
+     * @return JsonModel
+     */
     public function bowAction()
     {
         $response = array('success' => false);
@@ -39,39 +63,9 @@ class UploadController extends AbstractActionController
         if($id){
             /** @var BowService $bowService */
             $bowService = $this->getServiceLocator()->get('BowService');
-            $response = $this->upload("bow", $id, $bowService);
+            $response = $this->getUploadService()->uploadBowsAttachment($id, $bowService);
         }
 
         return new JsonModel($response);
-    }
-
-
-    private function upload($modelType, $modelId, $service){
-        $response = array('success' => true);
-
-        try {
-            if(!empty($_FILES)){
-
-                $model = $service->getById($modelId);
-                $path = __DIR__ . "/../../../../../public/img/attachment/";
-
-                //for each files
-                foreach ($_FILES["images"]["error"] as $key => $error) {
-                    //check if no errors
-                    if ($error == UPLOAD_ERR_OK) {
-                        $ext = pathinfo($_FILES["images"]["name"][$key], PATHINFO_EXTENSION);
-                        $originalName = str_replace(".".$ext, "", $_FILES["images"]["name"][$key]);
-                        $fileName = $modelType . "-" . $modelId . "-" . $key . "-" . time() . "-" . $originalName .".". $ext;
-                        //upload files
-                        move_uploaded_file( $_FILES["images"]["tmp_name"][$key], $path . $fileName);
-                        $model->addAttachment($fileName);
-                    }
-                }
-                $service->save($model);
-            }
-        } catch(Exception $e) {
-            $response = array('success' => false, 'error' => $e);
-        }
-        return $response;
     }
 }

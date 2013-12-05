@@ -6,11 +6,11 @@
  * Time: 00:30
  * To change this template use File | Settings | File Templates.
  */
-namespace Collection;
+namespace Bill;
 
-use Collection\Model\Collection;
-use Collection\Dao\CollectionDao;
-use Collection\Service\CollectionService;
+use Bill\Model\Bill;
+use Bill\Dao\BillDao;
+use Bill\Service\BillService;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 
@@ -39,23 +39,21 @@ class Module
     {
         return array(
             'factories' => array(
-                'CollectionService' =>  function($sm) {
-                    $dao = $sm->get('Collection\Dao\CollectionDao');
-                    $bowService =  $sm->get('BowService');
-                    $billService =  $sm->get('BillService');
-                    $service = new CollectionService($dao, $bowService, $billService);
+                'BillService' =>  function($sm) {
+                    $dao = $sm->get('Bill\Dao\BillDao');
+                    $service = new BillService($dao);
                     return $service;
                 },
-                'Collection\Dao\CollectionDao' =>  function($sm) {
-                    $tableGateway = $sm->get('CollectionDaoGateway');
-                    $table = new CollectionDao($tableGateway);
+                'Bill\Dao\BillDao' =>  function($sm) {
+                    $tableGateway = $sm->get('BillDaoGateway');
+                    $table = new BillDao($tableGateway);
                     return $table;
                 },
-                'CollectionDaoGateway' => function ($sm) {
+                'BillDaoGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Collection());
-                    return new TableGateway('bm_collection', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Bill());
+                    return new TableGateway('bm_bill', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );
