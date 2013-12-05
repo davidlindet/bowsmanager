@@ -81,16 +81,16 @@ class BillController extends AbstractActionController
 
         /** @var CollectionService $collectionService */
         $collectionService = $this->getServiceLocator()->get('CollectionService');
-        $collectionModel = $collectionService->getById($collectionId);
+        $collections = ($collectionId) ? $collectionService->getById($collectionId) : $collectionService->getAll(false);
 
         /** @var $billModel Bill */
-        $billModel = $this->getBillService()->getById(BillEnum::NEW_BOW);
+        $billModel = $this->getBillService()->getById(BillEnum::NEW_BILL);
         $billModel->setCollectionId($collectionId);
 
         return new ViewModel(array(
             'bill' => $billModel,
             'section' => $section,
-            'mode' => ModeEnum::MODE_REGULAR,
+            'collections' => $collections
         ));
     }
 
@@ -116,7 +116,7 @@ class BillController extends AbstractActionController
 
     public function detailsAction()
     {
-        $billId = $this->getEvent()->getRouteMatch()->getParam('id', BillEnum::NEW_BOW);
+        $billId = $this->getEvent()->getRouteMatch()->getParam('id', BillEnum::NEW_BILL);
         $section = $this->params()->fromRoute('section', false);
 
         /** @var $billModel Bill */

@@ -11,4 +11,7 @@ namespace Bill\Enum;
 
 class BillEnum {
     const NEW_BILL = 0;
+
+    //bill not relative to a collection
+    const NO_COLLECTION = -1;
 }

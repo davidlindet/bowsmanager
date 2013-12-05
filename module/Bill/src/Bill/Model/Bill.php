@@ -31,6 +31,11 @@ class Bill
     private $reference;
 
     /**
+     * @var boolean is bill paid
+     */
+    private $isPaid;
+
+    /**
      * Pictures of the bill
      */
     private $attachments;
@@ -40,6 +45,7 @@ class Bill
         $this->collectionId = $collectionId;
         $this->amount = (float) $amount;
         $this->reference = $reference;
+        $this->isPaid = false;
         $this->attachments = array();
     }
 
@@ -49,6 +55,7 @@ class Bill
         $this->collectionId = (isset($data['collection_id'])) ? (int) $data['collection_id'] : null;
         $this->amount = (isset($data['amount'])) ? (float) $data['amount'] : null;
         $this->reference = (isset($data['reference'])) ? $data['reference'] : null;
+        $this->isPaid = (isset($data['is_paid'])) ? (boolean) $data['is_paid'] : null;
 
         $attachements = array();
         if(!empty($data['attachments'])) {
@@ -127,6 +134,26 @@ class Bill
     {
         return $this->reference;
     }
+
+    /************
+     * IS PAID
+     ************/
+    /**
+     * @param boolean $isPaid
+     */
+    public function setIsPaid($isPaid)
+    {
+        $this->isPaid = $isPaid;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isPaid()
+    {
+        return $this->isPaid;
+    }
+
 
     /************
      * ATTACHMENTS

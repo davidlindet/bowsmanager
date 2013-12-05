@@ -70,9 +70,14 @@ class CollectionService
         return $collections;
     }
 
-    public function getAll(){
+    /**
+     * Return Collection array with or without bows data
+     * @param bool $setBows
+     * @return array
+     */
+    public function getAll($setBows = true){
         $collections = $this->collectionDao->fetchAll();
-        return $this->setBows($collections);
+        return ($setBows) ? $this->setBows($collections) : $collections;
     }
 
     public function getCollectionsNotSent(){
