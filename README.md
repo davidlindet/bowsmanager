@@ -7,6 +7,7 @@ With it, a bow maker can manage his client list, bows collections he receives an
 * v1 : manage clients, collections and bows
 * v1.1 : add attachments for collections and bows
 * v1.1a : add bow number. When you add a bow to a collection a number is generate to identify it.
+* v1.2 : display popup to load bows edit form from collection details page + fix bugs (add devise, remove backslashes...)
 
 --
 TABLES STRUCTURES V1
