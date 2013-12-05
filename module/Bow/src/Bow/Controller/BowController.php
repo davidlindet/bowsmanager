@@ -91,7 +91,7 @@ class BowController extends AbstractActionController
         return new ViewModel(array(
             'bow' => $bowModel,
             'section' => $section,
-            'mode' => BowEnum::MODE_REGULAR,
+            'mode' => ModeEnum::MODE_REGULAR,
         ));
     }
 

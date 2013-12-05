@@ -48,42 +48,46 @@ class Client
         $this->website = (!empty($data['website'])) ? $data['website'] : "";
     }
 
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Full Name (can change the order between last and first name)
+     * @param bool $lastNameFirst
+     * @return string
+     */
     public function getName($lastNameFirst = true){
-        return ($lastNameFirst) ? $this->lastName . " " . $this->firstName : $this->firstName . " " . $this->lastName;
+        $fullName = ($lastNameFirst) ? $this->lastName . " " . $this->firstName : $this->firstName . " " . $this->lastName;
+        return stripslashes($fullName);
     }
 
+    /*******************
+     *  LAST NAME
+     *******************/
     /**
-     * @param mixed $address
+     * @param mixed $lastName
      */
-    public function setAddress($address)
+    public function setLastName($lastName)
     {
-        $this->address = $address;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param mixed $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
+        $this->lastName = $lastName;
     }
 
     /**
      * @return mixed
      */
-    public function getEmail()
+    public function getLastName()
     {
-        return $this->email;
+        return stripslashes($this->lastName);
     }
 
+    /*******************
+     *  FIRST NAME
+     *******************/
     /**
      * @param mixed $firstName
      */
@@ -97,17 +101,31 @@ class Client
      */
     public function getFirstName()
     {
-        return $this->firstName;
+        return stripslashes($this->firstName);
+    }
+
+    /*******************
+     *  ADDRESS
+     *******************/
+    /**
+     * @param mixed $address
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
     }
 
     /**
      * @return mixed
      */
-    public function getId()
+    public function getAddress()
     {
-        return $this->id;
+        return stripslashes($this->address);
     }
 
+    /*******************
+     *  LANDLINE
+     *******************/
     /**
      * @param mixed $landline
      */
@@ -124,22 +142,9 @@ class Client
         return $this->landline;
     }
 
-    /**
-     * @param mixed $lastName
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
+    /*******************
+     *  MOBILE
+     *******************/
     /**
      * @param mixed $mobile
      */
@@ -156,6 +161,28 @@ class Client
         return $this->mobile;
     }
 
+    /*******************
+     * EMAIL
+     *******************/
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /*******************
+     *  WEBSITE
+     *******************/
     /**
      * @param mixed $website
      */
@@ -169,9 +196,12 @@ class Client
      */
     public function getWebsite()
     {
-        return $this->website;
+        return stripslashes($this->website);
     }
 
+    /*******************
+     *  COLLECTIONS
+     *******************/
     /**
      * @param array $collections
      */

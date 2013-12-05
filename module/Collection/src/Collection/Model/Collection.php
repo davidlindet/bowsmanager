@@ -63,7 +63,7 @@ class Collection
         $this->returnTime =(!empty($data['return_time'])) ? $data['return_time'] : CollectionEnum::NO_RETURN_TIME;
         $this->packageNumber =(!empty($data['package_number'])) ? $data['package_number'] : null;
         $this->billReference =(!empty($data['bill_reference'])) ? $data['bill_reference'] : null;
-        $this->billAmount =(isset($data['bill_amount'])) ? $data['bill_amount'] : null;
+        $this->billAmount =(isset($data['bill_amount'])) ? (float) $data['bill_amount'] : null;
         $this->paidStatus = (isset($data['paid_status'])) ? $data['paid_status'] : false;
 
         $attachements = array();
@@ -83,8 +83,11 @@ class Collection
         return $this->id;
     }
 
+    /*******************
+     *  OWNER ID
+     *******************/
     /**
-     * @param null $ownerId
+     * @param int $ownerId
      */
     public function setOwnerId($ownerId)
     {
@@ -92,15 +95,18 @@ class Collection
     }
 
     /**
-     * @return null
+     * @return int
      */
     public function getOwnerId()
     {
         return $this->ownerId;
     }
 
+    /*******************
+     *  OWNER NAME
+     *******************/
     /**
-     * @param mixed $ownerName
+     * @param string $ownerName
      */
     public function setOwnerName($ownerName)
     {
@@ -108,13 +114,130 @@ class Collection
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getOwnerName()
     {
-        return $this->ownerName;
+        return stripslashes($this->ownerName);
     }
 
+    /*******************
+     *  RECEPTION TIME
+     *******************/
+    /**
+     * @param timestamp $receptionTime
+     */
+    public function setReceptionTime($receptionTime)
+    {
+        $this->receptionTime = $receptionTime;
+    }
+
+    /**
+     * @return timestamp
+     */
+    public function getReceptionTime($formated = true)
+    {
+        $receptionTime = $this->receptionTime;
+        if($formated){
+            $receptionTime = date('d-m-Y', $receptionTime);
+        }
+        return $receptionTime;
+    }
+
+    /*******************
+     *  RETURN TIME
+     *******************/
+    /**
+     * @param timestamp $returnTime
+     */
+    public function setReturnTime($returnTime)
+    {
+        $this->returnTime = $returnTime ? $returnTime : CollectionEnum::NO_RETURN_TIME;
+    }
+
+    /**
+     * @return timestamp
+     */
+    public function getReturnTime($formated = true)
+    {
+        $returnTime = $this->returnTime;
+        if($formated){
+            $returnTime = ($returnTime == CollectionEnum::NO_RETURN_TIME) ? "" : date('d-m-Y', $returnTime);
+        }
+        return $returnTime;
+    }
+
+    /*******************
+     *  SENT STATUS
+     *******************/
+    /**
+     * @return boolean
+     */
+    public function isSent()
+    {
+        return ($this->returnTime == CollectionEnum::NO_RETURN_TIME) ? false : true;
+    }
+
+    /*******************
+     *  PACKAGE NUMBER
+     *******************/
+    /**
+     * @param string $packageNumber
+     */
+    public function setPackageNumber($packageNumber)
+    {
+        $this->packageNumber = $packageNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPackageNumber()
+    {
+        return stripslashes($this->packageNumber);
+    }
+
+    /*******************
+     *  BILL REFERENCE
+     *******************/
+    /**
+     * @param string $billReference
+     */
+    public function setBillReference($billReference)
+    {
+        $this->billReference = $billReference;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBillReference()
+    {
+        return stripslashes($this->billReference);
+    }
+
+    /*******************
+     *  BILL AMOUNT
+     *******************/
+    /**
+     * @param float $billAmount
+     */
+    public function setBillAmount($billAmount)
+    {
+        $this->billAmount = (float) $billAmount;
+    }
+
+    /**
+     * @return float
+     */
+    public function getBillAmount()
+    {
+        return (float) $this->billAmount;
+    }
+
+    /*******************
+     *  PAID STATUS
+     *******************/
     /**
      * @param boolean $paidStatus
      */
@@ -131,102 +254,9 @@ class Collection
         return $this->paidStatus;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isSent()
-    {
-        return ($this->returnTime == CollectionEnum::NO_RETURN_TIME) ? false : true;
-    }
-
-    /**
-     * @param bool|int $receptionTime
-     */
-    public function setReceptionTime($receptionTime)
-    {
-        $this->receptionTime = $receptionTime;
-    }
-
-    /**
-     * @return bool|int
-     */
-    public function getReceptionTime($formated = true)
-    {
-        $receptionTime = $this->receptionTime;
-        if($formated){
-            $receptionTime = date('d-m-Y', $receptionTime);
-        }
-        return $receptionTime;
-    }
-
-    /**
-     * @param boolean $billAmount
-     */
-    public function setBillAmount($billAmount)
-    {
-        $this->billAmount = $billAmount;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getBillAmount()
-    {
-        return $this->billAmount;
-    }
-
-    /**
-     * @param boolean $billReference
-     */
-    public function setBillReference($billReference)
-    {
-        $this->billReference = $billReference;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getBillReference()
-    {
-        return $this->billReference;
-    }
-
-    /**
-     * @param boolean $packageNumber
-     */
-    public function setPackageNumber($packageNumber)
-    {
-        $this->packageNumber = $packageNumber;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getPackageNumber()
-    {
-        return $this->packageNumber;
-    }
-
-    /**
-     * @param boolean $returnTime
-     */
-    public function setReturnTime($returnTime)
-    {
-        $this->returnTime = $returnTime ? $returnTime : CollectionEnum::NO_RETURN_TIME;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getReturnTime($formated = true)
-    {
-        $returnTime = $this->returnTime;
-        if($formated){
-            $returnTime = ($returnTime == CollectionEnum::NO_RETURN_TIME) ? "" : date('d-m-Y', $returnTime);
-        }
-        return $returnTime;
-    }
-
+    /*******************
+     *  BOWS
+     *******************/
     /**
      * @param array $bows
      */
@@ -261,6 +291,9 @@ class Collection
         unset($this->bows[$bowId]);
     }
 
+    /*******************
+     *  ATTACHEMENTS
+     *******************/
     /**
      * @param mixed $attachments
      */
@@ -292,7 +325,5 @@ class Collection
     {
         return $this->attachments;
     }
-
-
 
 }
