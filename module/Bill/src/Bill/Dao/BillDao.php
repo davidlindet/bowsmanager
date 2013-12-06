@@ -111,6 +111,7 @@ class BillDao
 
         $id = (int)$bill->getId();
         if ($id == 0) {
+            $data['creation_time'] = time();
             $this->tableGateway->insert($data);
             $id = $this->tableGateway->lastInsertValue;
         } else {

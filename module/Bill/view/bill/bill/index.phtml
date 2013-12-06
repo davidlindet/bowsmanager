@@ -12,6 +12,7 @@ use Bill\Model\Bill;
     <tr>
         <th><?php echo $this->translate("Reference") ?></th>
         <th><?php echo $this->translate("Amount") ?></th>
+        <th><?php echo $this->translate("Is paid?") ?></th>
         <th><?php echo $this->translate("Attachment") ?></th>
         <th>&nbsp;</th>
     </tr>
@@ -21,7 +22,21 @@ use Bill\Model\Bill;
         <?php $detailUrl = $this->url('bill-details', array('id' => $bill->getId(), 'section' => $section)); ?>
         <tr class="bill" id="bill-<?php echo $bill->getId() ?>" data-url="<?php echo $detailUrl ?>" >
             <td><?php echo $bill->getReference(); ?></td>
-            <td><?php echo $bill->getAmount(); ?></td>
+            <td><?php echo $bill->getAmount(true); ?> €</td>
+            <td>
+                <?php
+                if($bill->isPaid()){
+                    ?>
+                    <img src="/img/content/valid.png" />
+                <?php
+                }
+                else {
+                    ?>
+                    <img src="/img/content/invalid.png" />
+                <?php
+                }
+                ?>
+            </td>
             <td>
                 <?php if($bill->hasAttachments()) { ?>
                     <img src="/img/content/attachment.png">

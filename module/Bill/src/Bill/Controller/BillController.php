@@ -12,7 +12,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 
-use Application\Enum\ModeEnum;
 use Application\Enum\SectionEnum;
 
 use Bill\Model\Bill;
@@ -45,7 +44,7 @@ class BillController extends AbstractActionController
         return new ViewModel(array(
             'bills' => $this->getBillService()->getAll(),
             'collectionId' => $collectionId,
-            'section' => SectionEnum::BOW_INDEX
+            'section' => SectionEnum::BILL_INDEX
         ));
     }
 

@@ -101,6 +101,14 @@ class Bill
         return (int) $this->collectionId;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isConnectedToCollection()
+    {
+        return $this->collectionId == BillEnum::NO_COLLECTION ? false : true;
+    }
+
     /************
      * COLLECTION NAME
      ************/
@@ -134,11 +142,10 @@ class Bill
     /**
      * @return float
      */
-    public function getAmount()
+    public function getAmount($viewFormated = false)
     {
-        return $this->amount;
+        return $viewFormated ? number_format($this->amount, 2, ',', ' ') : number_format($this->amount, 2, '.', '');
     }
-
 
     /************
      * REFERENCE

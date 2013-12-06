@@ -38,7 +38,8 @@ form textarea {
 }
 .table.clients .client:hover,
 .table.collections .collection:hover,
-.table.bows .bow:hover{
+.table.bows .bow:hover,
+.table.bills .bill:hover {
     background-color: #EEE;
     cursor: pointer;
 }

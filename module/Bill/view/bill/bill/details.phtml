@@ -1,4 +1,4 @@
-<h1><img src="/img/bow/header.png" width="50" /> <?php  echo $this->translate("Bow") ?></h1>
+<h1><img src="/img/bow/header.png" width="50" /> <?php  echo $this->translate("Bill") ?></h1>
 <a class="back" href="<?php echo $this->url('bill', array('section' => $section)) ?>" >
     <img src="/img/content/back.png" /><?php echo $this->translate("Back")?></a>
 <div class="options">
@@ -7,14 +7,28 @@
     <div class="bill delete" data-id="<?php echo $bill->getId() ?>" data-section="<?php echo $section ?>" >
         <img src="/img/bow/del.png" /><?php echo $this->translate("Delete")?></div>
 </div>
-<div class="error-message bow"></div>
-<div class="details bows">
+<div class="error-message bill"></div>
+<div class="details bills">
     <dl>
         <dt><?php echo $this->translate("Collection") ?></dt>
         <dd>
+        <?php
+            if($bill->isConnectedToCollection()){
+        ?>
+            <a href="<?php
+            echo $this->url("collection-details", array("id" => $bill->getCollectionId(), "section" => $section));
+            ?>" ><?php
+                echo $bill->getCollectionName();
+                ?></a>
+        <?php
+            } else {
+                echo $this->translate("No collection");
+            }
+        ?>
+
             <?php
-                $collectionName = $bill->getCollectionName();
-                echo empty($collectionName) ? $this->translate("No Collection") : $collectionName;
+//                $collectionName = $bill->getCollectionName();
+//                echo empty($collectionName) ? $this->translate("No Collection") : $collectionName;
             ?>
         </dd>
         <dt><?php echo $this->translate("Reference") ?></dt>
@@ -23,7 +37,7 @@
         </dd>
         <dt><?php echo $this->translate("Amount") ?></dt>
         <dd>
-            <?php echo $bill->getAmount() ?>
+            <?php echo $bill->getAmount(true) ?> €
         </dd>
     </dl>
     <dl class="clearfix">

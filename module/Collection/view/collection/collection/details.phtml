@@ -13,6 +13,9 @@ switch($section) {
     case SectionEnum::INDEX_INDEX:
         $backUrl = $this->url('home');
         break;
+    case SectionEnum::BILL_INDEX:
+        $backUrl = $this->url('bill');
+        break;
     default:
         $backUrl = $this->url('collection');
 }
