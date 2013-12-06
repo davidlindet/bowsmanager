@@ -257,7 +257,7 @@ BowsManager.bill = (function() {
                 $.ajax({
                     url: "/bill-delete",
                     method: "POST",
-                    data: {id: bowId},
+                    data: {id: billId},
                     success: function(data) {
                         if(data.success){
                             // on bill list page so hide row

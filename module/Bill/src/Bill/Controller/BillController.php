@@ -138,11 +138,12 @@ class BillController extends AbstractActionController
     {
         $params = $this->params()->fromPost();
 
+        /** @var $uploadService UploadService */
+        $uploadService = $this->getServiceLocator()->get('UploadService');
+
         /** @var $billModel Bill */
-        $success = $this->getBillService()->delete((int) $params['id']);
-
+        $success = $this->getBillService()->delete((int) $params['id'], $uploadService);
         $result = new JsonModel($success);
-
         return $result;
     }
 
