@@ -75,9 +75,15 @@ class CollectionService
      * @param bool $setBows
      * @return array
      */
-    public function getAll($setBows = true){
+    public function getAll($setBows = true, $setBills = true){
         $collections = $this->collectionDao->fetchAll();
-        return ($setBows) ? $this->setBows($collections) : $collections;
+        if($setBows){
+            $collections = $this->setBows($collections);
+        }
+        if($setBills){
+            $collections = $this->setBills($collections);
+        }
+        return $collections;
     }
 
     public function getCollectionsNotSent(){
@@ -166,6 +172,22 @@ class CollectionService
         foreach($collections as $collection){
             $bows = $this->bowService->getAllByCollection($collection->getId());
             $collection->setBows($bows);
+            $finalCollections[$collection->getId()] = $collection;
+        }
+        return $finalCollections;
+    }
+
+    /**
+     * For each collections get and set bills related to them
+     * @param $collections
+     * @return array
+     */
+    private function setBills($collections){
+        $finalCollections = array();
+        /** @var $collection Collection */
+        foreach($collections as $collection){
+            $bills = $this->billService->getAllByCollection($collection->getId());
+            $collection->setBills($bills);
             $finalCollections[$collection->getId()] = $collection;
         }
         return $finalCollections;

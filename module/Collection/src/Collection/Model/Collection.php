@@ -40,10 +40,6 @@ class Collection
      */
     private $bills;
     /**
-     * @var boolean
-     */
-    private $paidStatus;
-    /**
      * @var array
      */
     private $bows;
@@ -53,8 +49,7 @@ class Collection
                                 $ownerName = "",
                                 $receptionTime = false,
                                 $returnTime = CollectionEnum::NO_RETURN_TIME,
-                                $packageNumber = false,
-                                $paidStatus = false){
+                                $packageNumber = false){
         $this->id = $id;
         $this->ownerId = $ownerId;
         $this->ownerName = $ownerName;
@@ -62,7 +57,6 @@ class Collection
         $this->returnTime = $returnTime;
         $this->packageNumber = $packageNumber;
         $this->bills = array();
-        $this->paidStatus = $paidStatus;
         $this->bows = array();
     }
 
@@ -81,7 +75,6 @@ class Collection
         $this->receptionTime =(!empty($data['reception_time'])) ? $data['reception_time'] : false;
         $this->returnTime =(!empty($data['return_time'])) ? $data['return_time'] : CollectionEnum::NO_RETURN_TIME;
         $this->packageNumber =(!empty($data['package_number'])) ? $data['package_number'] : null;
-        $this->paidStatus = (isset($data['paid_status'])) ? $data['paid_status'] : false;
     }
 
     /**
@@ -250,23 +243,20 @@ class Collection
         unset($this->bills[$billId]);
     }
 
-    /*******************
-     *  PAID STATUS
-     *******************/
     /**
-     * @param boolean $paidStatus
+     * @return bool return true if all bills paid
      */
-    public function setPaidStatus($paidStatus)
-    {
-        $this->paidStatus = $paidStatus;
-    }
+    public function isPaid(){
+        $isPaid = count($this->bills) > 0 ? true : false;
 
-    /**
-     * @return boolean
-     */
-    public function isPaid()
-    {
-        return $this->paidStatus;
+        /** @var $bill Bill */
+        foreach($this->bills as $bill){
+            if(!$bill->isPaid()){
+                $isPaid = false;
+                break;
+            }
+        }
+        return $isPaid;
     }
 
     /*******************

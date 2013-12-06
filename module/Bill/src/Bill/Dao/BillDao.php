@@ -25,7 +25,10 @@ class BillDao
 
     public function fetchAll()
     {
-        $resultSet = $this->tableGateway->select();
+        $select = new Select();
+        $select->from("bm_bill");
+        $select->order('id DESC');
+        $resultSet = $this->tableGateway->selectWith($select);
         return $resultSet;
     }
 

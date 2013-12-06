@@ -103,7 +103,7 @@ class BillController extends AbstractActionController
 
         /** @var CollectionService $collectionService */
         $collectionService = $this->getServiceLocator()->get('CollectionService');
-        $collections = $collectionService->getAll(false);
+        $collections = $collectionService->getAll(false, false);
 
         return new ViewModel(array(
             'bill' => $billModel,

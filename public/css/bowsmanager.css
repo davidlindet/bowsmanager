@@ -242,17 +242,21 @@ form textarea {
 /**
     Bows
 */
-.details.bows dd{
+.details.bows dd,
+.details.bills dd{
     padding-left: 0px;
 }
-.details.bows .attachment{
+.details.bows .attachment,
+.details.bills .attachment {
     width: 1000px;
 }
-.details.bows .attachment ul{
+.details.bows .attachment ul,
+.details.bills .attachment ul{
     list-style-type: none;
     padding-left: 0;
 }
-.details.bows .attachment ul li{
+.details.bills .attachment ul li,
+.details.bills .attachment ul li{
     float: left;
     margin-left: 10px;
 }

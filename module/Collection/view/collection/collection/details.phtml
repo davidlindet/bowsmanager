@@ -36,9 +36,6 @@ echo $backUrl;
     $countBows = $collection->countBows();
     $returnTime = $collection->getReturnTime();
     $packageNumber = $collection->getPackageNumber();
-//    $billReference = $collection->getBillReference();
-//    $billAmount = $collection->getBillAmount();
-//    $paidStatus = $collection->isPaid();
 ?>
 <div class="details">
     <dl>
@@ -79,35 +76,20 @@ echo $backUrl;
         }
         ?>
     </dl>
+    <?php
+        /** @var $bill \Bill\Model\Bill */
+        foreach($collection->getBills() as $bill) {
+            $billReference = $bill->getReference();
+            $billAmount = $bill->getAmount();
+            $paidStatus = $bill->isPaid();
+    ?>
     <dl>
         <?php if(!empty($billReference)){ ?>
             <dt><?php echo $this->translate("Bill Reference") ?></dt>
             <dd>
-            <?php
-                if($collection->hasAttachments()) {
-                    $files = $collection->getAttachments();
-
-                    if(count($files) == 1){
-            ?>
-                    <a target="_blank"href="/img/attachment/<?php echo array_shift($files); ?>" >
-                        <?php echo $billReference ?>
-                    </a>
-            <?php
-                    }
-                    else {
-            ?>
-                    <?php echo $billReference ?><br />
-            <?php
-                        foreach($files as $attachment) {
-            ?>
-                    <a target="_blank"href="/img/attachment/<?php echo $attachment; ?>" >
-                        <?php echo $this->fileType()->getOriginalName($attachment) ?>
-                    </a><br />
-            <?php
-                        }
-                    }
-                }
-            ?>
+                <a href="<?php echo $this->url("bill-details", array('id' => $bill->getId())); ?>" >
+                    <?php echo $billReference ?>
+                </a>
             </dd>
         <?php
         }
@@ -118,17 +100,18 @@ echo $backUrl;
         <?php
         }
         ?>
-        <?php if(!empty($paidStatus)){ ?>
-            <dt><?php echo $this->translate("Is paid?") ?></dt>
-            <dd>
-                <?php if($paidStatus) { ?>
-                    <img width="25" src="/img/content/valid.png">
-                <?php } ?>
-            </dd>
-        <?php
-        }
-        ?>
+        <dt><?php echo $this->translate("Is paid?") ?></dt>
+        <dd>
+            <?php if($paidStatus) { ?>
+                <img width="25" src="/img/content/valid.png">
+            <?php } else { ?>
+                <img width="25" src="/img/content/invalid.png">
+            <?php } ?>
+        </dd>
     </dl>
+    <?php
+        }
+    ?>
 </div>
 
 <div class="bow-list">
