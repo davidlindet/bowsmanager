@@ -18,27 +18,25 @@ use Bill\Model\Bill;
 
     <?php /**  @var  $bill Bill*/?>
     <?php foreach ($bills as $bill) : ?>
-        <?php $detailUrl = $this->url('$bill-details', array('id' => $bill->getId(), 'section' => $section)); ?>
+        <?php $detailUrl = $this->url('bill-details', array('id' => $bill->getId(), 'section' => $section)); ?>
         <tr class="bill" id="bill-<?php echo $bill->getId() ?>" data-url="<?php echo $detailUrl ?>" >
             <td><?php echo $bill->getReference(); ?></td>
             <td><?php echo $bill->getAmount(); ?></td>
             <td>
-                <?php if($bow->hasAttachments()) { ?>
+                <?php if($bill->hasAttachments()) { ?>
                     <img src="/img/content/attachment.png">
                 <?php } ?>
             </td>
             <td class="list-options">
-                <div class="bow edit" data-id="<?php echo $bow->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/bow/edit.png" /></div>
-                <div class="bow delete" data-id="<?php echo $bow->getId() ?>" ><img src="/img/bow/del.png" /><div>
+                <a class="bill edit" href="<?php echo $this->url('bill-edit', array('id' => $bill->getId(), 'section' => $section));?>"><img src="/img/bow/edit.png" /></a>
+                <div class="bill delete" data-id="<?php echo $bill->getId() ?>" ><img src="/img/bow/del.png" /><div>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
 <?php
 $this->placeholder('scripts')->append("
-        BowsManager.bow.details();
-        BowsManager.bow.edit();
-        BowsManager.bow.del();
-        BowsManager.bow.done();
+        BowsManager.bill.details();
+        BowsManager.bill.del();
     ");
 ?>

@@ -9,6 +9,7 @@
 namespace Bill\Model;
 
 use Bill\Enum\BillEnum;
+use Upload\Enum\UploadEnum;
 use Upload\Service\UploadService;
 
 class Bill
@@ -19,6 +20,11 @@ class Bill
      * @var int id of the collection related to
      */
     private $collectionId;
+
+    /**
+     * @var string collection name
+     */
+    private $collectionName = "";
 
     /**
      * @var float amount of the bill
@@ -38,7 +44,7 @@ class Bill
     /**
      * Pictures of the bill
      */
-    private $attachments;
+    private $attachments = array();
 
     public function __Constructor($reference, $amount, $collectionId){
         $this->id = BillEnum::NEW_BILL;
@@ -46,7 +52,6 @@ class Bill
         $this->amount = (float) $amount;
         $this->reference = $reference;
         $this->isPaid = false;
-        $this->attachments = array();
     }
 
     public function exchangeArray($data)
@@ -60,7 +65,7 @@ class Bill
         $attachements = array();
         if(!empty($data['attachments'])) {
             foreach(explode("--", $data['attachments']) as $attachement){
-                $attachements[$attachement] = $attachement;
+                $attachements[] = $attachement;
             }
         }
         $this->attachments =  $attachements;
@@ -94,6 +99,25 @@ class Bill
     public function getCollectionId()
     {
         return (int) $this->collectionId;
+    }
+
+    /************
+     * COLLECTION NAME
+     ************/
+    /**
+     * @param string $collectionName
+     */
+    public function setCollectionName($collectionName)
+    {
+        $this->collectionName = $collectionName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCollectionName()
+    {
+        return $this->collectionName;
     }
 
     /************
@@ -174,6 +198,18 @@ class Bill
         return $this->attachments;
     }
 
+    public function getLatestAvailableKeyAttachment()
+    {
+        $size = count($this->attachments);
+        $key = 0;
+        if($size > 0){
+            $fileData = $this->attachments[$size-1];
+            $dataArray = explode(UploadEnum::SEPARATOR, $fileData);
+            $key = $dataArray[2] + 1;
+        }
+        return $key;
+    }
+
     /**
      * @param $attachment add 1 file
      */
@@ -187,7 +223,8 @@ class Bill
      */
     public function removeAttachment($fileName, UploadService $uploadService)
     {
-        unset($this->attachments[$fileName]);
+        $key = array_search($fileName, $this->attachments);
+        unset($this->attachments[$key]);
         $uploadService->deleteFile($fileName);
     }
 

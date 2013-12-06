@@ -28,6 +28,8 @@ class UploadService {
                 /** @var Bill $bill */
                 $bill = $billService->getById($id);
 
+                $latestKey = $bill->getLatestAvailableKeyAttachment();
+
                 //for each files
                 foreach ($_FILES["images"]["error"] as $key => $error) {
                     //check if no errors
@@ -38,10 +40,12 @@ class UploadService {
                         $ext = pathinfo($_FILES["images"]["name"][$key], PATHINFO_EXTENSION);
 
                         // define a unique name per file
-                        $fileName = $type . "-" . $id . "-" . $key . "-" . time() . "-" . $originalName .".". $ext;
+                        $fileName = $type . UploadEnum::SEPARATOR . $id . UploadEnum::SEPARATOR . $latestKey . UploadEnum::SEPARATOR . time() . UploadEnum::SEPARATOR . $originalName .".". $ext;
                         //upload files
                         move_uploaded_file( $_FILES["images"]["tmp_name"][$key], $path . $fileName);
                         $bill->addAttachment($fileName);
+
+                        $latestKey++;
                     }
                 }
                 $billService->save($bill);
@@ -66,7 +70,7 @@ class UploadService {
                     if ($error == UPLOAD_ERR_OK) {
                         $ext = pathinfo($_FILES["images"]["name"][$key], PATHINFO_EXTENSION);
                         $originalName = str_replace(".".$ext, "", $_FILES["images"]["name"][$key]);
-                        $fileName = UploadEnum::TYPE_BOW . "-" . $id . "-" . $key . "-" . time() . "-" . $originalName .".". $ext;
+                        $fileName = UploadEnum::TYPE_BOW . UploadEnum::SEPARATOR . $id . UploadEnum::SEPARATOR . $key . UploadEnum::SEPARATOR . time() . UploadEnum::SEPARATOR . $originalName .".". $ext;
                         //upload files
                         move_uploaded_file( $_FILES["images"]["tmp_name"][$key], $path . $fileName);
                         $bow->addAttachment($fileName);

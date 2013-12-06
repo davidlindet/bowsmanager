@@ -320,6 +320,8 @@ msgstr "Ajouter une facture"
 msgid "New Bill"
 msgstr "Nouvelle Facture"
 
+msgid "Do you really want to delete this bill?"
+msgstr "Voulez-vous vraiment supprimer cette facture?"
 
 #------------------------------------------
 #       Search

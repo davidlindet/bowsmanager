@@ -5,14 +5,13 @@
 <h1><img src="/img/bow/header.png" width="80" />
     <?php echo $header ?>
 </h1>
-
 <a class="back" href="<?php
 echo $this->url('bill-details', array('id' => $bill->getId(), 'section' => $section))
 ?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
 
 <div class="error-message bow"></div>
 
-<form id="bow-form" enctype="multipart/form-data">
+<form id="bill-form" enctype="multipart/form-data">
     <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
     <input type="hidden" name="id" id="id" value="<?php echo $bill->getId() ?>">
 
@@ -23,21 +22,27 @@ echo $this->url('bill-details', array('id' => $bill->getId(), 'section' => $sect
             $collection = $collections[0];
         ?>
         <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $collection->getId() ?>">
-        <?php echo $collection->getOwnerName() . " -- " . $collection->getReceptionTime() ?>
+        <?php echo $collection->getName() ?>
     <?php } else { ?>
         <select name="collectionId" id="collectionId" >
-            <option value="<?php echo BillEnum::NO_COLLECTION ?>" selected="selected" ><?php echo $this->translate("No collection") ?></option>
+            <option value="<?php echo BillEnum::NO_COLLECTION ?>"
+                    <?php echo ($bill->getCollectionId() == BillEnum::NO_COLLECTION) ? "selected='selected'" : "" ?> ><?php echo $this->translate("No collection") ?></option>
             <?php
                 /** @var $collection \Collection\Model\Collection */
                 foreach($collections as $collection) {
             ?>
-                <option value="<?php echo $collection->getId() ?>"><?php echo $collection->getOwnerName() . " -- " . $collection->getReceptionTime() ?></option>
+                <option value="<?php echo $collection->getId() ?>"
+                    <?php echo ($bill->getCollectionId() == $collection->getId()) ? "selected='selected'" : "" ?>
+                    ><?php echo $collection->getName() ?></option>
             <?php
                 }
             ?>
         </select>
     <?php } ?>
     <br />
+    <label for="reference"><?php echo $this->translate("Bill Reference") ?></label><br/>
+    <input type="text" name="reference" id="reference" value="<?php echo $bill->getReference() ?>"><br />
+
     <label for="amount"><?php echo $this->translate("Bill Amount") ?></label><br/>
     <input type="text" name="amount" id="amount" value="<?php echo $bill->getAmount() ?>"> €<br />
 
@@ -69,10 +74,9 @@ echo $this->url('bill-details', array('id' => $bill->getId(), 'section' => $sect
     </div>
 </form>
 <?php
-//todo
-//    $this->placeholder("scripts")->append("
-//        BowsManager.tools.attachment.getData('#bow-attachment', BowsManager.bow);
-//        BowsManager.bow.add();
-//    ");
+    $this->placeholder("scripts")->append("
+        BowsManager.tools.attachment.getData('#bill-attachment', BowsManager.bill);
+        BowsManager.bill.add();
+    ");
 
 ?>

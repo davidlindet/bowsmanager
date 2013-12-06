@@ -11,6 +11,8 @@ namespace Upload\Enum;
 
 class UploadEnum {
 
+    const SEPARATOR = "_-_";
+
     // bills can be related to collections
     const TYPE_BILL = "bill";
     // attachments of bows

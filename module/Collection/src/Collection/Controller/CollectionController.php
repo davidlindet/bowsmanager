@@ -56,8 +56,8 @@ class CollectionController extends AbstractActionController
         $collectionModel->setReceptionTime(strtotime($params['receptionTime']));
         $collectionModel->setReturnTime(strtotime($params['returnTime']));
         $collectionModel->setPackageNumber($params['packageNumber']);
-        $paidStatus = isset($params['paidStatus']) && $params['paidStatus'] == "on" ? true : false;
-        $collectionModel->setPaidStatus($paidStatus);
+//        $paidStatus = isset($params['paidStatus']) && $params['paidStatus'] == "on" ? true : false;
+//        $collectionModel->setPaidStatus($paidStatus);
 
         //update bill
 //        if(!empty($params['billReference'])){

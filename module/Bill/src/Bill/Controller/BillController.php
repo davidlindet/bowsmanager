@@ -8,17 +8,20 @@
  */
 namespace Bill\Controller;
 
-use Application\Enum\ModeEnum;
-use Application\Enum\SectionEnum;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+
+use Application\Enum\ModeEnum;
+use Application\Enum\SectionEnum;
 
 use Bill\Model\Bill;
 use Bill\Enum\BillEnum;
 use Bill\Service\BillService;
 
 use Collection\Service\CollectionService;
+
+use Upload\Service\UploadService;
 
 class BillController extends AbstractActionController
 {
@@ -52,19 +55,16 @@ class BillController extends AbstractActionController
         /** @var $billModel Bill */
         $billModel = $this->getBillService()->getById($params['id']);
 
-        $billModel->setNumber((int) $params['number']);
         $billModel->setCollectionId((int) $params['collectionId']);
-        $billModel->setType((int) $params['type']);
-        $billModel->setSize((int) $params['size']);
-        $billModel->setDescription($params['description']);
-        $billModel->setWorkToDo($params['workToDo']);
-        $billModel->setStatus($params['status']);
-        $billModel->setIsDone((isset($params['isDone']) &&  $params['isDone'] == "on") ? true : false);
-        $billModel->setComments($params['comments']);
+        $billModel->setReference($params['reference']);
+        $billModel->setAmount((float) $params['amount']);
+        $billModel->setIsPaid(isset($params['isPaid']));
 
         if(isset($params['del-attachment'])){
+            /** @var $uploadService UploadService */
+            $uploadService = $this->getServiceLocator()->get('UploadService');
             foreach($params['del-attachment'] as $attachment) {
-                $billModel->removeAttachment($attachment);
+                $billModel->removeAttachment($attachment, $uploadService);
             }
         }
 
@@ -96,21 +96,20 @@ class BillController extends AbstractActionController
 
     public function editAction()
     {
-        $billId = $this->getEvent()->getRouteMatch()->getParam('id', BillEnum::NEW_BOW);
+        $billId = $this->getEvent()->getRouteMatch()->getParam('id', BillEnum::NEW_BILL);
         $section = $this->params()->fromRoute('section', false);
-        $mode = $this->params()->fromRoute('mode', false);
-
-        if($mode == ModeEnum::MODE_AJAX){
-            $this->layout('layout/empty');
-        }
 
         /** @var $billModel Bill */
         $billModel = $this->getBillService()->getById($billId);
 
+        /** @var CollectionService $collectionService */
+        $collectionService = $this->getServiceLocator()->get('CollectionService');
+        $collections = $collectionService->getAll(false);
+
         return new ViewModel(array(
             'bill' => $billModel,
             'section' => $section,
-            'mode' => $mode,
+            'collections' => $collections,
         ));
     }
 
@@ -121,6 +120,13 @@ class BillController extends AbstractActionController
 
         /** @var $billModel Bill */
         $billModel = $this->getBillService()->getById($billId);
+
+        if($billModel->getCollectionId() != BillEnum::NO_COLLECTION) {
+            /** @var CollectionService $collectionService */
+            $collectionService = $this->getServiceLocator()->get('CollectionService');
+            $collection = $collectionService->getById($billModel->getCollectionId());
+            $billModel->setCollectionName($collection->getName());
+        }
 
         return new ViewModel(array(
             'bill' => $billModel,

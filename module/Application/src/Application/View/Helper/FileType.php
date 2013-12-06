@@ -10,6 +10,8 @@ namespace Application\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 
+use Upload\Enum\UploadEnum;
+
 class FileType extends AbstractHelper
 {
     public function isImage($fileName) {
@@ -24,7 +26,8 @@ class FileType extends AbstractHelper
     }
 
     public function getOriginalName($fileName) {
-        $nameArray = explode("-", $fileName);
-        return $nameArray[4];
+        $nameArray = explode(UploadEnum::SEPARATOR, $fileName);
+        $originalName = ($nameArray[0] == UploadEnum::TYPE_BILL) ? "Page ".($nameArray[2]+1) ." - ". $nameArray[4] : $nameArray[4];
+        return $originalName;
     }
 }

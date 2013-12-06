@@ -92,6 +92,13 @@ class Collection
         return $this->id;
     }
 
+    /**
+     * @return string collections name
+     */
+    public function getName(){
+        return $this->ownerName . " -- " . $this->getReceptionTime();
+    }
+
     /*******************
      *  OWNER ID
      *******************/
