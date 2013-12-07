@@ -83,49 +83,71 @@ form textarea {
 .nav.navbar-nav .client
 {
     background: url("../img/sprites/nav.png");
-    background-position: -32px 5px;
+    background-position: -32px 4px;
+    background-repeat: no-repeat;
 }
 .nav.navbar-nav a:hover .client,
 .nav.navbar-nav .active .client
 {
     background: url("../img/sprites/nav.png");
-    background-position: 0px 5px;
+    background-position: 0px 4px;
+    background-repeat: no-repeat;
 }
 
 .nav.navbar-nav .collection
 {
     background: url("../img/sprites/nav.png");
     background-position: -32px -32px;
+    background-repeat: no-repeat;
 }
 .nav.navbar-nav a:hover .collection,
 .nav.navbar-nav .active .collection
 {
     background: url("../img/sprites/nav.png");
     background-position: 0px -32px;
+    background-repeat: no-repeat;
 }
 
 .nav.navbar-nav .search
 {
     background: url("../img/sprites/nav.png");
     background-position: -34px -65px;
+    background-repeat: no-repeat;
 }
 .nav.navbar-nav a:hover .search,
 .nav.navbar-nav .active .search
 {
     background: url("../img/sprites/nav.png");
     background-position: -2px -65px;
+    background-repeat: no-repeat;
 }
 
 .nav.navbar-nav .home
 {
     background: url("../img/sprites/nav.png");
     background-position: -34px -95px;
+    background-repeat: no-repeat;
 }
 .nav.navbar-nav a:hover .home,
 .nav.navbar-nav .active .home
 {
     background: url("../img/sprites/nav.png");
     background-position: -3px -95px;
+    background-repeat: no-repeat;
+}
+
+.nav.navbar-nav .bill
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -32px -124px;
+    background-repeat: no-repeat;
+}
+.nav.navbar-nav a:hover .bill,
+.nav.navbar-nav .active .bill
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -1px -124px;
+    background-repeat: no-repeat;
 }
 
 /**
