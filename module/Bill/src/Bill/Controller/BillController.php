@@ -78,6 +78,11 @@ class BillController extends AbstractActionController
     {
         $collectionId = $this->getEvent()->getRouteMatch()->getParam('collectionId', false);
         $section = $this->params()->fromRoute('section', false);
+        $mode = $this->params()->fromRoute('mode', false);
+
+        if($mode == ModeEnum::MODE_AJAX){
+            $this->layout('layout/empty');
+        }
 
         /** @var CollectionService $collectionService */
         $collectionService = $this->getServiceLocator()->get('CollectionService');
@@ -90,7 +95,8 @@ class BillController extends AbstractActionController
         return new ViewModel(array(
             'bill' => $billModel,
             'section' => $section,
-            'collections' => $collections
+            'collections' => $collections,
+            'mode' => $mode,
         ));
     }
 

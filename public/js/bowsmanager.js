@@ -236,7 +236,7 @@ BowsManager.bill = (function() {
      */
     function details(){
         $(".table.bills .bill td").click(function() {
-            if(!$(this).hasClass("list-options")  && !$(this).hasClass("bill-is-paid") ) {
+            if(!$(this).hasClass("bill-options")  && !$(this).hasClass("bill-is-paid") ) {
                 BowsManager.popup.add();
                 var billId = $(this).parent().data('id');
                 var sectionId = $(this).parent().data('section');

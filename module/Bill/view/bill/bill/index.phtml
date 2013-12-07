@@ -41,7 +41,7 @@ use Bill\Model\Bill;
                     <img src="/img/content/attachment.png">
                 <?php } ?>
             </td>
-            <td>
+            <td class="bill-options">
                 <div class="list-options" >
                     <div class="bill delete" data-id="<?php echo $bill->getId() ?>" ><img src="/img/bill/del.png" /><?php echo $this->translate("Delete") ?></div>
                     <div class="bill edit" data-id="<?php echo $bill->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/bill/edit.png" /><?php echo $this->translate("Update") ?></div>
@@ -54,6 +54,7 @@ use Bill\Model\Bill;
 $this->placeholder('scripts')->append("
         BowsManager.bill.details();
         BowsManager.bill.del();
+        BowsManager.bill.edit();
         BowsManager.bill.paid();
     ");
 ?>

@@ -294,6 +294,9 @@ form textarea {
 .bills .list-options {
     width: 100%;
 }
+.bills .list-options .edit:hover{
+    text-decoration: underline;
+}
 .bills .list-options .delete{
     float: right;
 }
