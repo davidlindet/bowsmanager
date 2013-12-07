@@ -5,9 +5,16 @@
 <h1><img src="/img/bill/header.png" width="80" />
     <?php echo $header ?>
 </h1>
-<a class="back" href="<?php
-echo $this->url('bill', array())
-?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
+
+<?php if($mode == ModeEnum::MODE_AJAX) { ?>
+    <div class="options">
+        <div class="back ajax"><img src="/img/content/close.png" /><?php echo $this->translate("Close") ?></div>
+    </div>
+<?php } else { ?>
+    <a class="back" href="<?php
+    echo $this->url('bill', array())
+    ?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
+<?php } ?>
 
 <div class="error-message bill"></div>
 

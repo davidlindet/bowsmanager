@@ -289,6 +289,16 @@ form textarea {
 }
 
 /**
+ Bills
+*/
+.bills .list-options {
+    width: 100%;
+}
+.bills .list-options .delete{
+    float: right;
+}
+
+/**
     Search
 */
 .highlight {

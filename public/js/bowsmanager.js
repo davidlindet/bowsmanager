@@ -292,6 +292,27 @@ BowsManager.bill = (function() {
     }
 
     /**
+     * Display a popup to edit bill data
+     */
+    function edit(){
+        $(".bill.edit").click(function() {
+            BowsManager.popup.add();
+
+            var billId = $(this).data('id');
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/bill-edit/"+billId+"/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+    /**
      * Send data to delete bill
      */
     function del(){
@@ -354,6 +375,7 @@ BowsManager.bill = (function() {
         attachment: attachment,
         details: details,
         add: add,
+        edit: edit,
         del: del,
         paid: paid
     }

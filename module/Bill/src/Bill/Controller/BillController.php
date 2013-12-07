@@ -98,6 +98,11 @@ class BillController extends AbstractActionController
     {
         $billId = $this->getEvent()->getRouteMatch()->getParam('id', BillEnum::NEW_BILL);
         $section = $this->params()->fromRoute('section', false);
+        $mode = $this->params()->fromRoute('mode', false);
+
+        if($mode == ModeEnum::MODE_AJAX){
+            $this->layout('layout/empty');
+        }
 
         /** @var $billModel Bill */
         $billModel = $this->getBillService()->getById($billId);
@@ -110,6 +115,7 @@ class BillController extends AbstractActionController
             'bill' => $billModel,
             'section' => $section,
             'collections' => $collections,
+            'mode' => $mode,
         ));
     }
 

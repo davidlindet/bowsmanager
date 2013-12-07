@@ -41,9 +41,11 @@ use Bill\Model\Bill;
                     <img src="/img/content/attachment.png">
                 <?php } ?>
             </td>
-            <td class="list-options">
-                <a class="bill edit" href="<?php echo $this->url('bill-edit', array('id' => $bill->getId(), 'section' => $section));?>"><img src="/img/bill/edit.png" /></a>
-                <div class="bill delete" data-id="<?php echo $bill->getId() ?>" ><img src="/img/bill/del.png" /><div>
+            <td>
+                <div class="list-options" >
+                    <div class="bill delete" data-id="<?php echo $bill->getId() ?>" ><img src="/img/bill/del.png" /><?php echo $this->translate("Delete") ?></div>
+                    <div class="bill edit" data-id="<?php echo $bill->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/bill/edit.png" /><?php echo $this->translate("Update") ?></div>
+                </div>
             </td>
         </tr>
     <?php endforeach; ?>
