@@ -9,7 +9,9 @@
 </h1>
 
 <?php if($mode == ModeEnum::MODE_AJAX) { ?>
-    <span class="back ajax"><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></span>
+    <div class="options">
+        <span class="back ajax"><img src="/img/content/close.png" /><?php echo $this->translate("Close") ?></span>
+    </div>
 <?php } else { ?>
     <a class="back" href="<?php
     echo $this->url('collection-details', array('id' => $bow->getCollectionId(), 'section' => $section))

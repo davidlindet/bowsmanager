@@ -83,6 +83,42 @@ BowsManager.tools = (function() {
     }
 })();
 
+/**
+ * Popup functions
+ */
+BowsManager.popup = (function() {
+
+    /**
+     * Add a loading popup
+     */
+    function add(){
+        $("body").addClass("popup-open").append("<div class='overlay'><div class='popup loading'> <img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading +"</div></div>");
+    }
+
+    /**
+     * Load content of the popup
+     */
+    function load(data){
+        $(".overlay .popup").removeClass("loading").html(data);
+    }
+
+    /**
+     * remove popup
+     */
+    function remove(){
+        $(".back.ajax").click(function(){
+            $("body").removeClass("popup-open");
+            $(".overlay").remove();
+        });
+    }
+
+    return {
+        add: add,
+        load: load,
+        remove: remove
+    }
+})();
+
 
 /**
  * Functions related to clients
@@ -201,7 +237,17 @@ BowsManager.bill = (function() {
     function details(){
         $(".table.bills .bill td").click(function() {
             if(!$(this).hasClass("list-options")  && !$(this).hasClass("bill-is-paid") ) {
-                window.location.href = $(this).parent().data('url');
+                BowsManager.popup.add();
+                var billId = $(this).parent().data('id');
+                var sectionId = $(this).parent().data('section');
+                $.ajax({
+                    url: "/bill-details/"+billId+"/"+sectionId+"/ajax",
+                    method: "GET",
+                    success: function(data) {
+                        BowsManager.popup.load(data);
+                        BowsManager.popup.remove();
+                    }
+                });
             }
         });
     }
@@ -379,7 +425,7 @@ BowsManager.bow = (function() {
      */
     function edit(){
         $(".bow.edit").click(function() {
-            $("body").append("<div class='overlay'><div class='popup loading'> <img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading +"</div></div>");
+            BowsManager.popup.add();
 
             var bowId = $(this).data('id');
             var section = $(this).data('section');
@@ -388,10 +434,8 @@ BowsManager.bow = (function() {
                 url: "/bow-edit/"+bowId+"/"+section+"/ajax",
                 method: "GET",
                 success: function(data) {
-                    $(".overlay .popup").removeClass("loading").html(data);
-                    $(".back.ajax").click(function(){
-                        $(".overlay").remove();
-                    });
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
                 }
             });
         });

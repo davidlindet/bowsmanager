@@ -1,4 +1,13 @@
+<?php
+    use Application\Enum\ModeEnum;
+?>
 <h1><img src="/img/bill/header.png" width="50" /> <?php  echo $this->translate("Bill") ?></h1>
+
+<?php if($mode == ModeEnum::MODE_AJAX) { ?>
+<div class="options">
+    <div class="back ajax"><img src="/img/content/close.png" /><?php echo $this->translate("Close") ?></div>
+</div>
+<?php } else { ?>
 <a class="back" href="<?php echo $this->url('bill', array('section' => $section)) ?>" >
     <img src="/img/content/back.png" /><?php echo $this->translate("Back")?></a>
 <div class="options">
@@ -7,6 +16,7 @@
     <div class="bill delete" data-id="<?php echo $bill->getId() ?>" data-section="<?php echo $section ?>" >
         <img src="/img/bill/del.png" /><?php echo $this->translate("Delete")?></div>
 </div>
+<?php } ?>
 <div class="error-message bill"></div>
 <div class="details bills">
     <dl>
@@ -80,7 +90,7 @@
             </ul>
         </dd>
     </dl>
-
+    <div class="clearfix" ></div>
 </div>
 <?php
 $this->placeholder('scripts')->append("

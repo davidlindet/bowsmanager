@@ -19,8 +19,7 @@ use Bill\Model\Bill;
 
     <?php /**  @var  $bill Bill*/?>
     <?php foreach ($bills as $bill) : ?>
-        <?php $detailUrl = $this->url('bill-details', array('id' => $bill->getId(), 'section' => $section)); ?>
-        <tr class="bill" id="bill-<?php echo $bill->getId() ?>" data-url="<?php echo $detailUrl ?>" >
+        <tr class="bill" id="bill-<?php echo $bill->getId() ?>" data-id="<?php echo  $bill->getId() ?>" data-section="<?php echo $section ?>" >
             <td><?php echo $bill->getReference(); ?></td>
             <td><?php echo $bill->getAmount(true); ?> €</td>
             <td class="<?php echo ($bill->isPaid()) ? "": "bill-is-paid"; ?>" data-id="<?php echo $bill->getId() ?>">

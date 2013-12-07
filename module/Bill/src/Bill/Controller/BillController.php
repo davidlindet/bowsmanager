@@ -13,6 +13,7 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 
 use Application\Enum\SectionEnum;
+use Application\Enum\ModeEnum;
 
 use Bill\Model\Bill;
 use Bill\Enum\BillEnum;
@@ -116,6 +117,11 @@ class BillController extends AbstractActionController
     {
         $billId = $this->getEvent()->getRouteMatch()->getParam('id', BillEnum::NEW_BILL);
         $section = $this->params()->fromRoute('section', false);
+        $mode = $this->params()->fromRoute('mode', false);
+
+        if($mode == ModeEnum::MODE_AJAX){
+            $this->layout('layout/empty');
+        }
 
         /** @var $billModel Bill */
         $billModel = $this->getBillService()->getById($billId);
@@ -130,6 +136,7 @@ class BillController extends AbstractActionController
         return new ViewModel(array(
             'bill' => $billModel,
             'section' => $section,
+            'mode' => $mode,
         ));
     }
 

@@ -46,7 +46,7 @@ return array(
             'bill-details' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/bill-details[/][:id][/][:section]',
+                    'route'    => '/bill-details[/][:id][/][:section][/][:mode]',
                     'defaults' => array(
                         'controller' => 'Bill\Controller\Bill',
                         'action'     => 'details',
@@ -87,6 +87,7 @@ return array(
     ),
     'view_manager' => array(
         'template_map' => array(
+            'layout/empty' => __DIR__ . '/../../Application/view/layout/empty.phtml',
             'formBill' => __DIR__ . '/../view/bill/bill/form.phtml',
         ),
         'template_path_stack' => array(
