@@ -200,7 +200,7 @@ BowsManager.bill = (function() {
      */
     function details(){
         $(".table.bills .bill td").click(function() {
-            if(!$(this).hasClass("list-options")) {
+            if(!$(this).hasClass("list-options")  && !$(this).hasClass("bill-is-paid") ) {
                 window.location.href = $(this).parent().data('url');
             }
         });
@@ -278,11 +278,38 @@ BowsManager.bill = (function() {
         });
     }
 
+    /**
+     * Display a confirm and if positive change isPaid status
+     * to true
+     */
+    function paid() {
+        $(".bill-is-paid").click(function(e) {
+            var $isPaidElement = $(this);
+            var billId = $isPaidElement.data('id');
+            if(confirm(BowsManager.copies.isBillPaid)){
+                $.ajax({
+                    url: "/bill-is-paid",
+                    method: "POST",
+                    data: {id: billId},
+                    success: function(data) {
+                        if(data.success){
+                            $isPaidElement.removeClass("bill-is-paid").html("<img src='/img/content/valid.png' />");
+                        }
+                        else {
+                            $('.error-message.bow').html(data.error);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
     return {
         attachment: attachment,
         details: details,
         add: add,
-        del: del
+        del: del,
+        paid: paid
     }
 })();
 

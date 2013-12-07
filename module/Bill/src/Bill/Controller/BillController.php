@@ -146,4 +146,14 @@ class BillController extends AbstractActionController
         return $result;
     }
 
+    public function isPaidAction()
+    {
+        $params = $this->params()->fromPost();
+        /** @var $billModel Bill */
+        $billModel = $this->getBillService()->getById((int) $params['id']);
+        $billModel->setIsPaid(true);
+        $result = $this->getBillService()->save($billModel);
+        return new JsonModel($result);
+    }
+
 }

@@ -73,6 +73,16 @@ return array(
                     ),
                 ),
             ),
+            'bill-is-paid' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/bill-is-paid',
+                    'defaults' => array(
+                        'controller' => 'Bill\Controller\Bill',
+                        'action'     => 'isPaid',
+                    ),
+                ),
+            ),
         ),
     ),
     'view_manager' => array(

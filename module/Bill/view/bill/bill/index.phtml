@@ -23,7 +23,7 @@ use Bill\Model\Bill;
         <tr class="bill" id="bill-<?php echo $bill->getId() ?>" data-url="<?php echo $detailUrl ?>" >
             <td><?php echo $bill->getReference(); ?></td>
             <td><?php echo $bill->getAmount(true); ?> €</td>
-            <td>
+            <td class="<?php echo ($bill->isPaid()) ? "": "bill-is-paid"; ?>" data-id="<?php echo $bill->getId() ?>">
                 <?php
                 if($bill->isPaid()){
                     ?>
@@ -53,5 +53,6 @@ use Bill\Model\Bill;
 $this->placeholder('scripts')->append("
         BowsManager.bill.details();
         BowsManager.bill.del();
+        BowsManager.bill.paid();
     ");
 ?>
