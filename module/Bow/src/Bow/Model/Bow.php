@@ -8,6 +8,8 @@
  */
 namespace Bow\Model;
 
+use Upload\Service\UploadService;
+
 class Bow
 {
     private $id;
@@ -290,12 +292,12 @@ class Bow
     }
 
     /**
-     * @param $attachment remove 1 file (from the server as well)
+     * @param $fileName remove 1 file (from the server as well)
      */
-    public function removeAttachment($attachment)
+    public function removeAttachment($fileName, UploadService $uploadService)
     {
-        unset($this->attachments[$attachment]);
-        unlink(__DIR__ . "/../../../../../public/img/attachment/" . $attachment);
+        unset($this->attachments[$fileName]);
+        $uploadService->deleteFile($fileName);
     }
 
     /**

@@ -20,13 +20,13 @@ return array(
                     ),
                 ),
             ),
-            'upload-collection' => array(
+            'upload-bill' => array(
                 'type'    => 'literal',
                 'options' => array(
-                    'route'    => '/upload-collection',
+                    'route'    => '/upload-bill',
                     'defaults' => array(
                         'controller' => 'Upload\Controller\Upload',
-                        'action'     => 'collection',
+                        'action'     => 'bill',
                     ),
                 ),
             ),

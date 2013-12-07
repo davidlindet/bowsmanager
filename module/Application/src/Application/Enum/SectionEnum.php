@@ -26,6 +26,10 @@ class SectionEnum {
     const BOW_INDEX = "bow-index";
     const BOW_DETAILS = "bow-details";
 
+    const BILL = "bill-";
+    const BILL_INDEX = "bill-index";
+    const BILL_DETAILS = "bill-details";
+
     const SEARCH = "search-";
     const SEARCH_INDEX = "search-index";
 }

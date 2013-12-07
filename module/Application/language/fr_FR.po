@@ -303,6 +303,27 @@ msgid "Do you really want to delete this collection and bows relative to it?"
 msgstr "Voulez-vous vraiment supprimer ce lot et les archets qu'il contient?"
 
 #------------------------------------------
+#       Bill
+#------------------------------------------
+msgid "Bills"
+msgstr "Factures"
+
+msgid "Bill"
+msgstr "Facture"
+
+msgid "Bills List"
+msgstr "Liste de factures"
+
+msgid "Add new bill"
+msgstr "Ajouter une facture"
+
+msgid "New Bill"
+msgstr "Nouvelle Facture"
+
+msgid "Do you really want to delete this bill?"
+msgstr "Voulez-vous vraiment supprimer cette facture?"
+
+#------------------------------------------
 #       Search
 #------------------------------------------
 msgid "Search"

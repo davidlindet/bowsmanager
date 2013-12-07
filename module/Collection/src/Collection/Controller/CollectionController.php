@@ -12,6 +12,9 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 
+use Bill\Model\Bill;
+use Bill\Service\BillService;
+
 use Client\Service\ClientService;
 use Client\Enum\ClientEnum;
 
@@ -45,6 +48,7 @@ class CollectionController extends AbstractActionController
     public function saveAction() {
         $params = $this->params()->fromPost();
 
+        //update collection
         /** @var $collectionModel Collection */
         $collectionModel = $this->getCollectionService()->getById($params['id']);
 
@@ -52,16 +56,33 @@ class CollectionController extends AbstractActionController
         $collectionModel->setReceptionTime(strtotime($params['receptionTime']));
         $collectionModel->setReturnTime(strtotime($params['returnTime']));
         $collectionModel->setPackageNumber($params['packageNumber']);
-        $collectionModel->setBillReference($params['billReference']);
-        $collectionModel->setBillAmount($params['billAmount']);
-        $paidStatus = isset($params['paidStatus']) && $params['paidStatus'] == "on" ? true : false;
-        $collectionModel->setPaidStatus($paidStatus);
+//        $paidStatus = isset($params['paidStatus']) && $params['paidStatus'] == "on" ? true : false;
+//        $collectionModel->setPaidStatus($paidStatus);
 
-        if(isset($params['del-attachment'])){
-            foreach($params['del-attachment'] as $attachment) {
-                $collectionModel->removeAttachment($attachment);
-            }
-        }
+        //update bill
+//        if(!empty($params['billReference'])){
+//            /** @var BillService $billService */
+//            $billService = $this->getServiceLocator()->get('BillService');
+//            if($collectionModel->countBills() > 0){
+//                //delete bills
+//                if(isset($params['del-bills'])){
+//                    foreach($params['del-attachment'] as $attachment) {
+//                        $collectionModel->removeAttachment($attachment);
+//                    }
+//                }
+//            }
+//            else{
+//                $bill = new Bill($params['billReference'], $params['billAmount'], $params['id']);
+//                $billService->save($bill);
+//            }
+//        }
+//        /** @var $billModel Bill */
+//        $billModel = $this->getServiceLocator()->get('BillService')->getById($params['id']);
+//        if(isset($params['del-attachment'])){
+//            foreach($params['del-attachment'] as $attachment) {
+//                $collectionModel->removeAttachment($attachment);
+//            }
+//        }
 
         $result = $this->getCollectionService()->save($collectionModel);
         $result['section'] = $params['section'];

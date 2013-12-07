@@ -183,6 +183,136 @@ BowsManager.client = (function() {
     }
 })();
 
+
+/**
+ * Functions related to bills
+ */
+BowsManager.bill = (function() {
+
+    /**
+     * Files to update
+     */
+    var attachment = false;
+
+    /**
+     * In bill list when user click on a bill row
+     * He's forward on bill details page
+     */
+    function details(){
+        $(".table.bills .bill td").click(function() {
+            if(!$(this).hasClass("list-options")  && !$(this).hasClass("bill-is-paid") ) {
+                window.location.href = $(this).parent().data('url');
+            }
+        });
+    }
+
+    /**
+     * Update style form to add or update a bill
+     * and send data to save
+     */
+    function add(){
+        // init - update style of file list we want to delete (update form)
+        BowsManager.tools.updateStyleDeleteAttachment();
+
+        // init action done when submit form
+        $("#bill-form").submit(function( event ) {
+            event.preventDefault();
+            $("#bill-bow").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
+            var params = $("#bill-form").serializeForm();
+            //Send data to save
+            $.ajax({
+                url: "/bill-save",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if(data.success){
+                        var callback = function(){
+                            // return on collection details page
+                            window.location.href = '/bill-details/'+data.id+'/'+data.section;
+                        };
+                        //upload files
+                        BowsManager.tools.attachment.upload("bill",
+                            data.id,
+                            BowsManager.bill.attachment,
+                            callback
+                        );
+                    }
+                    else {
+                        $('.error-message.bill').html(data.error);
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * Send data to delete bill
+     */
+    function del(){
+        $(".bill.delete").click(function() {
+            var billId = $(this).data('id');
+            var section = $(this).data('section');
+
+            if(confirm(BowsManager.copies.deleteBill)){
+                $.ajax({
+                    url: "/bill-delete",
+                    method: "POST",
+                    data: {id: billId},
+                    success: function(data) {
+                        if(data.success){
+                            // on bill list page so hide row
+                            if(typeof section == "undefined") {
+                                $("#bill-"+billId).fadeOut("slow");
+                            }
+                            else {
+                                //on bill details page so return on collection details page
+                                window.location.href = '/bill/'+section;
+                            }
+                        }
+                        else {
+                            $('.error-message.bow').html(data.error);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Display a confirm and if positive change isPaid status
+     * to true
+     */
+    function paid() {
+        $(".bill-is-paid").click(function(e) {
+            var $isPaidElement = $(this);
+            var billId = $isPaidElement.data('id');
+            if(confirm(BowsManager.copies.isBillPaid)){
+                $.ajax({
+                    url: "/bill-is-paid",
+                    method: "POST",
+                    data: {id: billId},
+                    success: function(data) {
+                        if(data.success){
+                            $isPaidElement.removeClass("bill-is-paid").html("<img src='/img/content/valid.png' />");
+                        }
+                        else {
+                            $('.error-message.bow').html(data.error);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    return {
+        attachment: attachment,
+        details: details,
+        add: add,
+        del: del,
+        paid: paid
+    }
+})();
+
 /**
  * Functions related to bows
  */

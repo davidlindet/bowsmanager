@@ -1,0 +1,58 @@
+<?php
+use Bill\Model\Bill;
+?>
+<h2><img src="/img/bill/header.png" width="50" /> <?php echo $this->translate("Bills List"); ?></h2>
+<div class="options">
+    <a class="add" href="<?php echo $this->url('bill-add'); ?>"><img src="/img/bill/add.png" /><?php
+        echo $this->translate("Add new bill") ?></a>
+</div>
+<div class="error-message bill"></div>
+
+<table class="table bills">
+    <tr>
+        <th><?php echo $this->translate("Reference") ?></th>
+        <th><?php echo $this->translate("Amount") ?></th>
+        <th><?php echo $this->translate("Is paid?") ?></th>
+        <th><?php echo $this->translate("Attachment") ?></th>
+        <th>&nbsp;</th>
+    </tr>
+
+    <?php /**  @var  $bill Bill*/?>
+    <?php foreach ($bills as $bill) : ?>
+        <?php $detailUrl = $this->url('bill-details', array('id' => $bill->getId(), 'section' => $section)); ?>
+        <tr class="bill" id="bill-<?php echo $bill->getId() ?>" data-url="<?php echo $detailUrl ?>" >
+            <td><?php echo $bill->getReference(); ?></td>
+            <td><?php echo $bill->getAmount(true); ?> €</td>
+            <td class="<?php echo ($bill->isPaid()) ? "": "bill-is-paid"; ?>" data-id="<?php echo $bill->getId() ?>">
+                <?php
+                if($bill->isPaid()){
+                    ?>
+                    <img src="/img/content/valid.png" />
+                <?php
+                }
+                else {
+                    ?>
+                    <img src="/img/content/invalid.png" />
+                <?php
+                }
+                ?>
+            </td>
+            <td>
+                <?php if($bill->hasAttachments()) { ?>
+                    <img src="/img/content/attachment.png">
+                <?php } ?>
+            </td>
+            <td class="list-options">
+                <a class="bill edit" href="<?php echo $this->url('bill-edit', array('id' => $bill->getId(), 'section' => $section));?>"><img src="/img/bill/edit.png" /></a>
+                <div class="bill delete" data-id="<?php echo $bill->getId() ?>" ><img src="/img/bill/del.png" /><div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<?php
+$this->placeholder('scripts')->append("
+        BowsManager.bill.details();
+        BowsManager.bill.del();
+        BowsManager.bill.paid();
+    ");
+?>

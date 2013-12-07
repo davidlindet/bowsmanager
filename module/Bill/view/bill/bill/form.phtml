@@ -1,0 +1,82 @@
+<?php
+    use Bill\Enum\BillEnum;
+?>
+
+<h1><img src="/img/bill/header.png" width="80" />
+    <?php echo $header ?>
+</h1>
+<a class="back" href="<?php
+echo $this->url('bill-details', array('id' => $bill->getId(), 'section' => $section))
+?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
+
+<div class="error-message bill"></div>
+
+<form id="bill-form" enctype="multipart/form-data">
+    <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
+    <input type="hidden" name="id" id="id" value="<?php echo $bill->getId() ?>">
+
+    <label for="collectionId"><?php echo $this->translate("Collection") ?></label><br />
+    <?php if(gettype($collections) == "object"){ ?>
+        <?php
+            /** @var $collection \Collection\Model\Collection */
+            $collection = $collections[0];
+        ?>
+        <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $collection->getId() ?>">
+        <?php echo $collection->getName() ?>
+    <?php } else { ?>
+        <select name="collectionId" id="collectionId" >
+            <option value="<?php echo BillEnum::NO_COLLECTION ?>"
+                    <?php echo ($bill->getCollectionId() == BillEnum::NO_COLLECTION) ? "selected='selected'" : "" ?> ><?php echo $this->translate("No collection") ?></option>
+            <?php
+                /** @var $collection \Collection\Model\Collection */
+                foreach($collections as $collection) {
+            ?>
+                <option value="<?php echo $collection->getId() ?>"
+                    <?php echo ($bill->getCollectionId() == $collection->getId()) ? "selected='selected'" : "" ?>
+                    ><?php echo $collection->getName() ?></option>
+            <?php
+                }
+            ?>
+        </select>
+    <?php } ?>
+    <br />
+    <label for="reference"><?php echo $this->translate("Bill Reference") ?></label><br/>
+    <input type="text" name="reference" id="reference" value="<?php echo $bill->getReference() ?>"><br />
+
+    <label for="amount"><?php echo $this->translate("Bill Amount") ?></label><br/>
+    <input type="text" name="amount" id="amount" value="<?php echo $bill->getAmount() ?>"> €<br />
+
+    <label for="isPaid"><?php echo $this->translate("Is paid?") ?></label>
+    <input type="checkbox" name="isPaid" id="isPaid" <?php echo $bill->isPaid() ? "checked='checked'": ""; ?> /><br>
+
+    <ul>
+        <li>
+            <label for="attachment"><?php echo $this->translate("Add Attachments") ?></label><br />
+            <input type="file" name="attachment" id="bill-attachment" multiple ><br />
+        </li>
+        <?php if($bill->hasAttachments()){?>
+            <li>
+                <label for="files"><?php echo $this->translate("Remove Attachments") ?></label><br />
+                <?php foreach($bill->getAttachments() as $attachment) { ?>
+                    <div>
+                        <input type="checkbox" class="files" name="del-attachment[]" value="<?php echo $attachment ?>">
+                        <a target="_blank"href="/img/attachment/<?php echo $attachment; ?>" >
+                            <?php echo $this->fileType()->getOriginalName($attachment); ?>
+                        </a>
+                    </div>
+                <?php } ?>
+            </li>
+        <?php } ?>
+    </ul>
+    <br class="clearfix"/>
+    <div id="save-bill">
+        <button type="submit" ><?php echo $this->translate("Save") ?></button>
+    </div>
+</form>
+<?php
+    $this->placeholder("scripts")->append("
+        BowsManager.tools.attachment.getData('#bill-attachment', BowsManager.bill);
+        BowsManager.bill.add();
+    ");
+
+?>

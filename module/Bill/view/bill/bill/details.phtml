@@ -1,0 +1,89 @@
+<h1><img src="/img/bill/header.png" width="50" /> <?php  echo $this->translate("Bill") ?></h1>
+<a class="back" href="<?php echo $this->url('bill', array('section' => $section)) ?>" >
+    <img src="/img/content/back.png" /><?php echo $this->translate("Back")?></a>
+<div class="options">
+    <a class="bill edit" href="<?php echo $this->url('bill-edit', array('id' => $bill->getId(), 'section' => $section));?>">
+        <img src="/img/bill/edit.png" /><?php echo $this->translate("Edit")?></a>
+    <div class="bill delete" data-id="<?php echo $bill->getId() ?>" data-section="<?php echo $section ?>" >
+        <img src="/img/bill/del.png" /><?php echo $this->translate("Delete")?></div>
+</div>
+<div class="error-message bill"></div>
+<div class="details bills">
+    <dl>
+        <dt><?php echo $this->translate("Collection") ?></dt>
+        <dd>
+        <?php
+            if($bill->isConnectedToCollection()){
+        ?>
+            <a href="<?php
+            echo $this->url("collection-details", array("id" => $bill->getCollectionId(), "section" => $section));
+            ?>" ><?php
+                echo $bill->getCollectionName();
+                ?></a>
+        <?php
+            } else {
+                echo $this->translate("No collection");
+            }
+        ?>
+
+            <?php
+//                $collectionName = $bill->getCollectionName();
+//                echo empty($collectionName) ? $this->translate("No Collection") : $collectionName;
+            ?>
+        </dd>
+        <dt><?php echo $this->translate("Reference") ?></dt>
+        <dd>
+            <?php echo $bill->getReference() ?>
+        </dd>
+        <dt><?php echo $this->translate("Amount") ?></dt>
+        <dd>
+            <?php echo $bill->getAmount(true) ?> €
+        </dd>
+    </dl>
+    <dl class="clearfix">
+        <dt><?php echo $this->translate("Is paid?") ?></dt><br />
+        <dd>
+            <?php
+                if($bill->isPaid()){
+            ?>
+                <img src="/img/content/valid.png" />
+            <?php
+                }
+                else {
+            ?>
+                <img src="/img/content/invalid.png" />
+            <?php
+                }
+            ?>
+        </dd>
+    </dl>
+    <dl class="clearfix">
+    <dt><?php echo $this->translate("Attachments") ?></dt><br />
+        <dd class="attachment">
+            <ul>
+                <?php
+                foreach($bill->getAttachments() as $attachment){
+                    ?>
+                    <li>
+                        <?php if($this->fileType()->isImage($attachment)){?>
+                            <a target="_blank" href="<?php echo "/img/attachment/" . $attachment ?>" >
+                                <img src="<?php echo "/img/attachment/" . $attachment ?>" width="150" height="150" /><br />
+                                <?php echo $this->fileType()->getOriginalName($attachment) ?>
+                            </a>
+                        <?php } else { ?>
+                            <a target="_blank" href="<?php echo "/img/attachment/" . $attachment ?>" >
+                                <?php echo $this->fileType()->getOriginalName($attachment) ?>
+                            </a>
+                        <?php } ?>
+                    </li>
+                <?php }?>
+            </ul>
+        </dd>
+    </dl>
+
+</div>
+<?php
+$this->placeholder('scripts')->append("
+        BowsManager.bill.del();
+    ");
+?>
