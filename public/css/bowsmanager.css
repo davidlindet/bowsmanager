@@ -194,7 +194,12 @@ form textarea {
 }
 .add,
 .add:hover {
+    display: inline-block;
+    cursor: pointer;
     color: #2d9f16;
+}
+.add:hover {
+    text-decoration: underline;
 }
 .edit,
 .edit:hover {

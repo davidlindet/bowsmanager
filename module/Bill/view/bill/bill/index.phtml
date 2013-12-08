@@ -3,8 +3,7 @@ use Bill\Model\Bill;
 ?>
 <h2><img src="/img/bill/header.png" width="50" /> <?php echo $this->translate("Bills List"); ?></h2>
 <div class="options">
-    <a class="add" href="<?php echo $this->url('bill-add'); ?>"><img src="/img/bill/add.png" /><?php
-        echo $this->translate("Add new bill") ?></a>
+    <div class="bill add" data-collection="<?php echo \Bill\Enum\BillEnum::NO_COLLECTION ?>"  data-section="<?php echo $section ?>" ><img src="/img/bill/add.png" /><?php echo $this->translate("Add new bill") ?></div>
 </div>
 <div class="error-message bill"></div>
 
@@ -44,7 +43,7 @@ use Bill\Model\Bill;
             <td class="bill-options">
                 <div class="list-options" >
                     <div class="bill delete" data-id="<?php echo $bill->getId() ?>" ><img src="/img/bill/del.png" /><?php echo $this->translate("Delete") ?></div>
-                    <div class="bill edit" data-id="<?php echo $bill->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/bill/edit.png" /><?php echo $this->translate("Update") ?></div>
+                    <div class="bill edit" data-id="<?php echo $bill->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/bill/edit.png" /><?php echo $this->translate("Edit") ?></div>
                 </div>
             </td>
         </tr>
@@ -54,6 +53,7 @@ use Bill\Model\Bill;
 $this->placeholder('scripts')->append("
         BowsManager.bill.details();
         BowsManager.bill.del();
+        BowsManager.bill.add();
         BowsManager.bill.edit();
         BowsManager.bill.paid();
     ");

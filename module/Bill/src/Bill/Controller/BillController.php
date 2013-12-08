@@ -86,7 +86,7 @@ class BillController extends AbstractActionController
 
         /** @var CollectionService $collectionService */
         $collectionService = $this->getServiceLocator()->get('CollectionService');
-        $collections = ($collectionId) ? $collectionService->getById($collectionId) : $collectionService->getAll(false);
+        $collections = ($collectionId && $collectionId != BillEnum::NO_COLLECTION) ? $collectionService->getById($collectionId) : $collectionService->getAll(false);
 
         /** @var $billModel Bill */
         $billModel = $this->getBillService()->getById(BillEnum::NEW_BILL);

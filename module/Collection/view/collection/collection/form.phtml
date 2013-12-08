@@ -46,38 +46,6 @@
     <label for="packageNumber"><?php echo $this->translate("Package Number") ?></label><br/>
     <input type="text" name="packageNumber" id="packageNumber" value="<?php echo $collection->getPackageNumber() ?>"><br>
 
-    <?php /*
-    <ul>
-        <li>
-            <label for="billReference"><?php echo $this->translate("Bill Reference") ?></label><br/>
-            <input type="text" name="billReference" id="billReference" value="<?php echo $collection->getBillReference() ?>">
-        </li>
-        <li>
-            <label for="attachment"><?php echo $this->translate("Add Attachments") ?></label><br />
-            <input type="file" name="attachment" id="bill-attachment" multiple ><br />
-        </li>
-        <?php if($collection->hasAttachments()){?>
-            <li>
-                <label for="files"><?php echo $this->translate("Remove Attachments") ?></label><br />
-                <?php foreach($collection->getAttachments() as $attachment) { ?>
-                    <div>
-                        <input type="checkbox" class="files" name="del-attachment[]" value="<?php echo $attachment ?>">
-                        <a target="_blank"href="/img/attachment/<?php echo $attachment; ?>" >
-                            <?php echo $this->fileType()->getOriginalName($attachment); ?>
-                        </a>
-                    </div>
-                <?php } ?>
-            </li>
-        <?php } ?>
-    </ul>
-    <br class="clearfix" />
-
-    <label for="billAmount"><?php echo $this->translate("Bill Amount") ?></label><br/>
-    <input type="text" name="billAmount" id="billAmount" value="<?php echo $collection->getBillAmount() ?>"> €<br />
-
-    <label for="paidStatus"><?php echo $this->translate("Is paid?") ?></label>
-    <input type="checkbox" name="paidStatus" id="paidStatus" <?php echo $collection->isPaid() ? "checked='checked'": ""; ?> /><br>
-*/ ?>
     <br/>
     <div id="save-collection">
         <button type="submit" ><?php echo $this->translate("Save") ?></button>
@@ -93,5 +61,3 @@
 <?php
     }
 ?>
-
-

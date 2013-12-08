@@ -26,7 +26,7 @@ return array(
             'bill-add' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/bill-add[/][:collectionId][/][:section]',
+                    'route'    => '/bill-add[/][:collectionId][/][:section][/][:mode]',
                     'defaults' => array(
                         'controller' => 'Bill\Controller\Bill',
                         'action'     => 'add',

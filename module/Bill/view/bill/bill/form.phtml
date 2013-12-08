@@ -25,12 +25,8 @@
 
     <label for="collectionId"><?php echo $this->translate("Collection") ?></label><br />
     <?php if(gettype($collections) == "object"){ ?>
-        <?php
-            /** @var $collection \Collection\Model\Collection */
-            $collection = $collections[0];
-        ?>
-        <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $collection->getId() ?>">
-        <?php echo $collection->getName() ?>
+        <input type="hidden" name="collectionId" id="collectionId" value="<?php echo $collections->getId() ?>">
+        <?php echo $collections->getName() ?>
     <?php } else { ?>
         <select name="collectionId" id="collectionId" >
             <option value="<?php echo BillEnum::NO_COLLECTION ?>"
@@ -84,7 +80,7 @@
 <?php
     $this->placeholder("scripts")->append("
         BowsManager.tools.attachment.getData('#bill-attachment', BowsManager.bill);
-        BowsManager.bill.add();
+        BowsManager.bill.save();
     ");
 
 ?>

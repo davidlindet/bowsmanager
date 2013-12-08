@@ -56,33 +56,6 @@ class CollectionController extends AbstractActionController
         $collectionModel->setReceptionTime(strtotime($params['receptionTime']));
         $collectionModel->setReturnTime(strtotime($params['returnTime']));
         $collectionModel->setPackageNumber($params['packageNumber']);
-//        $paidStatus = isset($params['paidStatus']) && $params['paidStatus'] == "on" ? true : false;
-//        $collectionModel->setPaidStatus($paidStatus);
-
-        //update bill
-//        if(!empty($params['billReference'])){
-//            /** @var BillService $billService */
-//            $billService = $this->getServiceLocator()->get('BillService');
-//            if($collectionModel->countBills() > 0){
-//                //delete bills
-//                if(isset($params['del-bills'])){
-//                    foreach($params['del-attachment'] as $attachment) {
-//                        $collectionModel->removeAttachment($attachment);
-//                    }
-//                }
-//            }
-//            else{
-//                $bill = new Bill($params['billReference'], $params['billAmount'], $params['id']);
-//                $billService->save($bill);
-//            }
-//        }
-//        /** @var $billModel Bill */
-//        $billModel = $this->getServiceLocator()->get('BillService')->getById($params['id']);
-//        if(isset($params['del-attachment'])){
-//            foreach($params['del-attachment'] as $attachment) {
-//                $collectionModel->removeAttachment($attachment);
-//            }
-//        }
 
         $result = $this->getCollectionService()->save($collectionModel);
         $result['section'] = $params['section'];

@@ -253,43 +253,26 @@ BowsManager.bill = (function() {
     }
 
     /**
-     * Update style form to add or update a bill
-     * and send data to save
+     * Display a popup to add bill data
      */
     function add(){
-        // init - update style of file list we want to delete (update form)
-        BowsManager.tools.updateStyleDeleteAttachment();
+        $(".bill.add").click(function() {
+            BowsManager.popup.add();
 
-        // init action done when submit form
-        $("#bill-form").submit(function( event ) {
-            event.preventDefault();
-            $("#bill-bow").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
-            var params = $("#bill-form").serializeForm();
-            //Send data to save
+            var collectionId = $(this).data('collection');
+            var section = $(this).data('section');
+
             $.ajax({
-                url: "/bill-save",
-                method: "POST",
-                data: params,
+                url: "/bill-add/"+collectionId+"/"+section+"/ajax",
+                method: "GET",
                 success: function(data) {
-                    if(data.success){
-                        var callback = function(){
-                            // return on collection details page
-                            window.location.href = '/bill-details/'+data.id+'/'+data.section;
-                        };
-                        //upload files
-                        BowsManager.tools.attachment.upload("bill",
-                            data.id,
-                            BowsManager.bill.attachment,
-                            callback
-                        );
-                    }
-                    else {
-                        $('.error-message.bill').html(data.error);
-                    }
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
                 }
             });
         });
     }
+
 
     /**
      * Display a popup to edit bill data
@@ -307,6 +290,51 @@ BowsManager.bill = (function() {
                 success: function(data) {
                     BowsManager.popup.load(data);
                     BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+    /**
+     * Update style form to add or update a bill
+     * and send data to save
+     */
+    function save(){
+        // init - update style of file list we want to delete (update form)
+        BowsManager.tools.updateStyleDeleteAttachment();
+
+        // init action done when submit form
+        $("#bill-form").submit(function( event ) {
+            event.preventDefault();
+            $("#bill-bow").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
+            var params = $("#bill-form").serializeForm();
+            //Send data to save
+            $.ajax({
+                url: "/bill-save",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if(data.success){
+                        var callback = function(){
+                            if(data.section == "collection-index"){
+                                // return on collection details page
+                                window.location.href = '/collection-details/'+data.collectionId+'/'+data.section;
+                            }
+                            else {
+                                // return on bill list page
+                                window.location.href = '/bill/'+data.id+'/'+data.section;
+                            }
+                        };
+                        //upload files
+                        BowsManager.tools.attachment.upload("bill",
+                            data.id,
+                            BowsManager.bill.attachment,
+                            callback
+                        );
+                    }
+                    else {
+                        $('.error-message.bill').html(data.error);
+                    }
                 }
             });
         });
@@ -376,6 +404,7 @@ BowsManager.bill = (function() {
         details: details,
         add: add,
         edit: edit,
+        save: save,
         del: del,
         paid: paid
     }
@@ -541,11 +570,6 @@ BowsManager.bow = (function() {
 BowsManager.collection = (function() {
 
     /**
-     * Files to update
-     */
-    var attachment = false;
-
-    /**
      * In bow list when user click on a collection row
      * He's forward on collection details page
      */
@@ -562,9 +586,6 @@ BowsManager.collection = (function() {
      * and send data to save
      */
     function add(){
-        // init - update style of file list we want to delete (update form)
-        BowsManager.tools.updateStyleDeleteAttachment();
-
         // init action done when submit form
         $("#collection-form").submit(function( event ) {
             event.preventDefault();
@@ -579,12 +600,6 @@ BowsManager.collection = (function() {
                         var callback = function(){
                             window.location.href = '/collection-details/'+data.id+'/'+data.section;
                         };
-                        //upload files
-                        BowsManager.tools.attachment.upload("collection",
-                                                                data.id,
-                                                                BowsManager.collection.attachment,
-                                                                callback
-                                                            );
                     }
                     else {
                         $('.error-message.collection').html(data.error);
@@ -633,7 +648,6 @@ BowsManager.collection = (function() {
     }
 
     return {
-        attachment: attachment,
         details: details,
         add: add,
         del: del
