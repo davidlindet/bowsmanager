@@ -44,7 +44,10 @@
     <input type="text" name="returnTime" class="datepicker" id="returnTime" value="<?php echo $collection->getReturnTime() ?>"><br>
 
     <label for="packageNumber"><?php echo $this->translate("Package Number") ?></label><br/>
-    <input type="text" name="packageNumber" id="packageNumber" value="<?php echo $collection->getPackageNumber() ?>"><br>
+    <input type="text" name="packageNumber" id="packageNumber" value="<?php echo $collection->getPackageNumber() ?>"><br />
+
+    <label for="comments"><?php echo $this->translate("Comments") ?></label><br/>
+    <textarea type="text" name="comments" id="comments" ><?php echo $collection->getComments() ?></textarea><br />
 
     <br/>
     <div id="save-collection">

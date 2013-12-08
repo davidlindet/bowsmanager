@@ -597,9 +597,7 @@ BowsManager.collection = (function() {
                 data: params,
                 success: function(data) {
                     if(data.success){
-                        var callback = function(){
-                            window.location.href = '/collection-details/'+data.id+'/'+data.section;
-                        };
+                        window.location.href = '/collection-details/'+data.id+'/'+data.section;
                     }
                     else {
                         $('.error-message.collection').html(data.error);

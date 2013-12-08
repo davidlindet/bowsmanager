@@ -36,6 +36,10 @@ class Collection
      */
     private $packageNumber;
     /**
+     * @var string
+     */
+    private $comments;
+    /**
      * @var array
      */
     private $bills;
@@ -49,13 +53,15 @@ class Collection
                                 $ownerName = "",
                                 $receptionTime = false,
                                 $returnTime = CollectionEnum::NO_RETURN_TIME,
-                                $packageNumber = false){
+                                $packageNumber = false,
+                                $comments = ""){
         $this->id = $id;
         $this->ownerId = $ownerId;
         $this->ownerName = $ownerName;
         $this->receptionTime = ($receptionTime) ? $receptionTime : time();
         $this->returnTime = $returnTime;
         $this->packageNumber = $packageNumber;
+        $this->comments = $comments;
         $this->bills = array();
         $this->bows = array();
     }
@@ -75,6 +81,7 @@ class Collection
         $this->receptionTime =(!empty($data['reception_time'])) ? $data['reception_time'] : false;
         $this->returnTime =(!empty($data['return_time'])) ? $data['return_time'] : CollectionEnum::NO_RETURN_TIME;
         $this->packageNumber =(!empty($data['package_number'])) ? $data['package_number'] : null;
+        $this->comments =(!empty($data['comments'])) ? $data['comments'] : null;
     }
 
     /**
@@ -204,6 +211,25 @@ class Collection
     public function getPackageNumber()
     {
         return stripslashes($this->packageNumber);
+    }
+
+    /*******************
+     *  COMMENTS
+     *******************/
+    /**
+     * @param string $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComments()
+    {
+        return stripslashes($this->comments);
     }
 
     /*******************

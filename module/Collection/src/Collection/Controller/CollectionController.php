@@ -56,6 +56,7 @@ class CollectionController extends AbstractActionController
         $collectionModel->setReceptionTime(strtotime($params['receptionTime']));
         $collectionModel->setReturnTime(strtotime($params['returnTime']));
         $collectionModel->setPackageNumber($params['packageNumber']);
+        $collectionModel->setComments($params['comments']);
 
         $result = $this->getCollectionService()->save($collectionModel);
         $result['section'] = $params['section'];

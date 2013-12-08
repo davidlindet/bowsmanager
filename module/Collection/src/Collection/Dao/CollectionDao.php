@@ -45,7 +45,7 @@ class CollectionDao
         }
 
         $sql = "SELECT col.id, owner, reception_time, return_time,
-              package_number, first_name, last_name
+              package_number, comments, first_name, last_name
               FROM bm_collection col
                   JOIN bm_client cli
                     ON cli.id = col.owner
@@ -78,7 +78,7 @@ class CollectionDao
             $orderSql = "reception_time ASC";
         }
 
-        $columns = "col.id, owner, reception_time, return_time, package_number, first_name, last_name";
+        $columns = "col.id, owner, reception_time, return_time, package_number, comments, first_name, last_name";
         $sql = "SELECT $columns FROM bm_collection col, bm_client cli WHERE col.owner = cli.id AND
                     (owner) IN (SELECT id FROM bm_client WHERE last_name LIKE'%$query%')
                 UNION
@@ -128,7 +128,7 @@ class CollectionDao
         $driver = $this->tableGateway->getAdapter()->getDriver();
 
         $sql = "SELECT col.id, owner, reception_time, return_time,
-              package_number, first_name, last_name
+              package_number, comments, first_name, last_name
               FROM bm_collection col
               JOIN bm_client cli
                   ON cli.id = col.owner
@@ -159,6 +159,7 @@ class CollectionDao
             'reception_time'  => $collection->getReceptionTime(false),
             'return_time' => $collection->getReturnTime(false),
             'package_number'  => $collection->getPackageNumber(),
+            'comments'  => $collection->getComments(),
         );
 
         $id = (int) $collection->getId();

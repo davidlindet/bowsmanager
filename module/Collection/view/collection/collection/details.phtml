@@ -37,6 +37,7 @@ echo $backUrl;
     $countBows = $collection->countBows();
     $returnTime = $collection->getReturnTime();
     $packageNumber = $collection->getPackageNumber();
+    $comments = $collection->getComments();
 ?>
 <div class="details">
     <dl>
@@ -77,6 +78,15 @@ echo $backUrl;
         }
         ?>
     </dl>
+    <?php if(!empty($comments)){ ?>
+    <dl>
+            <dt><?php echo $this->translate("Comments") ?></dt>
+            <dd><?php echo nl2br($comments) ?></dd>
+    </dl>
+    <div class="clearfix" ></div>
+    <?php
+    }
+    ?>
     <?php
         /** @var $bill \Bill\Model\Bill */
         foreach($collection->getBills() as $bill) {
