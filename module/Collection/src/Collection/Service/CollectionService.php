@@ -98,7 +98,9 @@ class CollectionService
         );
 
         $collections = $this->collectionDao->fetchAll($order, $where);
-        return $this->setBows($collections);
+        $collections = $this->setBows($collections);
+        $collections = $this->setBills($collections);
+        return $collections;
     }
 
     public function getCollectionsNotPaid(){
@@ -118,7 +120,9 @@ class CollectionService
         );
 
         $collections = $this->collectionDao->fetchAll($order, $where);
-        return $this->setBows($collections);
+        $collections = $this->setBows($collections);
+        $collections = $this->setBills($collections);
+        return $collections;
     }
 
     public function save(Collection $collectionModel){

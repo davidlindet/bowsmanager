@@ -316,13 +316,13 @@ BowsManager.bill = (function() {
                 success: function(data) {
                     if(data.success){
                         var callback = function(){
-                            if(data.section == "collection-index"){
-                                // return on collection details page
-                                window.location.href = '/collection-details/'+data.collectionId+'/'+data.section;
-                            }
-                            else {
+                            if(data.section == "bill-index"){
                                 // return on bill list page
                                 window.location.href = '/bill/'+data.id+'/'+data.section;
+                            }
+                            else {
+                                // return on collection details page
+                                window.location.href = '/collection-details/'+data.collectionId+'/'+data.section;
                             }
                         };
                         //upload files
