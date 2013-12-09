@@ -14,7 +14,7 @@ With it, a bow maker can manage his client list, bows collections he receives an
 TABLES STRUCTURES V2
 --
 
-* Structure de la table `bm_bill`
+* Structure of `bm_bill`
 
 CREATE TABLE IF NOT EXISTS `bm_bill` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `bm_bill` (
 
 -- --------------------------------------------------------
 
-* Structure de la table `bm_bow`
+* Structure of `bm_bow`
 
 CREATE TABLE IF NOT EXISTS `bm_bow` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `bm_bow` (
 
 -- --------------------------------------------------------
 
-* Structure de la table `bm_client`
+* Structure of `bm_client`
 
 CREATE TABLE IF NOT EXISTS `bm_client` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `bm_client` (
 
 -- --------------------------------------------------------
 
-* Structure de la table `bm_collection`
+* Structure of `bm_collection`
 
 CREATE TABLE IF NOT EXISTS `bm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
