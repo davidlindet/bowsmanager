@@ -32,6 +32,31 @@ class BillDao
         return $resultSet;
     }
 
+    public function getCollectionsIdWhereBillNotPaid(){
+
+        $driver = $this->tableGateway->getAdapter()->getDriver();
+
+        $sql = "SELECT DISTINCT  collection_id
+                FROM  bm_bill
+                WHERE collection_id > -1
+                AND is_paid = TRUE
+              ORDER BY id DESC;
+        ";
+
+        $statement = $driver->createStatement($sql);
+        $result = $statement->execute();
+
+        $resultSet = new ResultSet;
+        $resultSet->initialize($result);
+
+        $collections = array();
+        foreach($resultSet as $data){
+            $collections[] = $data['collection_id'];
+        }
+
+        return $collections;
+    }
+
     public function fetchAllByCollection($collectionId)
     {
         $select = new Select();

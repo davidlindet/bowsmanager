@@ -37,7 +37,7 @@ class CollectionDao
         $whereSql = (empty($where)) ? "" : "WHERE ";
         for($i = 0; $i < count($where); $i++){
             $data = $where[$i];
-            $whereSql .= $data['key'] . $data['clause'] . $data['value'];
+            $whereSql .= $data['key'] . " " . $data['clause'] . " " . $data['value'];
 
             if($i < count($where) -1){
                 $whereSql .= " AND ";

@@ -106,6 +106,8 @@ class CollectionService
     public function getCollectionsNotPaid(){
         $order = CollectionEnum::SORT_NEW_TO_OLD;
 
+        $collectionIds = $this->billService->getCollectionsIdWhereBillNotPaid();
+
         $where = array(
             array(
                 "key" => CollectionEnum::ATTR_RETURN_TIME,
@@ -113,9 +115,9 @@ class CollectionService
                 "value" => CollectionEnum::NO_RETURN_TIME,
             ),
             array(
-                "key" => CollectionEnum::ATTR_PAID_STATUS,
-                "clause" => "=",
-                "value" => "false",
+                "key" => CollectionEnum::ATTR_ID,
+                "clause" => "IN",
+                "value" => "(" . implode(",", $collectionIds) . ")",
             ),
         );
 

@@ -68,6 +68,10 @@ class BillService
         return $result;
     }
 
+    public function getCollectionsIdWhereBillNotPaid(){
+        return $this->billDao->getCollectionsIdWhereBillNotPaid();
+    }
+
 //    public function search($query) {
 //        return $this->billDao->fetchAllByQuery($query);
 //    }

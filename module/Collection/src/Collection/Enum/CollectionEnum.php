@@ -19,12 +19,9 @@ class CollectionEnum {
     const SORT_OLD_TO_NEW = 1;
     const SORT_NEW_TO_OLD = 2;
 
-    const ATTR_ID = "id";
+    const ATTR_ID = "col.id";
     const ATTR_OWNER = "owner";
     const ATTR_RECEPTION_TIME = "reception_time";
     const ATTR_RETURN_TIME = "return_time";
     const ATTR_PACKAGE_NUMBER = "package_number";
-    const ATTR_BILL_REFERENCE = "bill_reference";
-    const ATTR_BILL_AMOUNT = "bill_amount";
-    const ATTR_PAID_STATUS = "paid_status";
 }
