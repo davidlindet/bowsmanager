@@ -133,6 +133,9 @@ msgstr "Options"
 msgid "Loading..."
 msgstr "Patientez..."
 
+msgid "Close"
+msgstr "Fermer"
+
 #------------------------------------------
 #       Client
 #------------------------------------------
@@ -320,8 +323,17 @@ msgstr "Ajouter une facture"
 msgid "New Bill"
 msgstr "Nouvelle Facture"
 
+msgid "Edit Bill"
+msgstr "Modifier Facture"
+
 msgid "Do you really want to delete this bill?"
 msgstr "Voulez-vous vraiment supprimer cette facture?"
+
+msgid "Is that bill really paid?"
+msgstr "Cette facture a-t-elle été réglée?"
+
+msgid "No collection"
+msgstr "Pas de lot"
 
 #------------------------------------------
 #       Search
