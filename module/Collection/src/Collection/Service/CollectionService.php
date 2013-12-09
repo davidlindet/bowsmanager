@@ -114,12 +114,16 @@ class CollectionService
                 "clause" => ">",
                 "value" => CollectionEnum::NO_RETURN_TIME,
             ),
-            array(
+
+        );
+
+        if(!empty($collectionIds)){
+            $where[] = array(
                 "key" => CollectionEnum::ATTR_ID,
                 "clause" => "IN",
                 "value" => "(" . implode(",", $collectionIds) . ")",
-            ),
-        );
+            );
+        }
 
         $collections = $this->collectionDao->fetchAll($order, $where);
         $collections = $this->setBows($collections);

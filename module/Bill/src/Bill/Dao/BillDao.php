@@ -39,7 +39,7 @@ class BillDao
         $sql = "SELECT DISTINCT  collection_id
                 FROM  bm_bill
                 WHERE collection_id > -1
-                AND is_paid = TRUE
+                AND is_paid = FALSE
               ORDER BY id DESC;
         ";
 
