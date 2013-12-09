@@ -8,16 +8,32 @@ With it, a bow maker can manage his client list, bows collections he receives an
 * v1.1 : add attachments for collections and bows
 * v1.1a : add bow number. When you add a bow to a collection a number is generate to identify it.
 * v1.2 : display popup to load bows edit form from collection details page + fix bugs (add devise, remove backslashes...)
+* v2.0 : Addition of the bill module. Bills are listed, can or not be attach to a collection. Big modification of the database.
 
 --
-TABLES STRUCTURES V1
+TABLES STRUCTURES V2
 --
 
+* Structure de la table `bm_bill`
 
-* Structure of table `bm_bow`
+CREATE TABLE IF NOT EXISTS `bm_bill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `collection_id` int(11) NOT NULL,
+  `amount` float NOT NULL,
+  `reference` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `is_paid` tinyint(1) NOT NULL,
+  `attachments` text CHARACTER SET utf8 NOT NULL,
+  `creation_time` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+-- --------------------------------------------------------
+
+* Structure de la table `bm_bow`
 
 CREATE TABLE IF NOT EXISTS `bm_bow` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `number` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `type` int(11) NOT NULL,
   `size` int(11) NOT NULL,
@@ -26,30 +42,30 @@ CREATE TABLE IF NOT EXISTS `bm_bow` (
   `status` text CHARACTER SET utf8 NOT NULL,
   `is_done` tinyint(1) NOT NULL,
   `comments` text CHARACTER SET utf8 NOT NULL,
+  `attachments` text CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 -- --------------------------------------------------------
 
-* Structure of table `bm_client`
+* Structure de la table `bm_client`
 
 CREATE TABLE IF NOT EXISTS `bm_client` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` bigint(20) NOT NULL,
-  `last_name` varchar(100) NOT NULL,
-  `first_name` varchar(100) NOT NULL,
-  `address` varchar(250) NOT NULL,
-  `landline` varchar(30) NOT NULL,
-  `mobile` varchar(30) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `website` varchar(100) NOT NULL,
+  `last_name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `first_name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `address` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `landline` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `mobile` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `website` varchar(100) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
-
-* Structure of table `bm_collection`
+* Structure de la table `bm_collection`
 
 CREATE TABLE IF NOT EXISTS `bm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -57,19 +73,6 @@ CREATE TABLE IF NOT EXISTS `bm_collection` (
   `reception_time` bigint(20) NOT NULL,
   `return_time` bigint(20) NOT NULL,
   `package_number` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `bill_reference` varchar(100) CHARACTER SET utf8 NOT NULL,
-  `bill_amount` float NOT NULL,
-  `paid_status` tinyint(1) NOT NULL,
+  `comments` text CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
-
---
-TABLES STRUCTURES V1.1
---
-ALTER TABLE  `bm_bow` ADD  `attachments` TEXT NOT NULL
-ALTER TABLE  `bm_collection` ADD  `attachments` TEXT NOT NULL
-
---
-TABLES STRUCTURE v1.1a
---
-ALTER TABLE  `bm_bow` ADD  `number` INT NOT NULL AFTER  `id` ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
