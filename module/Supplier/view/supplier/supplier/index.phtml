@@ -1,6 +1,6 @@
 <?php
 use Supplier\Model\Supplier;
-use Application\Enum\SectionEnum;
+use Supplier\Enum\SupplierEnum;
 ?>
 <h1>
     <img src="/img/bill/header.png" width='80' /> <?php echo $this->translate("Suppliers List"); ?>
@@ -12,15 +12,29 @@ use Application\Enum\SectionEnum;
 
 <table class="table suppliers">
     <tr>
-        <th><?php echo $this->translate("Name") ?></th>
-        <th>&nbsp;</th>
+        <td colspan="3">
+            <?php foreach(SupplierEnum::FILTERS() as $filter){ ?>
+                <a href="#" class="supplier-filter" id="<?php echo $filter; ?>" ><?php echo $filter; ?></a>
+            <?php } ?>
+        </td>
     </tr>
+<?php
+        $firstLetter = null;
+        /**  @var  $supplier Supplier*/
+    foreach ($suppliers as $supplier) :
+        $currentFirstLetter = strtolower($supplier->getName());
+        if($currentFirstLetter[0] != $firstLetter){
+            $firstLetter = $currentFirstLetter[0];
+            ?>
+            <tr class="data <?php echo $firstLetter ?>">
+                <td colspan="3"><h3><?php echo strtoupper($firstLetter);?></h3></td>
+            </tr>
+        <?php
+        }
 
-    <?php /**  @var  $supplier Supplier*/?>
-    <?php foreach ($suppliers as $supplier) :
-        $detailUrl =  $this->url('client-details', array('id' => $client->getId()));
+        $detailUrl =  $this->url('supplier-details', array('id' => $supplier->getId()));
      ?>
-        <tr class="supplier" id="supplier-<?php echo $supplier->getId() ?>" data-url="<?php echo $detailUrl ?>" >
+        <tr class="data supplier <?php echo $firstLetter ?>" id="supplier-<?php echo $supplier->getId() ?>" data-url="<?php echo $detailUrl ?>" >
             <td><?php echo $supplier->getName(); ?></td>
             <td class="supplier-options">
                 <div class="list-options" >
@@ -29,10 +43,11 @@ use Application\Enum\SectionEnum;
                 </div>
             </td>
         </tr>
-    <?php endforeach; ?>
+<?php endforeach; ?>
 </table>
 <?php
 $this->placeholder('scripts')->append("
+        BowsManager.supplier.listInitFilters();
         BowsManager.supplier.details();
         BowsManager.supplier.del();
         BowsManager.supplier.add();

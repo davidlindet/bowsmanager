@@ -731,7 +731,7 @@ BowsManager.supplier = (function() {
                     if(data.success){
                         if(data.section == "supplier-index"){
                             // return on bill list page
-                            window.location.href = '/supplier/'+data.section;
+                            window.location.href = '/supplier-list/'+data.section;
                         }
                         else {
                             // return on collection details page
@@ -767,7 +767,7 @@ BowsManager.supplier = (function() {
                             }
                             else {
                                 //on bill details page so return on collection details page
-                                window.location.href = '/supplier/'+section;
+                                window.location.href = '/supplier-list/'+section;
                             }
                         }
                         else {
@@ -779,12 +779,30 @@ BowsManager.supplier = (function() {
         });
     }
 
+    /**
+     * Display / Hide supplier rows
+     * When user click on filter
+     */
+    function listInitFilters(){
+        $(".supplier-filter").click(function() {
+            var filter = this.id;
+            $(".data").hide();
+            if(filter == "ALL"){
+                $(".data").show();
+            }
+            else {
+                $("."+filter.toLowerCase()).show();
+            }
+        });
+    }
+
     return {
         details: details,
         add: add,
         edit: edit,
         save: save,
-        del: del
+        del: del,
+        listInitFilters : listInitFilters
     }
 })();
 

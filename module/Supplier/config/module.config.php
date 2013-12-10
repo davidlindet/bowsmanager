@@ -21,6 +21,16 @@ return array(
                     ),
                 ),
             ),
+            'supplier-list' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/supplier-list[/][:section][/]',
+                    'defaults' => array(
+                        'controller' => 'Supplier\Controller\Supplier',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
             'supplier-add' => array(
                 'type'    => 'segment',
                 'options' => array(
@@ -44,7 +54,7 @@ return array(
             'supplier-details' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/supplier-details[/][:id][/][:section][/][:mode]',
+                    'route'    => '/supplier-details[/][:id][/][:section]',
                     'defaults' => array(
                         'controller' => 'Supplier\Controller\Supplier',
                         'action'     => 'details',

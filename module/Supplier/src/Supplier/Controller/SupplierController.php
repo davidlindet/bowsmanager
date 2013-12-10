@@ -43,116 +43,81 @@ class SupplierController extends AbstractActionController
     }
 
     public function saveAction() {
-//        $params = $this->params()->fromPost();
-//
-//        /** @var $billModel Bill */
-//        $billModel = $this->getBillService()->getById($params['id']);
-//
-//        $billModel->setCollectionId((int) $params['collectionId']);
-//        $billModel->setReference($params['reference']);
-//        $billModel->setAmount((float) $params['amount']);
-//        $billModel->setIsPaid(isset($params['isPaid']));
-//
-//        if(isset($params['del-attachment'])){
-//            /** @var $uploadService UploadService */
-//            $uploadService = $this->getServiceLocator()->get('UploadService');
-//            foreach($params['del-attachment'] as $attachment) {
-//                $billModel->removeAttachment($attachment, $uploadService);
-//            }
-//        }
-//
-//        $result = $this->getBillService()->save($billModel);
-//        $result['section'] = $params['section'];
-//        $result['collectionId'] = $params['collectionId'];
-//        return new JsonModel($result);
+        $params = $this->params()->fromPost();
+
+        /** @var $supplierModel Supplier */
+        $supplierModel = $this->getSupplierService()->getById($params['id']);
+
+        $supplierModel->setName($params['name']);
+        $supplierModel->setAddress($params['address']);
+        $supplierModel->setPhone($params['phone']);
+        $supplierModel->setEmail($params['email']);
+        $supplierModel->setWebsite($params['website']);
+
+        $result = $this->getSupplierService()->save($supplierModel);
+        $result['section'] = $params['section'];
+        return new JsonModel($result);
     }
 
     public function addAction()
     {
-//        $collectionId = $this->getEvent()->getRouteMatch()->getParam('collectionId', false);
-//        $section = $this->params()->fromRoute('section', false);
-//        $mode = $this->params()->fromRoute('mode', false);
-//
-//        if($mode == ModeEnum::MODE_AJAX){
-//            $this->layout('layout/empty');
-//        }
-//
-//        /** @var CollectionService $collectionService */
-//        $collectionService = $this->getServiceLocator()->get('CollectionService');
-//        $collections = ($collectionId && $collectionId != BillEnum::NO_COLLECTION) ? $collectionService->getById($collectionId) : $collectionService->getAll(false);
-//
-//        /** @var $billModel Bill */
-//        $billModel = $this->getBillService()->getById(BillEnum::NEW_BILL);
-//        $billModel->setCollectionId($collectionId);
-//
-//        return new ViewModel(array(
-//            'bill' => $billModel,
-//            'section' => $section,
-//            'collections' => $collections,
-//            'mode' => $mode,
-//        ));
+        $section = $this->params()->fromRoute('section', false);
+        $mode = $this->params()->fromRoute('mode', false);
+
+        if($mode == ModeEnum::MODE_AJAX){
+            $this->layout('layout/empty');
+        }
+
+        /** @var $supplierModel Supplier */
+        $supplierModel = $this->getSupplierService()->getById(SupplierEnum::NEW_SUPPLIER);
+
+        return new ViewModel(array(
+            'supplier' => $supplierModel,
+            'section' => $section,
+            'mode' => $mode,
+        ));
     }
 
     public function editAction()
     {
-//        $billId = $this->getEvent()->getRouteMatch()->getParam('id', BillEnum::NEW_BILL);
-//        $section = $this->params()->fromRoute('section', false);
-//        $mode = $this->params()->fromRoute('mode', false);
-//
-//        if($mode == ModeEnum::MODE_AJAX){
-//            $this->layout('layout/empty');
-//        }
-//
-//        /** @var $billModel Bill */
-//        $billModel = $this->getBillService()->getById($billId);
-//
-//        /** @var CollectionService $collectionService */
-//        $collectionService = $this->getServiceLocator()->get('CollectionService');
-//        $collections = $collectionService->getAll(false, false);
-//
-//        return new ViewModel(array(
-//            'bill' => $billModel,
-//            'section' => $section,
-//            'collections' => $collections,
-//            'mode' => $mode,
-//        ));
+        $supplierId = $this->getEvent()->getRouteMatch()->getParam('id', SupplierEnum::NEW_SUPPLIER);
+        $section = $this->params()->fromRoute('section', false);
+        $mode = $this->params()->fromRoute('mode', false);
+
+        if($mode == ModeEnum::MODE_AJAX){
+            $this->layout('layout/empty');
+        }
+
+        /** @var $supplierModel Supplier */
+        $supplierModel = $this->getSupplierService()->getById($supplierId);
+
+        return new ViewModel(array(
+            'supplier' => $supplierModel,
+            'section' => $section,
+            'mode' => $mode,
+        ));
     }
 
     public function detailsAction()
     {
-//        $billId = $this->getEvent()->getRouteMatch()->getParam('id', BillEnum::NEW_BILL);
-//        $section = $this->params()->fromRoute('section', false);
-//        $mode = $this->params()->fromRoute('mode', false);
-//
-//        if($mode == ModeEnum::MODE_AJAX){
-//            $this->layout('layout/empty');
-//        }
-//
-//        /** @var $billModel Bill */
-//        $billModel = $this->getBillService()->getById($billId);
-//
-//        if($billModel->getCollectionId() != BillEnum::NO_COLLECTION) {
-//            /** @var CollectionService $collectionService */
-//            $collectionService = $this->getServiceLocator()->get('CollectionService');
-//            $collection = $collectionService->getById($billModel->getCollectionId());
-//            $billModel->setCollectionName($collection->getName());
-//        }
-//
-//        return new ViewModel(array(
-//            'bill' => $billModel,
-//            'section' => $section,
-//            'mode' => $mode,
-//        ));
+        $supplierId = $this->getEvent()->getRouteMatch()->getParam('id', SupplierEnum::NEW_SUPPLIER);
+        $section = $this->params()->fromRoute('section', false);
+
+        /** @var $supplierModel Supplier */
+        $supplierModel = $this->getSupplierService()->getById($supplierId);
+
+        return new ViewModel(array(
+            'supplier' => $supplierModel,
+            'section' => $section,
+        ));
     }
 
     public function deleteAction()
     {
-//        $params = $this->params()->fromPost();
-//
-//        /** @var $billModel Bill */
-//        $success = $this->getBillService()->delete((int) $params['id']);
-//        $result = new JsonModel($success);
-//        return $result;
+        $params = $this->params()->fromPost();
+        $success = $this->getSupplierService()->delete((int) $params['id']);
+        $result = new JsonModel($success);
+        return $result;
     }
 
 }

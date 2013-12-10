@@ -36,7 +36,7 @@ class SupplierService
 
     public function save($supplierModel){
         try {
-            $supplierId = $this->supplierDao->saveBill($supplierModel);
+            $supplierId = $this->supplierDao->saveSupplier($supplierModel);
             $result = array('success'=> true, 'id' => (int) $supplierId);
         }
         catch (Exception $exception) {
