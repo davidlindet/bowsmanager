@@ -38,19 +38,6 @@ class SupplierDao
 //
 //        $sql = false;
 //
-//        if(strtolower($query) == strtolower(BillTypeEnum::COPY(BillTypeEnum::ALTO))){
-//            $sql =   "SELECT * FROM bm_bill b WHERE b.type = " . BillTypeEnum::ALTO;
-//        }
-//        elseif(strtolower($query) == strtolower(BillTypeEnum::COPY(BillTypeEnum::CELLO))){
-//            $sql =   "SELECT * FROM bm_bill b WHERE b.type = " . BillTypeEnum::CELLO;
-//        }
-//        elseif(strtolower($query) == strtolower(BillTypeEnum::COPY(BillTypeEnum::VIOLIN))){
-//            $sql =   "SELECT * FROM bm_bill b WHERE b.type = " . BillTypeEnum::VIOLIN;
-//        }
-//        elseif(strtolower($query) == strtolower(BillTypeEnum::COPY(BillTypeEnum::DOUBLE_BASS))){
-//            $sql =   "SELECT * FROM bm_bill b WHERE b.type = " . BillTypeEnum::DOUBLE_BASS;
-//        }
-//
 //        if(!$sql) {
 //            $sql = "SELECT * FROM bm_bill WHERE description LIKE '%$query%'
 //                    UNION
@@ -90,18 +77,16 @@ class SupplierDao
 
     public function saveSupplier(Supplier $supplier)
     {
-        $data = array();
-//        $data = array(
-//            'collection_id' => $bill->getCollectionId(),
-//            'amount' => $bill->getAmount(),
-//            'reference'  => $bill->getReference(),
-//            'is_paid' => $bill->isPaid(),
-//            'attachments'  =>  $bill->hasAttachments() ? implode("--", $bill->getAttachments()) : "",
-//        );
+        $data = array(
+            'name' => $supplier->getName(),
+            'address' => $supplier->getAddress(),
+            'phone'  => $supplier->getPhone(),
+            'email' => $supplier->getEmail(),
+            'website'  => $supplier->getWebsite(),
+        );
 
         $id = (int)$supplier->getId();
         if ($id == 0) {
-            $data['creation_time'] = time();
             $this->tableGateway->insert($data);
             $id = $this->tableGateway->lastInsertValue;
         } else {
