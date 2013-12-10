@@ -21,6 +21,11 @@ class IndexController extends AbstractActionController
      */
     protected $collectionService;
 
+    /**
+     * @var $billService BillService
+     */
+    protected $billService;
+
     public function getCollectionService()
     {
         if (!$this->collectionService) {
@@ -29,11 +34,19 @@ class IndexController extends AbstractActionController
         return $this->collectionService;
     }
 
+    public function getBillService()
+    {
+        if (!$this->billService) {
+            $this->billService = $this->getServiceLocator()->get('BillService');
+        }
+        return $this->billService;
+    }
+
     public function indexAction()
     {
         return new ViewModel(array(
             'collectionsNotSent' => $this->getCollectionService()->getCollectionsNotSent(),
-            'collectionsNotPaid' => $this->getCollectionService()->getCollectionsNotPaid(),
+            'billsNotPaid' => $this->getBillService()->getBillsNotPaid(),
         ));
     }
 

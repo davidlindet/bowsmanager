@@ -2,7 +2,8 @@
 <?php echo $this->partial('collectionList', array('collections' => $collectionsNotSent,
                                                     'header' => 'Collections Not Sent',)); ?>
 </div>
-<div class="collection-list">
-    <?php echo $this->partial('collectionList', array('collections' => $collectionsNotPaid,
-                                                    'header' => 'Collections Not Paid',)); ?>
+<div class="bill-list">
+    <?php echo $this->partial('billList', array('bills' => $billsNotPaid,
+                                                    'header' => 'Bills Not Paid',
+                                                    'section' => \Application\Enum\SectionEnum::HOME)); ?>
 </div>

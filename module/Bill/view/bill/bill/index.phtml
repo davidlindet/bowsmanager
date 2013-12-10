@@ -1,7 +1,22 @@
 <?php
 use Bill\Model\Bill;
+use Application\Enum\SectionEnum;
+
+if($section == SectionEnum::BILL_INDEX){
 ?>
-<h2><img src="/img/bill/header.png" width="50" /> <?php echo $this->translate("Bills List"); ?></h2>
+    <h1>
+        <img src="/img/bill/header.png" width='80' /> <?php echo $this->translate($header); ?>
+    </h1>
+<?php
+}
+else {
+    ?>
+    <h2>
+        <img src="/img/bill/header.png" width='40' /> <?php echo $this->translate($header); ?>
+    </h2>
+<?php
+}
+?>
 <div class="options">
     <div class="bill add" data-collection="<?php echo \Bill\Enum\BillEnum::NO_COLLECTION ?>"  data-section="<?php echo $section ?>" ><img src="/img/bill/add.png" /><?php echo $this->translate("Add new bill") ?></div>
 </div>

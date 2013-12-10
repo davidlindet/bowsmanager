@@ -103,34 +103,6 @@ class CollectionService
         return $collections;
     }
 
-    public function getCollectionsNotPaid(){
-        $order = CollectionEnum::SORT_NEW_TO_OLD;
-
-        $collectionIds = $this->billService->getCollectionsIdWhereBillNotPaid();
-
-        $collections = array();
-
-        if(!empty($collectionIds)){
-            $where = array(
-                array(
-                    "key" => CollectionEnum::ATTR_RETURN_TIME,
-                    "clause" => ">",
-                    "value" => CollectionEnum::NO_RETURN_TIME,
-                ),
-                array(
-                    "key" => CollectionEnum::ATTR_ID,
-                    "clause" => "IN",
-                    "value" => "(" . implode(",", $collectionIds) . ")",
-                ),
-            );
-            $collections = $this->collectionDao->fetchAll($order, $where);
-            $collections = $this->setBows($collections);
-            $collections = $this->setBills($collections);
-        }
-
-        return $collections;
-    }
-
     public function save(Collection $collectionModel){
         try {
             $collectionId = $this->collectionDao->saveCollection($collectionModel);

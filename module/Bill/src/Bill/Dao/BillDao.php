@@ -32,14 +32,13 @@ class BillDao
         return $resultSet;
     }
 
-    public function getCollectionsIdWhereBillNotPaid(){
+    public function getBillsNotPaid(){
 
         $driver = $this->tableGateway->getAdapter()->getDriver();
 
-        $sql = "SELECT DISTINCT  collection_id
+        $sql = "SELECT *
                 FROM  bm_bill
-                WHERE collection_id > -1
-                AND is_paid = FALSE
+                WHERE is_paid = FALSE
               ORDER BY id DESC;
         ";
 
@@ -49,12 +48,14 @@ class BillDao
         $resultSet = new ResultSet;
         $resultSet->initialize($result);
 
-        $collections = array();
+        $bills = array();
         foreach($resultSet as $data){
-            $collections[] = $data['collection_id'];
+            $bill = new Bill();
+            $bill->exchangeArray($data);
+            $bills[] = $bill;
         }
 
-        return $collections;
+        return $bills;
     }
 
     public function fetchAllByCollection($collectionId)

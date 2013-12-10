@@ -91,6 +91,7 @@ return array(
             'jsCopies'                => __DIR__ . '/../view/application/index/jsCopies.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'billList'                => __DIR__ . '/../../Bill/view/bill/bill/index.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',

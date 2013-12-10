@@ -40,12 +40,10 @@ class BillController extends AbstractActionController
 
     public function indexAction()
     {
-        $collectionId = $this->getEvent()->getRouteMatch()->getParam('collectionId');
-
         return new ViewModel(array(
             'bills' => $this->getBillService()->getAll(),
-            'collectionId' => $collectionId,
-            'section' => SectionEnum::BILL_INDEX
+            'section' => SectionEnum::BILL_INDEX,
+            'header' => "Bills List",
         ));
     }
 
