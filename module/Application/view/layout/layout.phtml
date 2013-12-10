@@ -51,7 +51,8 @@ use Application\Enum\SectionEnum;
                         <?php
                             $supplierSubNav = array(
                                 array('class' => 'supplier', 'label' => "Suppliers" ,'url' => 'supplier', 'sections' => array(SectionEnum::SUPPLIER),),
-                                array('class' => 'supplier', 'label' => "Products" ,'url' => 'product-type', 'sections' => array(SectionEnum::PRODUCT),),
+                                array('class' => 'product', 'label' => "Products" ,'url' => 'product-type', 'sections' => array(SectionEnum::PRODUCT),),
+                                array('class' => 'product-type', 'label' => "Product Types" ,'url' => 'product-type', 'sections' => array(SectionEnum::PRODUCT_TYPE),),
                             );
 
                             $navigation = array(
@@ -59,12 +60,11 @@ use Application\Enum\SectionEnum;
                                 array('class' => 'client', 'label' => "Clients" ,'url' => 'client', 'sections' => array(SectionEnum::CLIENT)),
                                 array('class' => 'collection', 'label' => "Collections" ,'url' =>'collection', 'sections' => array(SectionEnum::COLLECTION, SectionEnum::BOW)),
                                 array('class' => 'bill', 'label' => "Bills" ,'url' =>'bill', 'sections' => array(SectionEnum::BILL)),
-                                array('class' => 'supplier dropdown', 'label' => "Suppliers" , 'sections' => array(SectionEnum::SUPPLIER), 'id' => 'supplier', 'subNav' => $supplierSubNav),
+                                array('class' => 'supplier-section dropdown', 'label' => "Suppliers" , 'sections' => array(SectionEnum::SUPPLIER, SectionEnum::PRODUCT, SectionEnum::PRODUCT_TYPE), 'id' => 'supplier', 'subNav' => $supplierSubNav),
                                 array('class' => 'search', 'label' => "Search" ,'url' => 'search', 'sections' => array(SectionEnum::SEARCH)),
                             );
 
                             $currentSectionName = $this->sectionName();
-
                             foreach($navigation as $element){
                                 $active = "";
                                 foreach($element["sections"] as $section){

@@ -154,6 +154,20 @@ form textarea {
     background-repeat: no-repeat;
 }
 
+.nav.navbar-nav .supplier-section
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -105px 5px;
+    background-repeat: no-repeat;
+}
+.nav.navbar-nav a:hover .supplier-section,
+.nav.navbar-nav .active .supplier-section
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -77px 5px;
+    background-repeat: no-repeat;
+}
+
 .nav.navbar-nav .supplier
 {
     background: url("../img/sprites/nav.png");
@@ -161,7 +175,35 @@ form textarea {
     background-repeat: no-repeat;
 }
 .nav.navbar-nav a:hover .supplier,
-.nav.navbar-nav .active .supplier
+.nav.navbar-nav .dropdown-menu .active .supplier
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -77px 5px;
+    background-repeat: no-repeat;
+}
+
+.nav.navbar-nav .product
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -105px 5px;
+    background-repeat: no-repeat;
+}
+.nav.navbar-nav a:hover .product,
+.nav.navbar-nav .dropdown-menu .active .product
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -77px 5px;
+    background-repeat: no-repeat;
+}
+
+.nav.navbar-nav .product-type
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -105px 5px;
+    background-repeat: no-repeat;
+}
+.nav.navbar-nav a:hover .product-type,
+.nav.navbar-nav .dropdown-menu .active .product-type
 {
     background: url("../img/sprites/nav.png");
     background-position: -77px 5px;
@@ -371,5 +413,15 @@ form textarea {
     margin-right: 10px;
 }
 .suppliers .list-options .delete{
+    float: right;
+}
+
+/**
+    Product Type
+*/
+.table.product-types .name{
+    width: 100%;
+}
+.product-types .list-options .delete{
     float: right;
 }
