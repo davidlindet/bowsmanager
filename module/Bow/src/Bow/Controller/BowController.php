@@ -20,6 +20,8 @@ use Bow\Service\BowService;
 
 use Collection\Service\CollectionService;
 
+use Upload\Service\UploadService;
+
 class BowController extends AbstractActionController
 {
     /**
@@ -134,8 +136,11 @@ class BowController extends AbstractActionController
     {
         $params = $this->params()->fromPost();
 
+        /** @var $uploadService UploadService */
+        $uploadService = $this->getServiceLocator()->get('UploadService');
+
         /** @var $bowModel Bow */
-        $success = $this->getBowService()->delete((int) $params['id']);
+        $success = $this->getBowService()->delete((int) $params['id'], $uploadService);
 
         $result = new JsonModel($success);
 

@@ -231,6 +231,10 @@ form textarea {
     color: red;
     text-decoration: line-through;
 }
+.bow-is-it-done,
+.bill-is-paid {
+    background: rgba(0, 0, 0, 0.04);
+}
 /**
     Client
 */

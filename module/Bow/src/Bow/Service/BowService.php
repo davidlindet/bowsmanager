@@ -13,6 +13,8 @@ use Bow\Dao\BowDao;
 use Bow\Enum\BowEnum;
 use Collection\Model\Collection;
 
+use Upload\Service\UploadService;
+
 class BowService
 {
     /**
@@ -49,12 +51,12 @@ class BowService
         return $result;
     }
 
-    public function delete($bowId){
+    public function delete($bowId, UploadService $uploadService){
         try {
             //delete all attachments related to this bow
             $bowModel = $this->getById($bowId);
             foreach($bowModel->getAttachments() as $attachment) {
-                $bowModel->removeAttachment($attachment);
+                $bowModel->removeAttachment($attachment, $uploadService);
             }
             //delete bow in the database
             $this->bowDao->deleteBow($bowId);
