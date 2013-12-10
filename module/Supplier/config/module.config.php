@@ -10,11 +10,9 @@ return array(
             'supplier' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/supplier[/][:action][/:id][/][:section]',
+                    'route'    => '/supplier[/][:action][/][:section]',
                     'constraints' => array(
                         'action'        => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'            => '[0-9]+',
-                        'collectionId'  => '[0-9]+',
                         'section'       => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(

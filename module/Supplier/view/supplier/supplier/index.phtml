@@ -17,8 +17,10 @@ use Application\Enum\SectionEnum;
     </tr>
 
     <?php /**  @var  $supplier Supplier*/?>
-    <?php foreach ($suppliers as $supplier) : ?>
-        <tr class="supplier" id="supplier-<?php echo $supplier->getId() ?>" data-id="<?php echo  $supplier->getId() ?>" data-section="<?php echo $section ?>" >
+    <?php foreach ($suppliers as $supplier) :
+        $detailUrl =  $this->url('client-details', array('id' => $client->getId()));
+     ?>
+        <tr class="supplier" id="supplier-<?php echo $supplier->getId() ?>" data-url="<?php echo $detailUrl ?>" >
             <td><?php echo $supplier->getName(); ?></td>
             <td class="supplier-options">
                 <div class="list-options" >
