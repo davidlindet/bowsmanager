@@ -40,7 +40,8 @@ form textarea {
 .table.clients .client:hover,
 .table.collections .collection:hover,
 .table.bows .bow:hover,
-.table.bills .bill:hover {
+.table.bills .bill:hover,
+.table.suppliers .supplier:hover {
     background-color: #EEE;
     cursor: pointer;
 }
@@ -153,6 +154,20 @@ form textarea {
     background-repeat: no-repeat;
 }
 
+.nav.navbar-nav .supplier
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -105px 5px;
+    background-repeat: no-repeat;
+}
+.nav.navbar-nav a:hover .supplier,
+.nav.navbar-nav .active .supplier
+{
+    background: url("../img/sprites/nav.png");
+    background-position: -77px 5px;
+    background-repeat: no-repeat;
+}
+
 /**
     Popups
 */
@@ -203,7 +218,11 @@ form textarea {
 }
 .edit,
 .edit:hover {
+    cursor: pointer;
     color: #f7b400;
+}
+.edit:hover {
+    text-decoration: underline;
 }
 .delete,
 .delete:hover {
@@ -305,9 +324,6 @@ form textarea {
 .bills .list-options {
     width: 100%;
 }
-.bills .list-options .edit:hover{
-    text-decoration: underline;
-}
 .bills .list-options .delete{
     float: right;
 }
@@ -327,4 +343,20 @@ form textarea {
     position: absolute;
     top: 5px;
     left: 300px;
+}
+
+/**
+    Supplier
+*/
+.table.suppliers td{
+    line-height: 38px;
+}
+.table.suppliers .name{
+    width: 100%;
+}
+.supplier-filter {
+    margin-right: 10px;
+}
+.suppliers .list-options .delete{
+    float: right;
 }

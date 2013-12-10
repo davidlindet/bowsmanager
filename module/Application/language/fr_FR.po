@@ -336,6 +336,30 @@ msgid "Bills Not Paid"
 msgstr "Factures non réglés"
 
 #------------------------------------------
+#       Supplier
+#------------------------------------------
+msgid "Suppliers"
+msgstr "Fournisseurs"
+
+msgid "Supplier"
+msgstr "Fournisseur"
+
+msgid "Suppliers List"
+msgstr "Liste de fournisseurs"
+
+msgid "Add new supplier"
+msgstr "Ajouter un fournisseur"
+
+msgid "New Supplier"
+msgstr "Nouveau Fournisseur"
+
+msgid "Edit Supplier"
+msgstr "Modifier Fournisseur"
+
+msgid "Do you really want to delete this supplier?"
+msgstr "Voulez-vous vraiment supprimer ce fournisseur?"
+
+#------------------------------------------
 #       Search
 #------------------------------------------
 msgid "Search"

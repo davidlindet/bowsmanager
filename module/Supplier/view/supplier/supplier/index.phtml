@@ -3,10 +3,10 @@ use Supplier\Model\Supplier;
 use Supplier\Enum\SupplierEnum;
 ?>
 <h1>
-    <img src="/img/bill/header.png" width='80' /> <?php echo $this->translate("Suppliers List"); ?>
+    <img src="/img/supplier/header.png" width='80' /> <?php echo $this->translate("Suppliers List"); ?>
 </h1>
 <div class="options">
-    <div class="supplier add" data-section="<?php echo $section ?>" ><img src="/img/bill/add.png" /><?php echo $this->translate("Add new supplier") ?></div>
+    <div class="supplier add" data-section="<?php echo $section ?>" ><img src="/img/supplier/add.png" /><?php echo $this->translate("Add new supplier") ?></div>
 </div>
 <div class="error-message supplier"></div>
 
@@ -35,11 +35,11 @@ use Supplier\Enum\SupplierEnum;
         $detailUrl =  $this->url('supplier-details', array('id' => $supplier->getId()));
      ?>
         <tr class="data supplier <?php echo $firstLetter ?>" id="supplier-<?php echo $supplier->getId() ?>" data-url="<?php echo $detailUrl ?>" >
-            <td><?php echo $supplier->getName(); ?></td>
+            <td class="name"><?php echo $supplier->getName(); ?></td>
             <td class="supplier-options">
                 <div class="list-options" >
-                    <div class="supplier delete" data-id="<?php echo $supplier->getId() ?>" ><img src="/img/bill/del.png" /><?php echo $this->translate("Delete") ?></div>
-                    <div class="supplier edit" data-id="<?php echo $supplier->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/bill/edit.png" /><?php echo $this->translate("Edit") ?></div>
+                    <div class="supplier delete" data-id="<?php echo $supplier->getId() ?>" ><img src="/img/supplier/del.png" /><?php echo $this->translate("Delete") ?></div>
+                    <div class="supplier edit" data-id="<?php echo $supplier->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/supplier/edit.png" /><?php echo $this->translate("Edit") ?></div>
                 </div>
             </td>
         </tr>
