@@ -1,0 +1,75 @@
+<?php
+use Bill\Model\Bill;
+use Application\Enum\SectionEnum;
+
+if($section == SectionEnum::BILL_INDEX){
+?>
+    <h1>
+        <img src="/img/bill/header.png" width='80' /> <?php echo $this->translate($header); ?>
+    </h1>
+<?php
+}
+else {
+    ?>
+    <h2>
+        <img src="/img/bill/header.png" width='40' /> <?php echo $this->translate($header); ?>
+    </h2>
+<?php
+}
+?>
+<div class="options">
+    <div class="bill add" data-collection="<?php echo \Bill\Enum\BillEnum::NO_COLLECTION ?>"  data-section="<?php echo $section ?>" ><img src="/img/bill/add.png" /><?php echo $this->translate("Add new bill") ?></div>
+</div>
+<div class="error-message bill"></div>
+
+<table class="table bills">
+    <tr>
+        <th><?php echo $this->translate("Reference") ?></th>
+        <th><?php echo $this->translate("Amount") ?></th>
+        <th><?php echo $this->translate("Is paid?") ?></th>
+        <th><?php echo $this->translate("Attachment") ?></th>
+        <th>&nbsp;</th>
+    </tr>
+
+    <?php /**  @var  $bill Bill*/?>
+    <?php foreach ($bills as $bill) : ?>
+        <tr class="bill" id="bill-<?php echo $bill->getId() ?>" data-id="<?php echo  $bill->getId() ?>" data-section="<?php echo $section ?>" >
+            <td><?php echo $bill->getReference(); ?></td>
+            <td><?php echo $bill->getAmount(true); ?> €</td>
+            <td class="<?php echo ($bill->isPaid()) ? "": "bill-is-paid"; ?>" data-id="<?php echo $bill->getId() ?>">
+                <?php
+                if($bill->isPaid()){
+                    ?>
+                    <img src="/img/content/valid.png" />
+                <?php
+                }
+                else {
+                    ?>
+                    <img src="/img/content/invalid.png" />
+                <?php
+                }
+                ?>
+            </td>
+            <td>
+                <?php if($bill->hasAttachments()) { ?>
+                    <img src="/img/content/attachment.png">
+                <?php } ?>
+            </td>
+            <td class="bill-options">
+                <div class="list-options" >
+                    <div class="bill delete" data-id="<?php echo $bill->getId() ?>" ><img src="/img/bill/del.png" /><?php echo $this->translate("Delete") ?></div>
+                    <div class="bill edit" data-id="<?php echo $bill->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/bill/edit.png" /><?php echo $this->translate("Edit") ?></div>
+                </div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<?php
+$this->placeholder('scripts')->append("
+        BowsManager.bill.details();
+        BowsManager.bill.del();
+        BowsManager.bill.add();
+        BowsManager.bill.edit();
+        BowsManager.bill.paid();
+    ");
+?>

@@ -30,6 +30,10 @@ class SectionEnum {
     const BILL_INDEX = "bill-index";
     const BILL_DETAILS = "bill-details";
 
+    const SUPPLIER = "supplier-";
+    const SUPPLIER_INDEX = "supplier-index";
+    const SUPPLIER_DETAILS = "supplier-details";
+
     const SEARCH = "search-";
     const SEARCH_INDEX = "search-index";
 }
