@@ -11,7 +11,6 @@ namespace Bill\Service;
 use Bill\Model\Bill;
 use Bill\Dao\BillDao;
 use Bill\Enum\BillEnum;
-use Collection\Model\Collection;
 use Upload\Service\UploadService;
 
 class BillService
@@ -21,8 +20,14 @@ class BillService
      */
     protected $billDao;
 
-    public function __construct($billDao){
+    /**
+     * @var $uploadService UploadService
+     */
+    protected $uploadService;
+
+    public function __construct($billDao, $uploadService){
         $this->billDao = $billDao;
+        $this->uploadService = $uploadService;
     }
 
     public function getAll(){
@@ -50,12 +55,12 @@ class BillService
         return $result;
     }
 
-    public function delete($billId, UploadService $uploadService){
+    public function delete($billId){
         try {
             //delete all attachments related to this bill
             $billModel = $this->getById($billId);
             foreach($billModel->getAttachments() as $attachment) {
-                $billModel->removeAttachment($attachment, $uploadService);
+                $billModel->removeAttachment($attachment, $this->uploadService);
             }
             //delete bill in the database
             $this->billDao->deleteBill($billId);

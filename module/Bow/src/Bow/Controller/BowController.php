@@ -65,9 +65,10 @@ class BowController extends AbstractActionController
         $bowModel->setComments($params['comments']);
 
         if(isset($params['del-attachment'])){
-            $uploadSevice = $this->getServiceLocator()->get("UploadService");
+            /** @var UploadService $uploadService */
+            $uploadService = $this->getServiceLocator()->get("UploadService");
             foreach($params['del-attachment'] as $attachment) {
-                $bowModel->removeAttachment($attachment, $uploadSevice);
+                $bowModel->removeAttachment($attachment, $uploadService);
             }
         }
 
@@ -136,11 +137,8 @@ class BowController extends AbstractActionController
     {
         $params = $this->params()->fromPost();
 
-        /** @var $uploadService UploadService */
-        $uploadService = $this->getServiceLocator()->get('UploadService');
-
         /** @var $bowModel Bow */
-        $success = $this->getBowService()->delete((int) $params['id'], $uploadService);
+        $success = $this->getBowService()->delete((int) $params['id']);
 
         $result = new JsonModel($success);
 

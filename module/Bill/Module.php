@@ -41,7 +41,8 @@ class Module
             'factories' => array(
                 'BillService' =>  function($sm) {
                     $dao = $sm->get('Bill\Dao\BillDao');
-                    $service = new BillService($dao);
+                    $uploadService = $sm->get('UploadService');
+                    $service = new BillService($dao, $uploadService);
                     return $service;
                 },
                 'Bill\Dao\BillDao' =>  function($sm) {

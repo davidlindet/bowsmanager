@@ -41,7 +41,8 @@ class Module
             'factories' => array(
                 'BowService' =>  function($sm) {
                     $dao = $sm->get('Bow\Dao\BowDao');
-                    $service = new BowService($dao);
+                    $uploadService = $sm->get('UploadService');
+                    $service = new BowService($dao, $uploadService);
                     return $service;
                 },
                 'Bow\Dao\BowDao' =>  function($sm) {

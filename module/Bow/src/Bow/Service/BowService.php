@@ -22,8 +22,14 @@ class BowService
      */
     protected $bowDao;
 
-    public function __construct($bowDao){
+    /**
+     * @var $uploadService UploadService
+     */
+    protected $uploadService;
+
+    public function __construct($bowDao, $uploadService){
         $this->bowDao = $bowDao;
+        $this->uploadService = $uploadService;
     }
 
     public function getAll(){
@@ -51,12 +57,12 @@ class BowService
         return $result;
     }
 
-    public function delete($bowId, UploadService $uploadService){
+    public function delete($bowId){
         try {
             //delete all attachments related to this bow
             $bowModel = $this->getById($bowId);
             foreach($bowModel->getAttachments() as $attachment) {
-                $bowModel->removeAttachment($attachment, $uploadService);
+                $bowModel->removeAttachment($attachment, $this->uploadService);
             }
             //delete bow in the database
             $this->bowDao->deleteBow($bowId);
