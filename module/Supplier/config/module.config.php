@@ -3,6 +3,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Supplier\Controller\Supplier' => 'Supplier\Controller\SupplierController',
+            'Supplier\Controller\ProductType' => 'Supplier\Controller\ProductTypeController',
         ),
     ),
     'router' => array(
@@ -161,12 +162,90 @@ return array(
                     ),
                 ),
             ),
+            /**
+             *  PRODUCT TYPE ROUTES
+             */
+            'product-type' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/product-type[/][:action][/][:section]',
+                    'constraints' => array(
+                        'action'        => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'section'       => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Supplier\Controller\ProductType',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            'product-type-list' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/product-type-list[/][:section][/]',
+                    'defaults' => array(
+                        'controller' => 'Supplier\Controller\ProductType',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            'product-type-add' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/product-type-add[/][:section][/][:mode]',
+                    'defaults' => array(
+                        'controller' => 'Supplier\Controller\ProductType',
+                        'action'     => 'add',
+                    ),
+                ),
+            ),
+            'product-type-edit' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/product-type-edit[/][:id][/][:section][/][:mode]',
+                    'defaults' => array(
+                        'controller' => 'Supplier\Controller\ProductType',
+                        'action'     => 'edit',
+                    ),
+                ),
+            ),
+            'product-type-details' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/product-type-details[/][:id][/][:section]',
+                    'defaults' => array(
+                        'controller' => 'Supplier\Controller\ProductType',
+                        'action'     => 'details',
+                    ),
+                ),
+            ),
+            'product-type-save' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/product-type-save',
+                    'defaults' => array(
+                        'controller' => 'Supplier\Controller\ProductType',
+                        'action'     => 'save',
+                    ),
+                ),
+            ),
+            'product-type-delete' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/product-type-delete',
+                    'defaults' => array(
+                        'controller' => 'Supplier\Controller\ProductType',
+                        'action'     => 'delete',
+                    ),
+                ),
+            ),
         ),
     ),
     'view_manager' => array(
         'template_map' => array(
             'layout/empty' => __DIR__ . '/../../Application/view/layout/empty.phtml',
             'formSupplier' => __DIR__ . '/../view/supplier/supplier/form.phtml',
+            'formProductType' => __DIR__ . '/../view/supplier/product-type/form.phtml',
         ),
         'template_path_stack' => array(
             'supplier' => __DIR__ . '/../view',

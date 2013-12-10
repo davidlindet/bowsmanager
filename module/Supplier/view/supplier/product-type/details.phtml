@@ -1,0 +1,22 @@
+<h1><img src="/img/supplier/header.png" width="50" /> <?php  echo $this->translate("Product Type") ?></h1>
+
+<a class="back" href="<?php echo $this->url('product-type', array('section' => $section)) ?>" >
+    <img src="/img/content/back.png" /><?php echo $this->translate("Back")?></a>
+<div class="options">
+    <a class="product-type edit" href="<?php echo $this->url('product-type-edit', array('id' => $productType->getId(), 'section' => $section));?>">
+        <img src="/img/supplier/edit.png" /><?php echo $this->translate("Edit")?></a>
+    <div class="product-type delete" data-id="<?php echo $productType->getId() ?>" data-section="<?php echo $section ?>" >
+        <img src="/img/supplier/del.png" /><?php echo $this->translate("Delete")?></div>
+</div>
+<div class="error-message product-type"></div>
+<div class="details product-type">
+    <dl>
+        <dt><?php echo $this->translate("Name") ?>:</dt>
+        <dd><?php echo $productType->getName(); ?></dd>
+    </dl>
+</div>
+<?php
+$this->placeholder('scripts')->append("
+        BowsManager.productType.del();
+    ");
+?>

@@ -15,6 +15,10 @@ use Supplier\Model\Supplier;
 use Supplier\Dao\SupplierDao;
 use Supplier\Service\SupplierService;
 
+use Supplier\Model\ProductType;
+use Supplier\Dao\ProductTypeDao;
+use Supplier\Service\ProductTypeService;
+
 class Module
 {
     public function getAutoloaderConfig()
@@ -56,6 +60,25 @@ class Module
                     $resultSetPrototype->setArrayObjectPrototype(new Supplier());
                     return new TableGateway('bm_supplier', $dbAdapter, null, $resultSetPrototype);
                 },
+                /**
+                 * Product Type
+                 */
+                'ProductTypeService' =>  function($sm) {
+                        $dao = $sm->get('Supplier\Dao\ProductTypeDao');
+                        $service = new ProductTypeService($dao);
+                        return $service;
+                    },
+                'Supplier\Dao\ProductTypeDao' =>  function($sm) {
+                        $tableGateway = $sm->get('ProductTypeDaoGateway');
+                        $table = new ProductTypeDao($tableGateway);
+                        return $table;
+                    },
+                'ProductTypeDaoGateway' => function ($sm) {
+                        $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                        $resultSetPrototype = new ResultSet();
+                        $resultSetPrototype->setArrayObjectPrototype(new ProductType());
+                        return new TableGateway('bm_product_type', $dbAdapter, null, $resultSetPrototype);
+                    },
             ),
         );
     }

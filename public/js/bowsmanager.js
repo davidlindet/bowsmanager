@@ -807,6 +807,141 @@ BowsManager.supplier = (function() {
 })();
 
 /**
+ * Functions related to product types
+ */
+BowsManager.productType = (function() {
+
+    /**
+     * In product type list when user click on a product type row
+     * He's forward on product type details page
+     */
+    function details(){
+        $(".table.product-types .product-type td").click(function() {
+            if(!$(this).hasClass("product-type-options")) {
+                window.location.href = $(this).parent().data('url');
+            }
+        });
+    }
+
+    /**
+     * Display a popup to add product type data
+     */
+    function add(){
+        $(".product-type.add").click(function() {
+            BowsManager.popup.add();
+
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/product-type-add/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+
+    /**
+     * Display a popup to edit product-type data
+     */
+    function edit(){
+        $(".product-type.edit").click(function() {
+            BowsManager.popup.add();
+
+            var productTypeId = $(this).data('id');
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/product-type-edit/"+productTypeId+"/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+    /**
+     * Update style form to add or update a product-type
+     * and send data to save
+     */
+    function save(){
+        // init action done when submit form
+        $("#product-type-form").submit(function( event ) {
+            event.preventDefault();
+            $("#save-product-type").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
+            var params = $("#product-type-form").serializeForm();
+            //Send data to save
+            $.ajax({
+                url: "/product-type-save",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if(data.success){
+                        if(data.section == "product-type-index"){
+                            // return on bill list page
+                            window.location.href = '/product-type-list/'+data.section;
+                        }
+                        else {
+                            // return on collection details page
+                            window.location.href = '/product-type-details/'+data.id+'/'+data.section;
+                        }
+                    }
+                    else {
+                        $('.error-message.product-type').html(data.error);
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * Send data to delete product-type
+     */
+    function del(){
+        $(".product-type.delete").click(function() {
+            var productTypeId = $(this).data('id');
+            var section = $(this).data('section');
+
+            if(confirm(BowsManager.copies.deleteProductType)){
+                $.ajax({
+                    url: "/product-type-delete",
+                    method: "POST",
+                    data: {id: productTypeId},
+                    success: function(data) {
+                        if(data.success){
+                            // on product type list page so hide row
+                            if(typeof section == "undefined") {
+                                $("#product-type-"+productTypeId).fadeOut("slow");
+                            }
+                            else {
+                                //on product type details page so return on collection details page
+                                window.location.href = '/product-type-list/'+section;
+                            }
+                        }
+                        else {
+                            $('.error-message.product-type').html(data.error);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    return {
+        details: details,
+        add: add,
+        edit: edit,
+        save: save,
+        del: del
+    }
+})();
+
+/**
  * Functions related to the search
  */
 BowsManager.search = (function() {

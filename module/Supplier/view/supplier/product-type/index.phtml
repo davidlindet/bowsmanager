@@ -1,0 +1,40 @@
+<?php
+use Supplier\Model\ProductType;
+?>
+<h1>
+    <img src="/img/supplier/header.png" width='80' /> <?php echo $this->translate("Product Type List"); ?>
+</h1>
+<div class="options">
+    <div class="product-type add" data-section="<?php echo $section ?>" ><img src="/img/supplier/add.png" /><?php echo $this->translate("Add new product type") ?></div>
+</div>
+<div class="error-message product-type"></div>
+
+<table class="table product-types">
+    <tr>
+        <th><?php echo $this->translate('Product Type'); ?></th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php
+    /**  @var  $productTypes ProductType*/
+    foreach ($productTypes as $productType) :
+        $detailUrl =  $this->url('product-type-details', array('id' => $productType->getId()));
+     ?>
+        <tr class="data product-type" id="product-type-<?php echo $productType->getId() ?>" data-url="<?php echo $detailUrl ?>" >
+            <td class="name"><?php echo $productType->getName(); ?></td>
+            <td class="product-type-options">
+                <div class="list-options" >
+                    <div class="product-type delete" data-id="<?php echo $productType->getId() ?>" ><img src="/img/supplier/del.png" /><?php echo $this->translate("Delete") ?></div>
+                    <div class="product-type edit" data-id="<?php echo $productType->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/supplier/edit.png" /><?php echo $this->translate("Edit") ?></div>
+                </div>
+            </td>
+        </tr>
+<?php endforeach; ?>
+</table>
+<?php
+$this->placeholder('scripts')->append("
+        BowsManager.productType.details();
+        BowsManager.productType.del();
+        BowsManager.productType.add();
+        BowsManager.productType.edit();
+    ");
+?>
