@@ -34,6 +34,10 @@ class SectionEnum {
     const SUPPLIER_INDEX = "supplier-index";
     const SUPPLIER_DETAILS = "supplier-details";
 
+    const PRODUCT = "product-";
+    const PRODUCT_INDEX = "product-index";
+    const PRODUCT_DETAILS = "product-details";
+
     const SEARCH = "search-";
     const SEARCH_INDEX = "search-index";
 }

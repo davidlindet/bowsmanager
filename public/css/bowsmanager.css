@@ -168,6 +168,19 @@ form textarea {
     background-repeat: no-repeat;
 }
 
+.nav.navbar-nav .dropdown-menu {
+    top: 101%;
+    padding: 0;
+}
+.nav.navbar-nav .caret {
+    border-top-color: #AAAAAA;
+    border-bottom-color: #AAAAAA;
+}
+.nav.navbar-nav .dropdown-toggle:hover .caret,
+.nav.navbar-nav .active .dropdown-toggle .caret {
+    border-top-color: #FFF;
+    border-bottom-color: #FFF;
+}
 /**
     Popups
 */

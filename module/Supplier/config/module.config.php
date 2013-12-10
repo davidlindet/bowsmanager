@@ -7,6 +7,9 @@ return array(
     ),
     'router' => array(
         'routes' => array(
+            /**
+             *  SUPPLIER ROUTES
+             */
             'supplier' => array(
                 'type'    => 'segment',
                 'options' => array(
@@ -77,6 +80,83 @@ return array(
                     'route'    => '/supplier-delete',
                     'defaults' => array(
                         'controller' => 'Supplier\Controller\Supplier',
+                        'action'     => 'delete',
+                    ),
+                ),
+            ),
+            /**
+             *  PRODUCT ROUTES
+             */
+            'product' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/product[/][:action][/][:section]',
+                    'constraints' => array(
+                        'action'        => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'section'       => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Product\Controller\Product',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            'product-list' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/product-list[/][:section][/]',
+                    'defaults' => array(
+                        'controller' => 'Product\Controller\Product',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            'product-add' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/product-add[/][:section][/][:mode]',
+                    'defaults' => array(
+                        'controller' => 'Product\Controller\Product',
+                        'action'     => 'add',
+                    ),
+                ),
+            ),
+            'product-edit' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/product-edit[/][:id][/][:section][/][:mode]',
+                    'defaults' => array(
+                        'controller' => 'Product\Controller\Product',
+                        'action'     => 'edit',
+                    ),
+                ),
+            ),
+            'product-details' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/product-details[/][:id][/][:section]',
+                    'defaults' => array(
+                        'controller' => 'Product\Controller\Product',
+                        'action'     => 'details',
+                    ),
+                ),
+            ),
+            'product-save' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/product-save',
+                    'defaults' => array(
+                        'controller' => 'Product\Controller\Product',
+                        'action'     => 'save',
+                    ),
+                ),
+            ),
+            'product-delete' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/product-delete',
+                    'defaults' => array(
+                        'controller' => 'Product\Controller\Product',
                         'action'     => 'delete',
                     ),
                 ),
