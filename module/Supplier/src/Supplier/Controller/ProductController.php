@@ -86,6 +86,7 @@ class ProductController extends AbstractActionController
         $productModel = $this->getProductService()->getById($params['id']);
         $productModel->setProductType($params['type']);
         $productModel->setSupplierId($params['supplier']);
+        $productModel->setName($params['name']);
         $productModel->setReference($params['reference']);
         $productModel->setPrice($params['price']);
         $productModel->setDevise($params['devise']);

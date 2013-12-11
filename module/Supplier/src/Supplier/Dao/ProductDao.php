@@ -39,8 +39,8 @@ class ProductDao
         $where = $type ? "AND prod.product_type = $type": "";
 
         $sql = "SELECT prod.id, supplier_id, sup.name AS supplier_name,
-              product_type, prod_type.name AS product_name,
-              reference, price, devise
+              product_type, prod_type.name AS type_name,
+              prod.name AS name, reference, price, devise
               FROM bm_product prod, bm_supplier sup, bm_product_type prod_type
               WHERE prod.supplier_id = sup.id AND prod.product_type = prod_type.id $where
               ORDER BY sup.name;
@@ -77,6 +77,7 @@ class ProductDao
         $data = array(
             'supplier_id' => $product->getSupplierId(),
             'product_type' => $product->getProductType(),
+            'name' => $product->getName(),
             'reference' => $product->getReference(),
             'price' => (float) $product->getPrice(),
             'devise' => $product->getDevise(),

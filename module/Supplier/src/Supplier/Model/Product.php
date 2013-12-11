@@ -33,7 +33,12 @@ class Product
     /**
      * @var String
      */
-    private $productName;
+    private $typeName;
+
+    /**
+     * @var String
+     */
+    private $name;
 
     /**
      * @var String
@@ -56,7 +61,8 @@ class Product
         $this->supplierId = (isset($data['supplier_id'])) ? (int) $data['supplier_id'] : null;
         $this->supplierName = (isset($data['supplier_name'])) ? $data['supplier_name'] : null;
         $this->productType = (isset($data['product_type'])) ? (int) $data['product_type'] : null;
-        $this->productName = (isset($data['product_name'])) ? $data['product_name'] : null;
+        $this->typeName = (isset($data['type_name'])) ? $data['type_name'] : null;
+        $this->name = (isset($data['name'])) ? $data['name'] : null;
         $this->reference = (isset($data['reference'])) ? $data['reference'] : null;
         $this->price = (isset($data['price'])) ? (float) $data['price'] : null;
         $this->devise = (isset($data['devise'])) ? (int) $data['devise'] : null;
@@ -131,22 +137,41 @@ class Product
     }
 
     /************
-     * PRODUCT NAME
+     * TYPE NAME
      ************/
     /**
-     * @param String $productName
+     * @param String $typeName
      */
-    public function setProductName($productName)
+    public function setTypeName($typeName)
     {
-        $this->productName = $productName;
+        $this->typeName = $typeName;
     }
 
     /**
      * @return String
      */
-    public function getProductName()
+    public function getTypeName()
     {
-        return stripslashes($this->productName);
+        return stripslashes($this->typeName);
+    }
+
+    /************
+     * NAME
+     ************/
+    /**
+     * @param String $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return String
+     */
+    public function getName()
+    {
+        return stripslashes($this->name);
     }
 
     /************

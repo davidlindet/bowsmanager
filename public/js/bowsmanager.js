@@ -812,18 +812,6 @@ BowsManager.supplier = (function() {
 BowsManager.product = (function() {
 
     /**
-     * In product list when user click on a product row
-     * He's forward on product details page
-     */
-    function details(){
-        $(".table.products .product td").click(function() {
-            if(!$(this).hasClass("product-options")) {
-                window.location.href = $(this).parent().data('url');
-            }
-        });
-    }
-
-    /**
      * Display a popup to add product data
      */
     function add(){
@@ -842,7 +830,6 @@ BowsManager.product = (function() {
             });
         });
     }
-
 
     /**
      * Display a popup to edit product data
@@ -882,14 +869,7 @@ BowsManager.product = (function() {
                 data: params,
                 success: function(data) {
                     if(data.success){
-                        if(data.section == "product-index"){
-                            // return on bill list page
-                            window.location.href = '/product-list/'+data.section;
-                        }
-                        else {
-                            // return on collection details page
-                            window.location.href = '/product-details/'+data.id+'/'+data.section;
-                        }
+                        window.location.reload();
                     }
                     else {
                         $('.error-message.product').html(data.error);
@@ -933,7 +913,6 @@ BowsManager.product = (function() {
     }
 
     return {
-        details: details,
         add: add,
         edit: edit,
         save: save,

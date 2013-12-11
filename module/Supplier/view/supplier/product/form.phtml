@@ -27,7 +27,7 @@
     <input type="hidden" name="id" id="id" value="<?php echo $product->getId() ?>">
 
 
-    <label for="type"><?php echo $this->translate("Type") ?></label>
+    <label for="type"><?php echo $this->translate("Type") ?></label><br />
     <select name="type" id="type">
         <?php
             /** @var $type ProductType */
@@ -37,7 +37,7 @@
         <?php } ?>
     </select><br />
 
-    <label for="supplier"><?php echo $this->translate("Supplier") ?></label>
+    <label for="supplier"><?php echo $this->translate("Supplier") ?></label><br />
     <select name="supplier" id="supplier">
         <?php
         /** @var $supplier Supplier */
@@ -47,20 +47,23 @@
         <?php } ?>
     </select><br />
 
-    <label for="reference"><?php echo $this->translate("Reference") ?></label>
+    <label for="name"><?php echo $this->translate("Name") ?></label><br />
+    <input type="text" name="name" id="name" value="<?php echo $product->getName() ?>"><br />
+
+    <label for="reference"><?php echo $this->translate("Reference") ?></label><br />
     <input type="text" name="reference" id="reference" value="<?php echo $product->getReference() ?>"><br />
 
-    <label for="price"><?php echo $this->translate("Price") ?></label>
+    <label for="price"><?php echo $this->translate("Price") ?></label><br />
     <input type="text" name="price" id="price" value="<?php echo $product->getPrice() ?>"><br />
 
-    <label for="devise"><?php echo $this->translate("Devise") ?></label>
+    <label for="devise"><?php echo $this->translate("Devise") ?></label><br />
     <select name="devise" id="devise">
         <?php
         foreach($this->devise()->getDeviseList() as $id => $symbol){
             ?>
             <option value="<?php echo $id ?>" <?php echo $product->getDevise() == $id ? "selected='selected'" : ""; ?> ><?php echo $symbol ?></option>
         <?php } ?>
-    </select><br />
+    </select><br /><br />
 
     <div id="save-product">
         <button type="submit" ><?php echo $this->translate("Save") ?></button>
