@@ -54,7 +54,24 @@
         ?>
     </dl>
 </div>
+
+
 <?php
+    foreach($productsGrouped as $type => $products){
+?>
+        <div class="product-list">
+<?php
+        echo $this->partial('productList', array(
+            'products' => $products,
+            'productType' => $productsTypes[$type],
+            'supplier' => $supplier,
+            'section' => $this->sectionName(),
+        ));
+?>
+        </div>
+<?php
+    }
+
 $this->placeholder('scripts')->append("
         BowsManager.supplier.del();
     ");

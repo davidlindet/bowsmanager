@@ -22,13 +22,23 @@ class ProductTypeDao
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll()
+    public function fetchAll($ids = array())
     {
         $select = new Select();
         $select->from("bm_product_type");
+
+        if(!empty($ids)) {
+            $select->where('id IN ('.implode(',', $ids).')');
+        }
+
         $select->order('name ASC');
         $resultSet = $this->tableGateway->selectWith($select);
-        return $resultSet;
+
+        $types = array();
+        foreach($resultSet as $productType) {
+            $types[$productType->getId()] = $productType;
+        }
+        return $types;
     }
 
     public function getProductType($id)

@@ -247,6 +247,7 @@ return array(
             'layout/empty' => __DIR__ . '/../../Application/view/layout/empty.phtml',
             'formSupplier' => __DIR__ . '/../view/supplier/supplier/form.phtml',
             'formProduct' => __DIR__ . '/../view/supplier/product/form.phtml',
+            'productList' => __DIR__ . '/../view/supplier/product/index.phtml',
             'formProductType' => __DIR__ . '/../view/supplier/product-type/form.phtml',
         ),
         'template_path_stack' => array(

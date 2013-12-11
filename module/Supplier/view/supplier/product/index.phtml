@@ -17,23 +17,35 @@ else if($supplier) {
 else {
     $header = $this->translate("Products List");
 }
+
+    if($section != SectionEnum::SUPPLIER_DETAILS){
 ?>
-<h1>
-    <img src="/img/supplier/header.png" width='80' /> <?php echo $header; ?>
-</h1>
-<a class="back" href="<?php
-switch($section) {
-    case SectionEnum::PRODUCT_TYPE_INDEX:
-        $backUrl = $this->url('product-type-list');
-        break;
-    default:
-        $backUrl = $this->url('supplier');
-}
-echo $backUrl;
-?>"><img src="/img/content/back.png"><?php echo $this->translate("Back") ?></a>
-<div class="options">
-    <div class="product add" data-section="<?php echo $section ?>" ><img src="/img/supplier/add.png" /><?php echo $this->translate("Add new product ") ?></div>
-</div>
+    <h1>
+        <img src="/img/supplier/header.png" width='80' /> <?php echo $header; ?>
+    </h1>
+    <a class="back" href="<?php
+    switch($section) {
+        case SectionEnum::PRODUCT_TYPE_INDEX:
+            $backUrl = $this->url('product-type-list');
+            break;
+        default:
+            $backUrl = $this->url('supplier');
+    }
+    echo $backUrl;
+    ?>"><img src="/img/content/back.png"><?php echo $this->translate("Back") ?></a>
+    <div class="options">
+        <div class="product add" data-section="<?php echo $section ?>" ><img src="/img/supplier/add.png" /><?php echo $this->translate("Add new product ") ?></div>
+    </div>
+<?php
+    } else {
+?>
+    <h2>
+        <img src="/img/supplier/header.png" width='40' /> <?php echo $header; ?>
+    </h2>
+<?php
+    }
+?>
+
 <div class="error-message product"></div>
 
 <table class="table products">
@@ -53,16 +65,16 @@ echo $backUrl;
     /**  @var  $product Product*/
     foreach ($products as $product) :
      ?>
-        <tr>
-            <?php if(!$productType) { ?>
-                <td><?php echo $product->getTypeName(); ?></td>
-            <?php } ?>
-            <?php if(!$supplier) { ?>
-                <td><?php echo $product->getSupplierName(); ?></td>
-            <?php } ?>
-                <td><?php echo $product->getName(); ?></td>
-                <td><?php echo $product->getReference(); ?></td>
-                <td><?php echo $this->devise()->formatPrice($product->getPrice(), $product->getDevise()); ?></td>
+        <tr class="product" >
+        <?php if(!$productType) { ?>
+            <td><?php echo $product->getTypeName(); ?></td>
+        <?php } ?>
+        <?php if(!$supplier) { ?>
+            <td><?php echo $product->getSupplierName(); ?></td>
+        <?php } ?>
+            <td><?php echo $product->getName(); ?></td>
+            <td><?php echo $product->getReference(); ?></td>
+            <td><?php echo $this->devise()->formatPrice($product->getPrice(), $product->getDevise()); ?></td>
             <td class="product-options">
                 <div class="list-options" >
                     <div class="product delete" data-id="<?php echo $product->getId() ?>" ><img src="/img/supplier/del.png" /><?php echo $this->translate("Delete") ?></div>

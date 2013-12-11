@@ -24,8 +24,8 @@ class ProductTypeService
         $this->productTypeDao = $productTypeDao;
     }
 
-    public function getAll(){
-        return $this->productTypeDao->fetchAll();
+    public function getAll($ids = array()){
+        return $this->productTypeDao->fetchAll($ids);
     }
 
     public function getById($productTypeId){

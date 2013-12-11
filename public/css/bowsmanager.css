@@ -41,7 +41,9 @@ form textarea {
 .table.collections .collection:hover,
 .table.bows .bow:hover,
 .table.bills .bill:hover,
-.table.suppliers .supplier:hover {
+.table.suppliers .supplier:hover,
+.table.product-types .product-type:hover
+{
     background-color: #EEE;
     cursor: pointer;
 }
@@ -319,12 +321,14 @@ form textarea {
     margin-right: 10px;
 }
 .collection-list,
-.bill-list {
+.bill-list,
+.product-list {
     position: relative;
     clear: left;
 }
 .collection-list .options,
-.bill-list .options{
+.bill-list .options,
+.product-list .options {
     top: 10px;
 }
 /**
@@ -414,6 +418,19 @@ form textarea {
 }
 .suppliers .list-options .delete{
     float: right;
+}
+
+/**
+    Product
+*/
+.table.products td{
+    width: 30%;
+}
+.products .list-options .delete{
+    float: right;
+}
+.table.products .product:hover {
+    background-color: #EEE;
 }
 
 /**

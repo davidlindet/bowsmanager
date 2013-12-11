@@ -19,6 +19,9 @@ use Supplier\Model\Supplier;
 use Supplier\Enum\SupplierEnum;
 use Supplier\Service\SupplierService;
 
+use Supplier\Service\ProductService;
+use Supplier\Service\ProductTypeService;
+
 class SupplierController extends AbstractActionController
 {
     /**
@@ -106,8 +109,18 @@ class SupplierController extends AbstractActionController
         /** @var $supplierModel Supplier */
         $supplierModel = $this->getSupplierService()->getById($supplierId);
 
+        /** @var $productService ProductService */
+        $productService = $this->getServiceLocator()->get('ProductService');
+        $products = $productService->getAllBySupplier($supplierId);
+
+        /** @var $productTypeService ProductTypeService */
+        $productTypeService = $this->getServiceLocator()->get('ProductTypeService');
+        $productsTypes = $productTypeService->getAll(array_keys($products));
+
         return new ViewModel(array(
             'supplier' => $supplierModel,
+            'productsGrouped' => $products,
+            'productsTypes' => $productsTypes,
             'section' => $section,
         ));
     }

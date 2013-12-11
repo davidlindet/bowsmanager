@@ -32,6 +32,10 @@ class ProductService
         return $this->productDao->fetchAllByProductType($type);
     }
 
+    public function getAllBySupplier($supplierId){
+        return $this->productDao->getAllBySupplier($supplierId);
+    }
+
     public function getById($productId){
         $productId = (int) $productId;
         return ($productId == ProductEnum::NEW_PRODUCT) ? new Product() : $this->productDao->getProduct($productId);
