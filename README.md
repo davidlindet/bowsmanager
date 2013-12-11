@@ -9,9 +9,10 @@ With it, a bow maker can manage his client list, bows collections he receives an
 * v1.1a : add bow number. When you add a bow to a collection a number is generate to identify it.
 * v1.2 : display popup to load bows edit form from collection details page + fix bugs (add devise, remove backslashes...)
 * v2.0 : Addition of the bill module. Bills are listed, can or not be attach to a collection. Big modification of the database.
+* v3.0 : Addition of supplier module.
 
 --
-TABLES STRUCTURES V2
+TABLES STRUCTURES V3
 --
 
 * Structure of `bm_bill`
@@ -25,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `bm_bill` (
   `attachments` text CHARACTER SET utf8 NOT NULL,
   `creation_time` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -44,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `bm_bow` (
   `comments` text CHARACTER SET utf8 NOT NULL,
   `attachments` text CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -61,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `bm_client` (
   `email` varchar(100) CHARACTER SET utf8 NOT NULL,
   `website` varchar(100) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -75,4 +76,43 @@ CREATE TABLE IF NOT EXISTS `bm_collection` (
   `package_number` varchar(100) CHARACTER SET utf8 NOT NULL,
   `comments` text CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+* Structure of `bm_product`
+
+CREATE TABLE IF NOT EXISTS `bm_product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `supplier_id` int(11) NOT NULL,
+  `product_type` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `reference` varchar(100) NOT NULL,
+  `price` float NOT NULL,
+  `devise` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+* Structure of `bm_product_type`
+
+CREATE TABLE IF NOT EXISTS `bm_product_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+* Structure of `bm_supplier`
+
+CREATE TABLE IF NOT EXISTS `bm_supplier` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) CHARACTER SET utf8 NOT NULL,
+  `address` varchar(250) CHARACTER SET utf8 NOT NULL,
+  `phone` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `website` varchar(100) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

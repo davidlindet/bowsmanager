@@ -187,28 +187,14 @@ form textarea {
 .nav.navbar-nav .product
 {
     background: url("../img/sprites/nav.png");
-    background-position: -105px 5px;
+    background-position: -108px -32px;
     background-repeat: no-repeat;
 }
 .nav.navbar-nav a:hover .product,
 .nav.navbar-nav .dropdown-menu .active .product
 {
     background: url("../img/sprites/nav.png");
-    background-position: -77px 5px;
-    background-repeat: no-repeat;
-}
-
-.nav.navbar-nav .product-type
-{
-    background: url("../img/sprites/nav.png");
-    background-position: -105px 5px;
-    background-repeat: no-repeat;
-}
-.nav.navbar-nav a:hover .product-type,
-.nav.navbar-nav .dropdown-menu .active .product-type
-{
-    background: url("../img/sprites/nav.png");
-    background-position: -77px 5px;
+    background-position: -80px -32px;
     background-repeat: no-repeat;
 }
 
@@ -438,6 +424,9 @@ form textarea {
 */
 .table.product-types .name{
     width: 100%;
+    line-height: 40px;
+    font-size: 20px;
+    padding-left: 40px;
 }
 .product-types .list-options .delete{
     float: right;

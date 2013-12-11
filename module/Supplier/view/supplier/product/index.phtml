@@ -21,7 +21,7 @@ else {
     if($section != SectionEnum::SUPPLIER_DETAILS){
 ?>
     <h1>
-        <img src="/img/supplier/header.png" width='80' /> <?php echo $header; ?>
+        <img src="/img/product/header.png" width='80' /> <?php echo $header; ?>
     </h1>
     <a class="back" href="<?php
     switch($section) {
@@ -34,13 +34,13 @@ else {
     echo $backUrl;
     ?>"><img src="/img/content/back.png"><?php echo $this->translate("Back") ?></a>
     <div class="options">
-        <div class="product add" data-type="<?php echo (!$productType) ?  "" : $productType->getId(); ?>" data-section="<?php echo $section ?>" ><img src="/img/supplier/add.png" /><?php echo $this->translate("Add new product ") ?></div>
+        <div class="product add" data-type="<?php echo (!$productType) ?  "" : $productType->getId(); ?>" data-section="<?php echo $section ?>" ><img src="/img/product/add.png" /><?php echo $this->translate("Add new product") ?></div>
     </div>
 <?php
     } else {
 ?>
     <h2>
-        <img src="/img/supplier/header.png" width='40' /> <?php echo $header; ?>
+        <img src="/img/product/header.png" width='40' /> <?php echo $header; ?>
     </h2>
 <?php
     }
@@ -77,8 +77,8 @@ else {
             <td><?php echo $this->devise()->formatPrice($product->getPrice(), $product->getDevise()); ?></td>
             <td class="product-options">
                 <div class="list-options" >
-                    <div class="product delete" data-id="<?php echo $product->getId() ?>" ><img src="/img/supplier/del.png" /><?php echo $this->translate("Delete") ?></div>
-                    <div class="product edit" data-id="<?php echo $product->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/supplier/edit.png" /><?php echo $this->translate("Edit") ?></div>
+                    <div class="product delete" data-id="<?php echo $product->getId() ?>" ><img src="/img/product/del.png" /><?php echo $this->translate("Delete") ?></div>
+                    <div class="product edit" data-id="<?php echo $product->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/product/edit.png" /><?php echo $this->translate("Edit") ?></div>
                 </div>
             </td>
         </tr>
