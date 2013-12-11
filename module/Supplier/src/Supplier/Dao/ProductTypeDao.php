@@ -26,7 +26,7 @@ class ProductTypeDao
     {
         $select = new Select();
         $select->from("bm_product_type");
-        $select->order('id ASC');
+        $select->order('name ASC');
         $resultSet = $this->tableGateway->selectWith($select);
         return $resultSet;
     }

@@ -1,0 +1,74 @@
+<?php
+    use Application\Enum\ModeEnum;
+    use Supplier\Model\Product;
+    use Supplier\Model\ProductType;
+    use Supplier\Model\Supplier;
+    /** @var $product Product */
+?>
+
+<h1><img src="/img/supplier/header.png" width="80" />
+    <?php echo $header ?>
+</h1>
+
+<?php if($mode == ModeEnum::MODE_AJAX) { ?>
+    <div class="options">
+        <div class="back ajax"><img src="/img/content/close.png" /><?php echo $this->translate("Close") ?></div>
+    </div>
+<?php } else { ?>
+    <a class="back" href="<?php
+    echo $this->url('product', array())
+    ?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
+<?php } ?>
+
+<div class="error-message product"></div>
+
+<form id="product-form">
+    <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
+    <input type="hidden" name="id" id="id" value="<?php echo $product->getId() ?>">
+
+
+    <label for="type"><?php echo $this->translate("Type") ?></label>
+    <select name="type" id="type">
+        <?php
+            /** @var $type ProductType */
+            foreach($productTypeList as $type){
+         ?>
+            <option value="<?php echo $type->getId() ?>" <?php echo $product->getProductType() == $type->getId() ? "selected='selected'" : ""; ?> ><?php echo $type->getName() ?></option>
+        <?php } ?>
+    </select><br />
+
+    <label for="supplier"><?php echo $this->translate("Supplier") ?></label>
+    <select name="supplier" id="supplier">
+        <?php
+        /** @var $supplier Supplier */
+        foreach($suppliersList as $supplier){
+            ?>
+            <option value="<?php echo $supplier->getId() ?>" <?php echo $product->getSupplierId() == $supplier->getId() ? "selected='selected'" : ""; ?> ><?php echo $supplier->getName() ?></option>
+        <?php } ?>
+    </select><br />
+
+    <label for="reference"><?php echo $this->translate("Reference") ?></label>
+    <input type="text" name="reference" id="reference" value="<?php echo $product->getReference() ?>"><br />
+
+    <label for="price"><?php echo $this->translate("Price") ?></label>
+    <input type="text" name="price" id="price" value="<?php echo $product->getPrice() ?>"><br />
+
+    <label for="devise"><?php echo $this->translate("Devise") ?></label>
+    <select name="devise" id="devise">
+        <?php
+        foreach($this->devise()->getDeviseList() as $id => $symbol){
+            ?>
+            <option value="<?php echo $id ?>" <?php echo $product->getDevise() == $id ? "selected='selected'" : ""; ?> ><?php echo $symbol ?></option>
+        <?php } ?>
+    </select><br />
+
+    <div id="save-product">
+        <button type="submit" ><?php echo $this->translate("Save") ?></button>
+    </div>
+</form>
+<?php
+    $this->placeholder("scripts")->append("
+        BowsManager.product.save();
+    ");
+
+?>

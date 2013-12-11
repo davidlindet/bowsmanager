@@ -4,6 +4,7 @@ return array(
         'invokables' => array(
             'Supplier\Controller\Supplier' => 'Supplier\Controller\SupplierController',
             'Supplier\Controller\ProductType' => 'Supplier\Controller\ProductTypeController',
+            'Supplier\Controller\Product' => 'Supplier\Controller\ProductController',
         ),
     ),
     'router' => array(
@@ -28,7 +29,7 @@ return array(
             'supplier-list' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/supplier-list[/][:section][/]',
+                    'route'    => '/supplier-list[/][:section]',
                     'defaults' => array(
                         'controller' => 'Supplier\Controller\Supplier',
                         'action'     => 'index',
@@ -97,7 +98,7 @@ return array(
                         'section'       => '[a-zA-Z][a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
-                        'controller' => 'Product\Controller\Product',
+                        'controller' => 'Supplier\Controller\Product',
                         'action'     => 'index',
                     ),
                 ),
@@ -105,9 +106,9 @@ return array(
             'product-list' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/product-list[/][:section][/]',
+                    'route'    => '/product-list[/][:productType][/][:supplierId][/][:section]',
                     'defaults' => array(
-                        'controller' => 'Product\Controller\Product',
+                        'controller' => 'Supplier\Controller\Product',
                         'action'     => 'index',
                     ),
                 ),
@@ -117,7 +118,7 @@ return array(
                 'options' => array(
                     'route'    => '/product-add[/][:section][/][:mode]',
                     'defaults' => array(
-                        'controller' => 'Product\Controller\Product',
+                        'controller' => 'Supplier\Controller\Product',
                         'action'     => 'add',
                     ),
                 ),
@@ -127,7 +128,7 @@ return array(
                 'options' => array(
                     'route'    => '/product-edit[/][:id][/][:section][/][:mode]',
                     'defaults' => array(
-                        'controller' => 'Product\Controller\Product',
+                        'controller' => 'Supplier\Controller\Product',
                         'action'     => 'edit',
                     ),
                 ),
@@ -137,7 +138,7 @@ return array(
                 'options' => array(
                     'route'    => '/product-details[/][:id][/][:section]',
                     'defaults' => array(
-                        'controller' => 'Product\Controller\Product',
+                        'controller' => 'Supplier\Controller\Product',
                         'action'     => 'details',
                     ),
                 ),
@@ -147,7 +148,7 @@ return array(
                 'options' => array(
                     'route'    => '/product-save',
                     'defaults' => array(
-                        'controller' => 'Product\Controller\Product',
+                        'controller' => 'Supplier\Controller\Product',
                         'action'     => 'save',
                     ),
                 ),
@@ -157,7 +158,7 @@ return array(
                 'options' => array(
                     'route'    => '/product-delete',
                     'defaults' => array(
-                        'controller' => 'Product\Controller\Product',
+                        'controller' => 'Supplier\Controller\Product',
                         'action'     => 'delete',
                     ),
                 ),
@@ -245,6 +246,7 @@ return array(
         'template_map' => array(
             'layout/empty' => __DIR__ . '/../../Application/view/layout/empty.phtml',
             'formSupplier' => __DIR__ . '/../view/supplier/supplier/form.phtml',
+            'formProduct' => __DIR__ . '/../view/supplier/product/form.phtml',
             'formProductType' => __DIR__ . '/../view/supplier/product-type/form.phtml',
         ),
         'template_path_stack' => array(

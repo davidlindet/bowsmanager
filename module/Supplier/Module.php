@@ -15,6 +15,10 @@ use Supplier\Model\Supplier;
 use Supplier\Dao\SupplierDao;
 use Supplier\Service\SupplierService;
 
+use Supplier\Model\Product;
+use Supplier\Dao\ProductDao;
+use Supplier\Service\ProductService;
+
 use Supplier\Model\ProductType;
 use Supplier\Dao\ProductTypeDao;
 use Supplier\Service\ProductTypeService;
@@ -60,6 +64,25 @@ class Module
                     $resultSetPrototype->setArrayObjectPrototype(new Supplier());
                     return new TableGateway('bm_supplier', $dbAdapter, null, $resultSetPrototype);
                 },
+                /**
+                 * Product
+                 */
+                'ProductService' =>  function($sm) {
+                        $dao = $sm->get('Supplier\Dao\ProductDao');
+                        $service = new ProductService($dao);
+                        return $service;
+                    },
+                'Supplier\Dao\ProductDao' =>  function($sm) {
+                        $tableGateway = $sm->get('ProductDaoGateway');
+                        $table = new ProductDao($tableGateway);
+                        return $table;
+                    },
+                'ProductDaoGateway' => function ($sm) {
+                        $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                        $resultSetPrototype = new ResultSet();
+                        $resultSetPrototype->setArrayObjectPrototype(new Product());
+                        return new TableGateway('bm_product', $dbAdapter, null, $resultSetPrototype);
+                    },
                 /**
                  * Product Type
                  */

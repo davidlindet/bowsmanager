@@ -27,27 +27,15 @@ class SupplierDao
     {
         $select = new Select();
         $select->from("bm_supplier");
-        $select->order('id ASC');
+        $select->order('name ASC');
         $resultSet = $this->tableGateway->selectWith($select);
         return $resultSet;
     }
-
 
 //    public function fetchAllByQuery($query) {
 //        $driver = $this->tableGateway->getAdapter()->getDriver();
 //
 //        $sql = false;
-//
-//        if(!$sql) {
-//            $sql = "SELECT * FROM bm_bill WHERE description LIKE '%$query%'
-//                    UNION
-//                    SELECT * FROM bm_bill WHERE work_to_do LIKE '%$query%'
-//                    UNION
-//                    SELECT * FROM bm_bill WHERE status LIKE '%$query%'
-//                    UNION
-//                    SELECT * FROM bm_bill WHERE comments LIKE '%$query%'
-//            ";
-//        }
 //
 //        $statement = $driver->createStatement($sql);
 //        $result = $statement->execute();

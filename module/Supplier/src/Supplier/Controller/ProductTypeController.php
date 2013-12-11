@@ -38,7 +38,7 @@ class ProductTypeController extends AbstractActionController
     {
         return new ViewModel(array(
             'productTypes' => $this->getProductTypeService()->getAll(),
-            'section' => SectionEnum::PRODUCT_INDEX,
+            'section' => SectionEnum::PRODUCT_TYPE_INDEX,
         ));
     }
 
@@ -90,20 +90,6 @@ class ProductTypeController extends AbstractActionController
             'productType' => $productTypeModel,
             'section' => $section,
             'mode' => $mode,
-        ));
-    }
-
-    public function detailsAction()
-    {
-        $productTypeId = $this->getEvent()->getRouteMatch()->getParam('id', ProductTypeEnum::NEW_PRODUCT_TYPE);
-        $section = $this->params()->fromRoute('section', false);
-
-        /** @var $productTypeModel ProductType */
-        $productTypeModel = $this->getProductTypeService()->getById($productTypeId);
-
-        return new ViewModel(array(
-            'productType' => $productTypeModel,
-            'section' => $section,
         ));
     }
 

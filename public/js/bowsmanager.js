@@ -807,6 +807,141 @@ BowsManager.supplier = (function() {
 })();
 
 /**
+ * Functions related to products
+ */
+BowsManager.product = (function() {
+
+    /**
+     * In product list when user click on a product row
+     * He's forward on product details page
+     */
+    function details(){
+        $(".table.products .product td").click(function() {
+            if(!$(this).hasClass("product-options")) {
+                window.location.href = $(this).parent().data('url');
+            }
+        });
+    }
+
+    /**
+     * Display a popup to add product data
+     */
+    function add(){
+        $(".product.add").click(function() {
+            BowsManager.popup.add();
+
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/product-add/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+
+    /**
+     * Display a popup to edit product data
+     */
+    function edit(){
+        $(".product.edit").click(function() {
+            BowsManager.popup.add();
+
+            var productId = $(this).data('id');
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/product-edit/"+productId+"/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+    /**
+     * Update style form to add or update a product
+     * and send data to save
+     */
+    function save(){
+        // init action done when submit form
+        $("#product-form").submit(function( event ) {
+            event.preventDefault();
+            $("#save-product").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
+            var params = $("#product-form").serializeForm();
+            //Send data to save
+            $.ajax({
+                url: "/product-save",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if(data.success){
+                        if(data.section == "product-index"){
+                            // return on bill list page
+                            window.location.href = '/product-list/'+data.section;
+                        }
+                        else {
+                            // return on collection details page
+                            window.location.href = '/product-details/'+data.id+'/'+data.section;
+                        }
+                    }
+                    else {
+                        $('.error-message.product').html(data.error);
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * Send data to delete product
+     */
+    function del(){
+        $(".product.delete").click(function() {
+            var productId = $(this).data('id');
+            var section = $(this).data('section');
+
+            if(confirm(BowsManager.copies.deleteProduct)){
+                $.ajax({
+                    url: "/product-delete",
+                    method: "POST",
+                    data: {id: productId},
+                    success: function(data) {
+                        if(data.success){
+                            // on product type list page so hide row
+                            if(typeof section == "undefined") {
+                                $("#product-type-"+productId).fadeOut("slow");
+                            }
+                            else {
+                                //on product type details page so return on collection details page
+                                window.location.href = '/product-list/'+section;
+                            }
+                        }
+                        else {
+                            $('.error-message.product').html(data.error);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    return {
+        details: details,
+        add: add,
+        edit: edit,
+        save: save,
+        del: del
+    }
+})();
+
+/**
  * Functions related to product types
  */
 BowsManager.productType = (function() {

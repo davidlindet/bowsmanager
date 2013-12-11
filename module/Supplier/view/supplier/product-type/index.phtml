@@ -17,7 +17,7 @@ use Supplier\Model\ProductType;
     <?php
     /**  @var  $productTypes ProductType*/
     foreach ($productTypes as $productType) :
-        $detailUrl =  $this->url('product-type-details', array('id' => $productType->getId()));
+        $detailUrl =  $this->url('product-list', array('productType' => $productType->getId(), 'section' => $section));
      ?>
         <tr class="data product-type" id="product-type-<?php echo $productType->getId() ?>" data-url="<?php echo $detailUrl ?>" >
             <td class="name"><?php echo $productType->getName(); ?></td>
