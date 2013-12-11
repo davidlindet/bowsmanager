@@ -11,7 +11,7 @@ namespace Supplier\Service;
 use Supplier\Enum\SupplierEnum;
 use Supplier\Model\Supplier;
 use Supplier\Dao\SupplierDao;
-use Supplier\Enum\SupplierlEnum;
+use Supplier\Dao\ProductDao;
 
 class SupplierService
 {
@@ -20,9 +20,14 @@ class SupplierService
      */
     protected $supplierDao;
 
+    /**
+     * @var $productDao ProductDao
+     */
+    protected $productDao;
 
-    public function __construct($supplierDao){
+    public function __construct($supplierDao, $productDao){
         $this->supplierDao = $supplierDao;
+        $this->productDao = $productDao;
     }
 
     public function getAll(){
@@ -48,6 +53,14 @@ class SupplierService
 
     public function delete($supplierId){
         try {
+            $types = $this->productDao->getAllBySupplier($supplierId);
+            foreach($types as $products){
+                /** @var Product $product */
+                foreach($products as $product){
+                    $this->productDao->deleteProduct($product->getId());
+                }
+            }
+
             //delete supplier of the database
             $this->supplierDao->deleteSupplier($supplierId);
             $result = array('success'=> true);

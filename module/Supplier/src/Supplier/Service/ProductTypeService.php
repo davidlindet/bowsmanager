@@ -9,7 +9,9 @@
 namespace Supplier\Service;
 
 use Supplier\Model\ProductType;
+use Supplier\Model\Product;
 use Supplier\Dao\ProductTypeDao;
+use Supplier\Dao\ProductDao;
 use Supplier\Enum\ProductTypeEnum;
 
 class ProductTypeService
@@ -19,9 +21,15 @@ class ProductTypeService
      */
     protected $productTypeDao;
 
+    /**
+     * @var $productDao ProductDao
+     */
+    protected $productDao;
 
-    public function __construct($productTypeDao){
+
+    public function __construct($productTypeDao, $productDao){
         $this->productTypeDao = $productTypeDao;
+        $this->productDao = $productDao;
     }
 
     public function getAll($ids = array()){
@@ -47,6 +55,13 @@ class ProductTypeService
 
     public function delete($productTypeId){
         try {
+            $products = $this->productDao->fetchAllByProductType($productTypeId);
+
+            /** @var Product $product */
+            foreach($products as $product){
+                $this->productDao->deleteProduct($product->getId());
+            }
+
             //delete productType of the database
             $this->productTypeDao->deleteProductType($productTypeId);
             $result = array('success'=> true);

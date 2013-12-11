@@ -818,10 +818,14 @@ BowsManager.product = (function() {
         $(".product.add").click(function() {
             BowsManager.popup.add();
 
+            var productType = $(this).data('type');
+            productType = (typeof productType == "undefined") ? "" : productType;
+            var supplierId = $(this).data('supplier');
+            supplierId = (typeof supplierId == "undefined") ? "" : supplierId;
             var section = $(this).data('section');
 
             $.ajax({
-                url: "/product-add/"+section+"/ajax",
+                url: "/product-add/"+productType+"/"+supplierId+"/"+section+"/ajax",
                 method: "GET",
                 success: function(data) {
                     BowsManager.popup.load(data);
@@ -894,14 +898,7 @@ BowsManager.product = (function() {
                     data: {id: productId},
                     success: function(data) {
                         if(data.success){
-                            // on product type list page so hide row
-                            if(typeof section == "undefined") {
-                                $("#product-type-"+productId).fadeOut("slow");
-                            }
-                            else {
-                                //on product type details page so return on collection details page
-                                window.location.href = '/product-list/'+section;
-                            }
+                            $("#product-"+productId).fadeOut("slow");
                         }
                         else {
                             $('.error-message.product').html(data.error);
@@ -997,12 +994,10 @@ BowsManager.productType = (function() {
                 success: function(data) {
                     if(data.success){
                         if(data.section == "product-type-index"){
-                            // return on bill list page
                             window.location.href = '/product-type-list/'+data.section;
                         }
                         else {
-                            // return on collection details page
-                            window.location.href = '/product-type-details/'+data.id+'/'+data.section;
+                            window.location.href = '/product-list/'+data.id+'//'+data.section;
                         }
                     }
                     else {

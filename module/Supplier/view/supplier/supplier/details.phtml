@@ -3,6 +3,7 @@
 <a class="back" href="<?php echo $this->url('supplier', array('section' => $section)) ?>" >
     <img src="/img/content/back.png" /><?php echo $this->translate("Back")?></a>
 <div class="options">
+    <div class="product add" data-supplier="<?php echo $supplier->getId() ?>" data-section="<?php echo $section ?>" ><img src="/img/supplier/add.png" /><?php echo $this->translate("Add new product ") ?></div>
     <a class="supplier edit" href="<?php echo $this->url('supplier-edit', array('id' => $supplier->getId(), 'section' => $section));?>">
         <img src="/img/supplier/edit.png" /><?php echo $this->translate("Edit")?></a>
     <div class="supplier delete" data-id="<?php echo $supplier->getId() ?>" data-section="<?php echo $section ?>" >
@@ -74,5 +75,8 @@
 
 $this->placeholder('scripts')->append("
         BowsManager.supplier.del();
+        BowsManager.product.del();
+        BowsManager.product.add();
+        BowsManager.product.edit();
     ");
 ?>

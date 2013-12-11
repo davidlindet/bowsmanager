@@ -34,7 +34,7 @@ else {
     echo $backUrl;
     ?>"><img src="/img/content/back.png"><?php echo $this->translate("Back") ?></a>
     <div class="options">
-        <div class="product add" data-section="<?php echo $section ?>" ><img src="/img/supplier/add.png" /><?php echo $this->translate("Add new product ") ?></div>
+        <div class="product add" data-type="<?php echo (!$productType) ?  "" : $productType->getId(); ?>" data-section="<?php echo $section ?>" ><img src="/img/supplier/add.png" /><?php echo $this->translate("Add new product ") ?></div>
     </div>
 <?php
     } else {
@@ -65,7 +65,7 @@ else {
     /**  @var  $product Product*/
     foreach ($products as $product) :
      ?>
-        <tr class="product" >
+        <tr class="product" id="product-<?php echo $product->getId() ?>" >
         <?php if(!$productType) { ?>
             <td><?php echo $product->getTypeName(); ?></td>
         <?php } ?>
@@ -85,9 +85,11 @@ else {
 <?php endforeach; ?>
 </table>
 <?php
-$this->placeholder('scripts')->append("
-        BowsManager.product.del();
-        BowsManager.product.add();
-        BowsManager.product.edit();
-    ");
+if($section != SectionEnum::SUPPLIER_DETAILS){
+    $this->placeholder('scripts')->append("
+            BowsManager.product.del();
+            BowsManager.product.add();
+            BowsManager.product.edit();
+        ");
+}
 ?>

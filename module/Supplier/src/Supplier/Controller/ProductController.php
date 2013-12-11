@@ -98,6 +98,8 @@ class ProductController extends AbstractActionController
 
     public function addAction()
     {
+        $productType = $this->params()->fromRoute('productType', false);
+        $supplierId = $this->params()->fromRoute('supplierId', false);
         $section = $this->params()->fromRoute('section', false);
         $mode = $this->params()->fromRoute('mode', false);
 
@@ -107,7 +109,12 @@ class ProductController extends AbstractActionController
 
         /** @var $productModel Product */
         $productModel = $this->getProductService()->getById(ProductEnum::NEW_PRODUCT);
-
+        if($productType){
+            $productModel->setProductType($productType);
+        }
+        if($supplierId){
+            $productModel->setSupplierId($supplierId);
+        }
         // List of all product types
         $productTypeList = $this->getProductTypeService()->getAll();
 

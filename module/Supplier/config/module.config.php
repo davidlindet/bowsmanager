@@ -116,7 +116,7 @@ return array(
             'product-add' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/product-add[/][:section][/][:mode]',
+                    'route'    => '/product-add[/][:productType][/][:supplierId][/][:section][/][:mode]',
                     'defaults' => array(
                         'controller' => 'Supplier\Controller\Product',
                         'action'     => 'add',

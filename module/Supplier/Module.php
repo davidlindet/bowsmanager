@@ -48,22 +48,6 @@ class Module
     {
         return array(
             'factories' => array(
-                'SupplierService' =>  function($sm) {
-                    $dao = $sm->get('Supplier\Dao\SupplierDao');
-                    $service = new SupplierService($dao);
-                    return $service;
-                },
-                'Supplier\Dao\SupplierDao' =>  function($sm) {
-                    $tableGateway = $sm->get('SupplierDaoGateway');
-                    $table = new SupplierDao($tableGateway);
-                    return $table;
-                },
-                'SupplierDaoGateway' => function ($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Supplier());
-                    return new TableGateway('bm_supplier', $dbAdapter, null, $resultSetPrototype);
-                },
                 /**
                  * Product
                  */
@@ -84,11 +68,32 @@ class Module
                         return new TableGateway('bm_product', $dbAdapter, null, $resultSetPrototype);
                     },
                 /**
+                 * Supplier
+                 */
+                'SupplierService' =>  function($sm) {
+                    $supplierDao = $sm->get('Supplier\Dao\SupplierDao');
+                    $productDao = $sm->get('Supplier\Dao\ProductDao');
+                    $service = new SupplierService($supplierDao, $productDao);
+                    return $service;
+                },
+                'Supplier\Dao\SupplierDao' =>  function($sm) {
+                    $tableGateway = $sm->get('SupplierDaoGateway');
+                    $table = new SupplierDao($tableGateway);
+                    return $table;
+                },
+                'SupplierDaoGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Supplier());
+                    return new TableGateway('bm_supplier', $dbAdapter, null, $resultSetPrototype);
+                },
+                /**
                  * Product Type
                  */
                 'ProductTypeService' =>  function($sm) {
-                        $dao = $sm->get('Supplier\Dao\ProductTypeDao');
-                        $service = new ProductTypeService($dao);
+                        $productTypeDao = $sm->get('Supplier\Dao\ProductTypeDao');
+                        $productDao = $sm->get('Supplier\Dao\ProductDao');
+                        $service = new ProductTypeService($productTypeDao, $productDao);
                         return $service;
                     },
                 'Supplier\Dao\ProductTypeDao' =>  function($sm) {
