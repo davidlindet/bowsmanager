@@ -29,7 +29,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
         <?php echo $this->translate("Reception Date"); ?>
     </th>
     <?php
-        if($section == SectionEnum::COLLECTION_INDEX) {
+        if($section == SectionEnum::COLLECTION_INDEX || $section == SectionEnum::INDEX_INDEX) {
     ?>
         <th><?php echo $this->translate("Client"); ?></th>
     <?php
@@ -56,7 +56,7 @@ echo ($section == SectionEnum::COLLECTION_INDEX) ? "</h1>" : "</h2>";
                 <?php echo $collection->getReceptionTime() ?>
             </td>
             <?php
-            if($section == SectionEnum::COLLECTION_INDEX) {
+            if($section == SectionEnum::COLLECTION_INDEX || $section == SectionEnum::INDEX_INDEX) {
                 ?>
                 <td>
                     <a href="<?php echo $this->url('client-details', array('id' => $collection->getOwnerId()));?>">
