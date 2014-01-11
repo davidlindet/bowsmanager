@@ -1,0 +1,50 @@
+<?php
+    use Application\Enum\ModeEnum;
+?>
+
+<h1><img src="/img/supplier/header.png" width="80" />
+    <?php echo $header ?>
+</h1>
+
+<?php if($mode == ModeEnum::MODE_AJAX) { ?>
+    <div class="options">
+        <div class="back ajax"><img src="/img/content/close.png" /><?php echo $this->translate("Close") ?></div>
+    </div>
+<?php } else { ?>
+    <a class="back" href="<?php
+    echo $this->url('supplier', array())
+    ?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
+<?php } ?>
+
+<div class="error-message supplier"></div>
+
+<form id="supplier-form">
+    <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
+    <input type="hidden" name="id" id="id" value="<?php echo $supplier->getId() ?>">
+
+
+    <label for="name"><?php echo $this->translate("Name") ?></label><br />
+    <input type="text" name="name" id="name" value="<?php echo $supplier->getName() ?>"><br />
+
+    <label for="address"><?php echo $this->translate("Address") ?></label><br />
+    <textarea name="address" id="address"><?php echo $supplier->getAddress() ?></textarea><br />
+
+    <label for="phone"><?php echo  $this->translate("Phone") ?></label><br />
+    <input type="text" name="phone" id="phone" value="<?php echo $supplier->getPhone() ?>"><br />
+
+    <label for="email"><?php echo $this->translate("Email") ?></label><br />
+    <input type="text" name="email" id="email" value="<?php echo $supplier->getEmail() ?>"><br />
+
+    <label for="website"><?php echo $this->translate("Website") ?></label><br />
+    <input type="text" name="website" id="website" value="<?php echo $supplier->getWebsite() ?>"><br /><br />
+
+    <div id="save-supplier">
+        <button type="submit" ><?php echo $this->translate("Save") ?></button>
+    </div>
+</form>
+<?php
+    $this->placeholder("scripts")->append("
+        BowsManager.supplier.save();
+    ");
+
+?>

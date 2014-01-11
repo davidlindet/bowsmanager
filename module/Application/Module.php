@@ -31,6 +31,11 @@ class Module
             return $viewHelper;
         });
 
+        $viewHelperManager->setFactory('devise', function($sm) use ($e) {
+            $viewHelper = new View\Helper\Devise();
+            return $viewHelper;
+        });
+
         $translator = $e->getApplication()->getServiceManager()->get('translator');
         $translator->setLocale('fr_FR');
     }

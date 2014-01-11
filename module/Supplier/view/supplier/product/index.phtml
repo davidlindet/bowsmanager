@@ -1,0 +1,95 @@
+<?php
+use Application\Enum\SectionEnum;
+
+use Supplier\Model\Supplier;
+use Supplier\Model\Product;
+use Supplier\Model\ProductType;
+
+/** @var ProductType $productType */
+/** @var Supplier $supplier */
+
+if($productType) {
+    $header = $productType->getName();
+}
+else if($supplier) {
+    $header = $supplier->getName();
+}
+else {
+    $header = $this->translate("Products List");
+}
+
+    if($section != SectionEnum::SUPPLIER_DETAILS){
+?>
+    <h1>
+        <img src="/img/product/header.png" width='80' /> <?php echo $header; ?>
+    </h1>
+    <a class="back" href="<?php
+    switch($section) {
+        case SectionEnum::PRODUCT_TYPE_INDEX:
+            $backUrl = $this->url('product-type-list');
+            break;
+        default:
+            $backUrl = $this->url('supplier');
+    }
+    echo $backUrl;
+    ?>"><img src="/img/content/back.png"><?php echo $this->translate("Back") ?></a>
+    <div class="options">
+        <div class="product add" data-type="<?php echo (!$productType) ?  "" : $productType->getId(); ?>" data-section="<?php echo $section ?>" ><img src="/img/product/add.png" /><?php echo $this->translate("Add new product") ?></div>
+    </div>
+<?php
+    } else {
+?>
+    <h2>
+        <img src="/img/product/header.png" width='40' /> <?php echo $header; ?>
+    </h2>
+<?php
+    }
+?>
+
+<div class="error-message product"></div>
+
+<table class="table products">
+    <tr>
+        <?php if(!$productType) { ?>
+            <th><?php echo $this->translate('Type'); ?></th>
+        <?php } ?>
+        <?php if(!$supplier) { ?>
+            <th><?php echo $this->translate('Supplier'); ?></th>
+        <?php } ?>
+            <th><?php echo $this->translate('Name'); ?></th>
+            <th><?php echo $this->translate('Reference'); ?></th>
+            <th><?php echo $this->translate('Price'); ?></th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php
+    /**  @var  $product Product*/
+    foreach ($products as $product) :
+     ?>
+        <tr class="product" id="product-<?php echo $product->getId() ?>" >
+        <?php if(!$productType) { ?>
+            <td><?php echo $product->getTypeName(); ?></td>
+        <?php } ?>
+        <?php if(!$supplier) { ?>
+            <td><?php echo $product->getSupplierName(); ?></td>
+        <?php } ?>
+            <td><?php echo $product->getName(); ?></td>
+            <td><?php echo $product->getReference(); ?></td>
+            <td><?php echo $this->devise()->formatPrice($product->getPrice(), $product->getDevise()); ?></td>
+            <td class="product-options">
+                <div class="list-options" >
+                    <div class="product delete" data-id="<?php echo $product->getId() ?>" ><img src="/img/product/del.png" /><?php echo $this->translate("Delete") ?></div>
+                    <div class="product edit" data-id="<?php echo $product->getId() ?>"  data-section="<?php echo $section ?>" ><img src="/img/product/edit.png" /><?php echo $this->translate("Edit") ?></div>
+                </div>
+            </td>
+        </tr>
+<?php endforeach; ?>
+</table>
+<?php
+if($section != SectionEnum::SUPPLIER_DETAILS){
+    $this->placeholder('scripts')->append("
+            BowsManager.product.del();
+            BowsManager.product.add();
+            BowsManager.product.edit();
+        ");
+}
+?>

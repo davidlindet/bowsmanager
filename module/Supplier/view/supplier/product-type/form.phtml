@@ -1,0 +1,38 @@
+<?php
+    use Application\Enum\ModeEnum;
+?>
+
+<h1><img src="/img/product/header.png" width="80" />
+    <?php echo $header ?>
+</h1>
+
+<?php if($mode == ModeEnum::MODE_AJAX) { ?>
+    <div class="options">
+        <div class="back ajax"><img src="/img/content/close.png" /><?php echo $this->translate("Close") ?></div>
+    </div>
+<?php } else { ?>
+    <a class="back" href="<?php
+    echo $this->url('product-type', array())
+    ?>" ><img src="/img/content/back.png" /><?php echo $this->translate("Back") ?></a>
+<?php } ?>
+
+<div class="error-message product-type"></div>
+
+<form id="product-type-form">
+    <input type="hidden" name="section" id="section" value="<?php echo $section ?>">
+    <input type="hidden" name="id" id="id" value="<?php echo $productType->getId() ?>">
+
+
+    <label for="name"><?php echo $this->translate("Name") ?></label><br />
+    <input type="text" name="name" id="name" value="<?php echo $productType->getName() ?>"><br /><br />
+
+    <div id="save-product-type">
+        <button type="submit" ><?php echo $this->translate("Save") ?></button>
+    </div>
+</form>
+<?php
+    $this->placeholder("scripts")->append("
+        BowsManager.productType.save();
+    ");
+
+?>

@@ -306,7 +306,7 @@ BowsManager.bill = (function() {
         // init action done when submit form
         $("#bill-form").submit(function( event ) {
             event.preventDefault();
-            $("#bill-bow").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
+            $("#save-bill").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
             var params = $("#bill-form").serializeForm();
             //Send data to save
             $.ajax({
@@ -365,7 +365,7 @@ BowsManager.bill = (function() {
                             }
                         }
                         else {
-                            $('.error-message.bow').html(data.error);
+                            $('.error-message.bill').html(data.error);
                         }
                     }
                 });
@@ -391,7 +391,7 @@ BowsManager.bill = (function() {
                             $isPaidElement.removeClass("bill-is-paid").html("<img src='/img/content/valid.png' />");
                         }
                         else {
-                            $('.error-message.bow').html(data.error);
+                            $('.error-message.bill').html(data.error);
                         }
                     }
                 });
@@ -648,6 +648,404 @@ BowsManager.collection = (function() {
     return {
         details: details,
         add: add,
+        del: del
+    }
+})();
+
+
+/**
+ * Functions related to suppliers
+ */
+BowsManager.supplier = (function() {
+
+    /**
+     * In supplier list when user click on a supplier row
+     * He's forward on supplier details page
+     */
+    function details(){
+        $(".table.suppliers .supplier td").click(function() {
+            if(!$(this).hasClass("supplier-options")) {
+                window.location.href = $(this).parent().data('url');
+            }
+        });
+    }
+
+    /**
+     * Display a popup to add supplier data
+     */
+    function add(){
+        $(".supplier.add").click(function() {
+            BowsManager.popup.add();
+
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/supplier-add/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+
+    /**
+     * Display a popup to edit supplier data
+     */
+    function edit(){
+        $(".supplier.edit").click(function() {
+            BowsManager.popup.add();
+
+            var supplierId = $(this).data('id');
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/supplier-edit/"+supplierId+"/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+    /**
+     * Update style form to add or update a supplier
+     * and send data to save
+     */
+    function save(){
+        // init action done when submit form
+        $("#supplier-form").submit(function( event ) {
+            event.preventDefault();
+            $("#save-supplier").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
+            var params = $("#supplier-form").serializeForm();
+            //Send data to save
+            $.ajax({
+                url: "/supplier-save",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if(data.success){
+                        if(data.section == "supplier-index"){
+                            // return on bill list page
+                            window.location.href = '/supplier-list/'+data.section;
+                        }
+                        else {
+                            // return on collection details page
+                            window.location.href = '/supplier-details/'+data.id+'/'+data.section;
+                        }
+                    }
+                    else {
+                        $('.error-message.supplier').html(data.error);
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * Send data to delete supplier
+     */
+    function del(){
+        $(".supplier.delete").click(function() {
+            var supplierId = $(this).data('id');
+            var section = $(this).data('section');
+
+            if(confirm(BowsManager.copies.deleteSupplier)){
+                $.ajax({
+                    url: "/supplier-delete",
+                    method: "POST",
+                    data: {id: supplierId},
+                    success: function(data) {
+                        if(data.success){
+                            // on bill list page so hide row
+                            if(typeof section == "undefined") {
+                                $("#supplier-"+supplierId).fadeOut("slow");
+                            }
+                            else {
+                                //on bill details page so return on collection details page
+                                window.location.href = '/supplier-list/'+section;
+                            }
+                        }
+                        else {
+                            $('.error-message.supplier').html(data.error);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * Display / Hide supplier rows
+     * When user click on filter
+     */
+    function listInitFilters(){
+        $(".supplier-filter").click(function() {
+            var filter = this.id;
+            $(".data").hide();
+            if(filter == "ALL"){
+                $(".data").show();
+            }
+            else {
+                $("."+filter.toLowerCase()).show();
+            }
+        });
+    }
+
+    return {
+        details: details,
+        add: add,
+        edit: edit,
+        save: save,
+        del: del,
+        listInitFilters : listInitFilters
+    }
+})();
+
+/**
+ * Functions related to products
+ */
+BowsManager.product = (function() {
+
+    /**
+     * Display a popup to add product data
+     */
+    function add(){
+        $(".product.add").click(function() {
+            BowsManager.popup.add();
+
+            var productType = $(this).data('type');
+            productType = (typeof productType == "undefined") ? "" : productType;
+            var supplierId = $(this).data('supplier');
+            supplierId = (typeof supplierId == "undefined") ? "" : supplierId;
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/product-add/"+productType+"/"+supplierId+"/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+    /**
+     * Display a popup to edit product data
+     */
+    function edit(){
+        $(".product.edit").click(function() {
+            BowsManager.popup.add();
+
+            var productId = $(this).data('id');
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/product-edit/"+productId+"/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+    /**
+     * Update style form to add or update a product
+     * and send data to save
+     */
+    function save(){
+        // init action done when submit form
+        $("#product-form").submit(function( event ) {
+            event.preventDefault();
+            $("#save-product").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
+            var params = $("#product-form").serializeForm();
+            //Send data to save
+            $.ajax({
+                url: "/product-save",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if(data.success){
+                        window.location.reload();
+                    }
+                    else {
+                        $('.error-message.product').html(data.error);
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * Send data to delete product
+     */
+    function del(){
+        $(".product.delete").click(function() {
+            var productId = $(this).data('id');
+            var section = $(this).data('section');
+
+            if(confirm(BowsManager.copies.deleteProduct)){
+                $.ajax({
+                    url: "/product-delete",
+                    method: "POST",
+                    data: {id: productId},
+                    success: function(data) {
+                        if(data.success){
+                            $("#product-"+productId).fadeOut("slow");
+                        }
+                        else {
+                            $('.error-message.product').html(data.error);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    return {
+        add: add,
+        edit: edit,
+        save: save,
+        del: del
+    }
+})();
+
+/**
+ * Functions related to product types
+ */
+BowsManager.productType = (function() {
+
+    /**
+     * In product type list when user click on a product type row
+     * He's forward on product type details page
+     */
+    function details(){
+        $(".table.product-types .product-type td").click(function() {
+            if(!$(this).hasClass("product-type-options")) {
+                window.location.href = $(this).parent().data('url');
+            }
+        });
+    }
+
+    /**
+     * Display a popup to add product type data
+     */
+    function add(){
+        $(".product-type.add").click(function() {
+            BowsManager.popup.add();
+
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/product-type-add/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+
+    /**
+     * Display a popup to edit product-type data
+     */
+    function edit(){
+        $(".product-type.edit").click(function() {
+            BowsManager.popup.add();
+
+            var productTypeId = $(this).data('id');
+            var section = $(this).data('section');
+
+            $.ajax({
+                url: "/product-type-edit/"+productTypeId+"/"+section+"/ajax",
+                method: "GET",
+                success: function(data) {
+                    BowsManager.popup.load(data);
+                    BowsManager.popup.remove();
+                }
+            });
+        });
+    }
+
+    /**
+     * Update style form to add or update a product-type
+     * and send data to save
+     */
+    function save(){
+        // init action done when submit form
+        $("#product-type-form").submit(function( event ) {
+            event.preventDefault();
+            $("#save-product-type").html("<img src='/img/content/loading.gif' width='25' />"+BowsManager.copies.loading);
+            var params = $("#product-type-form").serializeForm();
+            //Send data to save
+            $.ajax({
+                url: "/product-type-save",
+                method: "POST",
+                data: params,
+                success: function(data) {
+                    if(data.success){
+                        if(data.section == "product-type-index"){
+                            window.location.href = '/product-type-list/'+data.section;
+                        }
+                        else {
+                            window.location.href = '/product-list/'+data.id+'//'+data.section;
+                        }
+                    }
+                    else {
+                        $('.error-message.product-type').html(data.error);
+                    }
+                }
+            });
+        });
+    }
+
+    /**
+     * Send data to delete product-type
+     */
+    function del(){
+        $(".product-type.delete").click(function() {
+            var productTypeId = $(this).data('id');
+            var section = $(this).data('section');
+
+            if(confirm(BowsManager.copies.deleteProductType)){
+                $.ajax({
+                    url: "/product-type-delete",
+                    method: "POST",
+                    data: {id: productTypeId},
+                    success: function(data) {
+                        if(data.success){
+                            // on product type list page so hide row
+                            if(typeof section == "undefined") {
+                                $("#product-type-"+productTypeId).fadeOut("slow");
+                            }
+                            else {
+                                //on product type details page so return on collection details page
+                                window.location.href = '/product-type-list/'+section;
+                            }
+                        }
+                        else {
+                            $('.error-message.product-type').html(data.error);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    return {
+        details: details,
+        add: add,
+        edit: edit,
+        save: save,
         del: del
     }
 })();

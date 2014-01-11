@@ -9,6 +9,7 @@ return array(
         'Search',
         'Bill',
         'Upload',
+        'Supplier',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
