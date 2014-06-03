@@ -8,6 +8,8 @@
  */
 namespace Bow\Service;
 
+use Bow\Enum\BowSizeEnum;
+use Bow\Enum\BowTypeEnum;
 use Bow\Model\Bow;
 use Bow\Dao\BowDao;
 use Bow\Enum\BowEnum;
@@ -42,7 +44,15 @@ class BowService
 
     public function getById($bowId){
         $bowId = (int) $bowId;
-        return ($bowId == BowEnum::NEW_BOW) ? new Bow() : $this->bowDao->getBow($bowId);
+
+        $bowModel = null;
+        if($bowId == BowEnum::NEW_BOW) {
+            $bowModel = new Bow();
+            $bowModel->setSize(BowSizeEnum::FOUR_QUARTERS);
+        } else {
+            $bowModel = $this->bowDao->getBow($bowId);
+        }
+        return $bowModel;
     }
 
     public function save($bowModel){
