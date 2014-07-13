@@ -553,6 +553,41 @@ BowsManager.bow = (function() {
         });
     }
 
+    /**
+     * Validate all bows
+     */
+    function allDone() {
+        if($(".bow-is-it-done").length > 0 ) {
+            $("#bows-all-done").click(function() {
+                var bows = new Array();
+                $(".bow-is-it-done").each(function(){
+                    bows.push($(this).data('id'));
+                });
+
+                if(confirm(BowsManager.copies.allDoneBows)){
+                    $.ajax({
+                        url: "/bows-all-done",
+                        method: "POST",
+                        data: {bows: bows},
+                        success: function(data) {
+                            if(data.success){
+                                $(".bow-is-it-done").each(function(){
+                                    $(this).removeClass("bow-is-it-done").html("<img src='/img/content/valid.png' />");
+                                    $("#bows-all-done").removeClass("not-all-done");
+                                });
+                            }
+                            else {
+                                $('.error-message.bow').html(data.error);
+                            }
+                        }
+                    });
+                }
+            });
+        } else {
+            $("#bows-all-done").removeClass("not-all-done");
+        }
+
+    }
 
     return {
         attachment: attachment,
@@ -560,7 +595,8 @@ BowsManager.bow = (function() {
         add: add,
         edit: edit,
         del: del,
-        done: done
+        done: done,
+        allDone: allDone
     }
 })();
 

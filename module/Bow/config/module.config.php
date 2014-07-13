@@ -83,6 +83,16 @@ return array(
                     ),
                 ),
             ),
+            'bows-all-done' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'    => '/bows-all-done',
+                    'defaults' => array(
+                        'controller' => 'Bow\Controller\Bow',
+                        'action'     => 'allDone',
+                    ),
+                ),
+            ),
         ),
     ),
     'view_manager' => array(

@@ -22,7 +22,7 @@ use Bow\Enum\BowSizeEnum;
         <th><?php echo $this->translate("Description") ?></th>
         <th><?php echo $this->translate("Work to do") ?></th>
         <th><?php echo $this->translate("Status") ?></th>
-        <th><?php echo $this->translate("Is done?") ?></th>
+        <th id="bows-all-done" class="not-all-done" ><?php echo $this->translate("Is done?") ?></th>
         <th><?php echo $this->translate("Comments") ?></th>
         <th><?php echo $this->translate("Attachment") ?></th>
         <th>&nbsp;</th>
@@ -62,5 +62,6 @@ $this->placeholder('scripts')->append("
         BowsManager.bow.edit();
         BowsManager.bow.del();
         BowsManager.bow.done();
+        BowsManager.bow.allDone();
     ");
 ?>

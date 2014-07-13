@@ -156,4 +156,24 @@ class BowController extends AbstractActionController
 
         return new JsonModel($result);
     }
+
+    public function allDoneAction()
+    {
+        $params = $this->params()->fromPost();
+        $result = array("success" => true);
+
+        foreach($params['bows'] as $id){
+            /** @var $bowModel Bow */
+            $bowModel = $this->getBowService()->getById((int) $id);
+            $bowModel->setIsDone(true);
+            $bowResult = $this->getBowService()->save($bowModel);
+
+            if(!$bowResult['success']){
+                $result = $bowResult;
+                break;
+            }
+        }
+
+        return new JsonModel($result);
+    }
 }

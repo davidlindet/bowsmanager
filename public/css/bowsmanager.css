@@ -297,6 +297,10 @@ form textarea {
 .bill-is-paid {
     background: rgba(0, 0, 0, 0.04);
 }
+#bows-all-done.not-all-done {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.04);
+}
 /**
     Client
 */
