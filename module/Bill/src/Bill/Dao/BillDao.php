@@ -27,7 +27,7 @@ class BillDao
     {
         $select = new Select();
         $select->from("bm_bill");
-        $select->order('id DESC');
+        $select->order('reference DESC');
         $resultSet = $this->tableGateway->selectWith($select);
         return $resultSet;
     }
