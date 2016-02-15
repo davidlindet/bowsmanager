@@ -9,33 +9,29 @@
     }
     else {
 ?>
+
 <form id="collection-form" enctype="multipart/form-data">
     <input type="hidden" name="section" value="<?php echo $section ?>">
     <input type="hidden" name="id" id="id" value="<?php echo $collection->getId() ?>">
 
     <label for="owner"><?php echo $this->translate("Client") ?></label><br/>
-    <?php if(!empty($clients)){ ?>
-        <select name="owner" id="owner">
-    <?php
+
+    <select name="owner" id="owner">
+        <?php
         /** @var $client \Client\Model\Client */
         foreach($clients as $client){
-    ?>
-        <option value="<?php echo $client->getId(); ?>"><?php echo $client->getName(); ?></option>
-    <?php
+            $selected = "";
+            // if the owner is defined select it
+            if($collection->getOwnerId() == $client->getId()) {
+                $selected = "selected='selected'";
+            }
+
+            ?>
+            <option value="<?php echo $client->getId(); ?>" <?php echo $selected ?> ><?php echo $client->getName(); ?></option>
+        <?php
         }
-    ?>
-        </select><br />
-    <?php
-    }
-    else {
-     ?>
-        <input type="hidden" name="owner" value="<?php echo $collection->getOwnerId(); ?>" />
-        <a href="<?php echo $this->url("client-details", array('id' => $collection->getOwnerId())) ?>" >
-            <?php echo $collection->getOwnerName() ?>
-        </a><br />
-    <?php
-    }
-    ?>
+        ?>
+    </select><br />
 
     <label for="receptionTime"><?php echo $this->translate("Reception Date") ?></label><br/>
     <input type="text" name="receptionTime" class="datepicker" id="receptionTime" value="<?php echo $collection->getReceptionTime() ?>"><br>

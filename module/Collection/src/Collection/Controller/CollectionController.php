@@ -102,9 +102,19 @@ class CollectionController extends AbstractActionController
         /** @var $collectionModel Collection */
         $collectionModel = $this->getCollectionService()->getById($collectionId);
 
+        /** @var $clientService ClientService */
+        $clientService = $this->getServiceLocator()->get('ClientService');
+        $attributes = array(ClientEnum::ATTR_FIRST_NAME,
+            ClientEnum::ATTR_LAST_NAME,
+        );
+
+        $clients = $clientService->getAll(ClientEnum::SORT_AZ, $attributes);
+
+
         return new ViewModel(array(
             'collection' => $collectionModel,
             'section' => $section,
+            'clients' => $clients,
         ));
     }
 
