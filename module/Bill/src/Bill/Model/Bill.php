@@ -42,6 +42,11 @@ class Bill
     private $isPaid;
 
     /**
+     * @var String type of payment of the bill
+     */
+    private $paymentType;
+
+    /**
      * Pictures of the bill
      */
     private $attachments = array();
@@ -60,6 +65,7 @@ class Bill
         $this->collectionId = (isset($data['collection_id'])) ? (int) $data['collection_id'] : null;
         $this->amount = (isset($data['amount'])) ? (float) $data['amount'] : null;
         $this->reference = (isset($data['reference'])) ? $data['reference'] : null;
+        $this->paymentType = (isset($data['payment_type'])) ?  $data['payment_type'] : null;
         $this->isPaid = (isset($data['is_paid'])) ? (boolean) $data['is_paid'] : null;
 
         $attachements = array();
@@ -185,6 +191,21 @@ class Bill
         return $this->isPaid;
     }
 
+    /**
+     * @return String
+     */
+    public function getPaymentType()
+    {
+        return $this->paymentType;
+    }
+
+    /**
+     * @param String $paymentType
+     */
+    public function setPaymentType($paymentType)
+    {
+        $this->paymentType = $paymentType;
+    }
 
     /************
      * ATTACHMENTS

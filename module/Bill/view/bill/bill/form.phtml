@@ -1,6 +1,7 @@
 <?php
     use Application\Enum\ModeEnum;
     use Bill\Enum\BillEnum;
+    use Bill\Enum\BillPaymentTypeEnum;
 ?>
 
 <h1><img src="/img/bill/header.png" width="80" />
@@ -50,8 +51,25 @@
     <label for="amount"><?php echo $this->translate("Bill Amount") ?></label><br/>
     <input type="text" name="amount" id="amount" value="<?php echo $bill->getAmount() ?>"> €<br />
 
-    <label for="isPaid"><?php echo $this->translate("Is paid?") ?></label>
-    <input type="checkbox" name="isPaid" id="isPaid" <?php echo $bill->isPaid() ? "checked='checked'": ""; ?> /><br>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="isPaid"><?php echo $this->translate("Is paid?") ?></label>
+            <input type="checkbox" name="isPaid" id="isPaid" <?php echo $bill->isPaid() ? "checked='checked'": ""; ?> />
+        </div>
+        <div class="col-md-9">
+            <label for="paymentType"><?php echo $this->translate("Payment Type?") ?></label>
+            <?php
+            foreach(BillPaymentTypeEnum::TYPES(true) as $value => $type) {
+                ?>
+                <label class="radio-inline" style="margin-top: 0px;">
+                    <input type="radio" name="paymentType" value="<?php echo $value ?>" <?php echo $bill->getPaymentType() == $value ? "checked='checked'": ""; ?> ><?php echo $this->translate($type) ?>
+                </label>
+                <?php
+            }
+            ?>
+        </div>
+    </div>
+<br />
 
     <ul>
         <li>

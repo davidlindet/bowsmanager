@@ -135,6 +135,7 @@ class BillDao
             'amount' => $bill->getAmount(),
             'reference'  => $bill->getReference(),
             'is_paid' => $bill->isPaid(),
+            'payment_type' => $bill->getPaymentType(),
             'attachments'  =>  $bill->hasAttachments() ? implode("--", $bill->getAttachments()) : "",
         );
 

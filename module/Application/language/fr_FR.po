@@ -12,7 +12,7 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"X-Generator: Poedit 1.6.6\n"
+"X-Generator: Poedit 1.8.11\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../view/layout/layout.phtml:6
@@ -65,10 +65,8 @@ msgid "The requested controller was unable to dispatch the request."
 msgstr "Le contrôleur demandé n'a pas pu dispatcher la requête."
 
 #: ../view/error/404.phtml:13
-msgid ""
-"The requested controller could not be mapped to an existing controller class."
-msgstr ""
-"Le contrôleur demandé ne correspond pas à une classe existante de contrôleur."
+msgid "The requested controller could not be mapped to an existing controller class."
+msgstr "Le contrôleur demandé ne correspond pas à une classe existante de contrôleur."
 
 #: ../view/error/404.phtml:16
 msgid "The requested controller was not dispatchable."
@@ -80,8 +78,7 @@ msgstr "L'URL demandée n'a pas pu trouver de route correspondante."
 
 #: ../view/error/404.phtml:22
 msgid "We cannot determine at this time why a 404 was generated."
-msgstr ""
-"Nous ne pouvons pas déterminer pour le moment pourquoi une 404 a été générée."
+msgstr "Nous ne pouvons pas déterminer pour le moment pourquoi une 404 a été générée."
 
 #: ../view/error/404.phtml:34
 msgid "Controller"
@@ -338,6 +335,30 @@ msgstr "Pas de lot"
 
 msgid "Bills Not Paid"
 msgstr "Factures non réglées"
+
+msgid "Validate"
+msgstr "Valider"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Confirm Payment"
+msgstr "Confirmation du payement"
+
+msgid "What is the type of payment?"
+msgstr "Quel est le type de payement?"
+
+msgid "Cash"
+msgstr "Espèce"
+
+msgid "Check"
+msgstr "Chéque"
+
+msgid "Bank Transfert"
+msgstr "Virement"
+
+msgid "Payment Type?"
+msgstr "Type de payement?"
 
 # ------------------------------------------
 #       Supplier

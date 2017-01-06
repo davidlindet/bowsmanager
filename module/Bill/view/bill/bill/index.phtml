@@ -1,5 +1,6 @@
 <?php
 use Bill\Model\Bill;
+use Bill\Enum\BillPaymentTypeEnum;
 use Application\Enum\SectionEnum;
 
 if($section == SectionEnum::BILL_INDEX){
@@ -36,7 +37,7 @@ else {
         <tr class="bill" id="bill-<?php echo $bill->getId() ?>" data-id="<?php echo  $bill->getId() ?>" data-section="<?php echo $section ?>" >
             <td><?php echo $bill->getReference(); ?></td>
             <td><?php echo $bill->getAmount(true); ?> €</td>
-            <td class="<?php echo ($bill->isPaid()) ? "": "bill-is-paid"; ?>" data-id="<?php echo $bill->getId() ?>">
+            <td class="<?php echo ($bill->isPaid()) ? "": "bill-is-paid"; ?>"   >
                 <?php
                 if($bill->isPaid()){
                     ?>
@@ -45,10 +46,44 @@ else {
                 }
                 else {
                     ?>
-                    <img src="/img/content/invalid.png" />
+                    <div data-toggle='modal' data-target='#confirm-payment-<?php echo $bill->getId() ?>'>
+                        <img src="/img/content/invalid.png"  />
+                    </div>
                 <?php
                 }
                 ?>
+
+                <div class="modal fade confirm-payment" id="confirm-payment-<?php echo $bill->getId() ?>" tabindex="-1" role="dialog"  aria-hidden="true" data-id="<?php echo $bill->getId() ?>">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-labelledby="bmBillModalLabel" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="bmBillModalLabel"><?php echo $this->translate("Confirm Payment"); ?></h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <p><?php echo $this->translate("Is that bill really paid?") ?></p>
+                                <p><?php echo $this->translate("What is the type of payment?") ?></p>
+                                <?php
+                                foreach(BillPaymentTypeEnum::TYPES(true) as $value => $type) {
+                                    ?>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="payment-type" value="<?php echo $value ?>" ><?php echo $this->translate($type) ?>
+                                    </label>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->translate("Cancel"); ?></button>
+                                <a class="btn btn-success btn-ok"><?php echo $this->translate("Validate"); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </td>
             <td>
                 <?php if($bill->hasAttachments()) { ?>
@@ -64,6 +99,9 @@ else {
         </tr>
     <?php endforeach; ?>
 </table>
+
+
+
 <?php
 $this->placeholder('scripts')->append("
         BowsManager.bill.details();

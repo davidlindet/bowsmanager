@@ -57,6 +57,7 @@ class BillController extends AbstractActionController
         $billModel->setReference($params['reference']);
         $billModel->setAmount((float) $params['amount']);
         $billModel->setIsPaid(isset($params['isPaid']));
+        $billModel->setPaymentType(isset($params['paymentType']) ? $params['paymentType'] : null);
 
         if(isset($params['del-attachment'])){
             /** @var $uploadService UploadService */
@@ -166,6 +167,7 @@ class BillController extends AbstractActionController
         /** @var $billModel Bill */
         $billModel = $this->getBillService()->getById((int) $params['id']);
         $billModel->setIsPaid(true);
+        $billModel->setPaymentType($params['payment_type']);
         $result = $this->getBillService()->save($billModel);
         return new JsonModel($result);
     }

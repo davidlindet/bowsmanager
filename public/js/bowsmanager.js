@@ -344,7 +344,9 @@ BowsManager.bill = (function() {
      * Send data to delete bill
      */
     function del(){
-        $(".bill.delete").click(function() {
+        $(".bill.delete").click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             var billId = $(this).data('id');
             var section = $(this).data('section');
 
@@ -378,24 +380,30 @@ BowsManager.bill = (function() {
      * to true
      */
     function paid() {
-        $(".bill-is-paid").click(function(e) {
-            var $isPaidElement = $(this);
-            var billId = $isPaidElement.data('id');
-            if(confirm(BowsManager.copies.isBillPaid)){
+        $('.confirm-payment').on('show.bs.modal', function(e) {
+            var modal = $(this);
+            $(this).find("[name='payment-type']").first().prop("checked", true);
+
+            $(this).find(".btn-ok").on("click", function(event){
+               event.preventDefault();
+                var paymentType = modal.find("[name='payment-type']:checked").val();
+                var billId = modal.data('id');
+
                 $.ajax({
                     url: "/bill-is-paid",
                     method: "POST",
-                    data: {id: billId},
+                    data: {id: billId, payment_type: paymentType},
                     success: function(data) {
                         if(data.success){
-                            $isPaidElement.removeClass("bill-is-paid").html("<img src='/img/content/valid.png' />");
+                            $("#bill-"+billId).find(".bill-is-paid").removeClass("bill-is-paid").html("<img src='/img/content/valid.png' />");
+                            modal.modal("hide");
                         }
                         else {
                             $('.error-message.bill').html(data.error);
                         }
                     }
                 });
-            }
+            });
         });
     }
 

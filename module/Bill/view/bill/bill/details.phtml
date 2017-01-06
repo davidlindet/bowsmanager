@@ -1,5 +1,6 @@
 <?php
     use Application\Enum\ModeEnum;
+    use Bill\Enum\BillPaymentTypeEnum;
 ?>
 <h1><img src="/img/bill/header.png" width="50" /> <?php  echo $this->translate("Bill") ?></h1>
 
@@ -54,17 +55,23 @@
         <dt><?php echo $this->translate("Is paid?") ?></dt><br />
         <dd>
             <?php
-                if($bill->isPaid()){
-            ?>
+            if($bill->isPaid()){
+                ?>
                 <img src="/img/content/valid.png" />
-            <?php
-                }
-                else {
-            ?>
+                <?php
+            }
+            else {
+                ?>
                 <img src="/img/content/invalid.png" />
-            <?php
-                }
+                <?php
+            }
             ?>
+        </dd>
+    </dl>
+    <dl class="clearfix">
+        <dt><?php echo $this->translate("Payment Type?") ?></dt><br />
+        <dd>
+            <?php echo $this->translate(BillPaymentTypeEnum::TYPE($bill->getPaymentType())) ?>
         </dd>
     </dl>
     <dl class="clearfix">
