@@ -222,7 +222,13 @@ class Client
      * @return int
      */
     public function countCollections(){
-        return count($this->collections);
+        $count = 0;
+
+        foreach($this->collections as $year => $collectionList) {
+            $count += count($collectionList);
+        }
+
+        return $count;
     }
 
     /**
