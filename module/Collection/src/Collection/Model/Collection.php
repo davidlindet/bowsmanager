@@ -160,6 +160,14 @@ class Collection
         return $receptionTime;
     }
 
+    /**
+     * @return timestamp
+     */
+    public function getReceptionYear()
+    {
+        return date('Y', $this->receptionTime);
+    }
+
     /*******************
      *  RETURN TIME
      *******************/

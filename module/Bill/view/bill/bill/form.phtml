@@ -34,13 +34,15 @@
                     <?php echo ($bill->getCollectionId() == BillEnum::NO_COLLECTION) ? "selected='selected'" : "" ?> ><?php echo $this->translate("No collection") ?></option>
             <?php
                 /** @var $collection \Collection\Model\Collection */
-                foreach($collections as $collection) {
+            foreach($collections as $year => $collectionList) {
+                foreach($collectionList as $collection) {
             ?>
                 <option value="<?php echo $collection->getId() ?>"
                     <?php echo ($bill->getCollectionId() == $collection->getId()) ? "selected='selected'" : "" ?>
                     ><?php echo $collection->getName() ?></option>
             <?php
                 }
+            }
             ?>
         </select>
     <?php } ?>

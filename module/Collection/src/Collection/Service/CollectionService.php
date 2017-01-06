@@ -67,7 +67,13 @@ class CollectionService
             $collection->setBows($bows);
         }
 
-        return $collections;
+        // Group collections per year
+        $groupCollections = array();
+        foreach ($collections as $collection) {
+            $receptionYear = $collection->getReceptionYear();
+            $groupCollections[$receptionYear][] = $collection;
+        }
+        return $groupCollections;
     }
 
     /**
@@ -83,7 +89,15 @@ class CollectionService
         if($setBills){
             $collections = $this->setBills($collections);
         }
-        return $collections;
+
+        // Group collections per year
+        $groupCollections = array();
+        foreach ($collections as $collection) {
+            $receptionYear = $collection->getReceptionYear();
+            $groupCollections[$receptionYear][] = $collection;
+        }
+
+        return $groupCollections;
     }
 
     public function getCollectionsNotSent(){
@@ -100,7 +114,14 @@ class CollectionService
         $collections = $this->collectionDao->fetchAll($order, $where);
         $collections = $this->setBows($collections);
         $collections = $this->setBills($collections);
-        return $collections;
+
+        // Group collections per year
+        $groupCollections = array();
+        foreach ($collections as $collection) {
+            $receptionYear = $collection->getReceptionYear();
+            $groupCollections[$receptionYear][] = $collection;
+        }
+        return $groupCollections;
     }
 
     public function save(Collection $collectionModel){

@@ -385,7 +385,6 @@ BowsManager.bill = (function() {
             $(this).find("[name='payment-type']").first().prop("checked", true);
 
             $(this).find(".btn-ok").on("click", function(event){
-               event.preventDefault();
                 var paymentType = modal.find("[name='payment-type']:checked").val();
                 var billId = modal.data('id');
 
@@ -395,8 +394,10 @@ BowsManager.bill = (function() {
                     data: {id: billId, payment_type: paymentType},
                     success: function(data) {
                         if(data.success){
-                            $("#bill-"+billId).find(".bill-is-paid").removeClass("bill-is-paid").html("<img src='/img/content/valid.png' />");
-                            modal.modal("hide");
+                            $(modal).modal('hide');
+                            setTimeout(function (){
+                                    $("#bill-"+billId).find(".bill-is-paid").removeClass("bill-is-paid").html("<img src='/img/content/valid.png' />");
+                                }, 1000);
                         }
                         else {
                             $('.error-message.bill').html(data.error);
@@ -689,10 +690,19 @@ BowsManager.collection = (function() {
         return;
     }
 
+    function filters() {
+        $(".display-collection-list").click(function(event){
+            event.preventDefault();
+            var year = $(this).data("year");
+            $("#collection-list-"+year).toggle();
+        });
+    }
+
     return {
         details: details,
         add: add,
-        del: del
+        del: del,
+        filters: filters
     }
 })();
 
