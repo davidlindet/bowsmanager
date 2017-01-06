@@ -82,7 +82,15 @@ class BillService
     }
 
     public function getBillsNotPaid(){
-        return $this->billDao->getBillsNotPaid();
+        $bills = $this->billDao->getBillsNotPaid();
+
+        $groupBills = array();
+        foreach($bills as $bill) {
+            $year = $bill->getBillingYear();
+            $groupBills[$year][] = $bill;
+        }
+
+        return $groupBills;
     }
 
 //    public function search($query) {
