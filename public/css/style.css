@@ -35,7 +35,8 @@ div.container a.brand {
     margin-left: 0;
     padding: 8px 20px 12px 40px;
 }
-.display-collection-list {
+.display-collection-list,
+.display-bill-list {
     cursor: pointer;
 }
 

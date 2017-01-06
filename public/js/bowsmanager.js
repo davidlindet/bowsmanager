@@ -408,6 +408,14 @@ BowsManager.bill = (function() {
         });
     }
 
+    function filters() {
+        $(".display-bill-list").click(function(event){
+            event.preventDefault();
+            var year = $(this).data("year");
+            $("#bill-list-"+year).toggle();
+        });
+    }
+
     return {
         attachment: attachment,
         details: details,
@@ -415,7 +423,8 @@ BowsManager.bill = (function() {
         edit: edit,
         save: save,
         del: del,
-        paid: paid
+        paid: paid,
+        filters: filters
     }
 })();
 

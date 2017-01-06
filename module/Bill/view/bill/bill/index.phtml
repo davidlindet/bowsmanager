@@ -23,7 +23,9 @@ else {
 </div>
 <div class="error-message bill"></div>
 
-<table class="table bills">
+<?php foreach ($bills as $year => $billList) { ?>
+<h3 class="display-bill-list" data-year="<?php echo $year; ?>" ><?php echo $year . " (" . count($billList) . ")"?> </h3>
+<table id="bill-list-<?php echo $year; ?>" class="table bills" <?php echo  date("Y") != $year ? "style='display: none'": ""; ?>>
     <tr>
         <th><?php echo $this->translate("Reference") ?></th>
         <th><?php echo $this->translate("Amount") ?></th>
@@ -33,7 +35,7 @@ else {
     </tr>
 
     <?php /**  @var  $bill Bill*/?>
-    <?php foreach ($bills as $bill) : ?>
+    <?php foreach ($billList as $bill) : ?>
         <tr class="bill" id="bill-<?php echo $bill->getId() ?>" data-id="<?php echo  $bill->getId() ?>" data-section="<?php echo $section ?>" >
             <td><?php echo $bill->getReference(); ?></td>
             <td><?php echo $bill->getAmount(true); ?> €</td>
@@ -99,11 +101,12 @@ else {
         </tr>
     <?php endforeach; ?>
 </table>
-
+<?php } ?>
 
 
 <?php
 $this->placeholder('scripts')->append("
+        BowsManager.bill.filters();
         BowsManager.bill.details();
         BowsManager.bill.del();
         BowsManager.bill.add();

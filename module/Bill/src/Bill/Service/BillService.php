@@ -31,7 +31,15 @@ class BillService
     }
 
     public function getAll(){
-        return $this->billDao->fetchAll();
+        $bills = $this->billDao->fetchAll();
+
+        $groupBills = array();
+        foreach($bills as $bill) {
+            $year = $bill->getBillingYear();
+            $groupBills[$year][] = $bill;
+        }
+
+        return $groupBills;
     }
 
     public function getAllByCollection($collectionId){

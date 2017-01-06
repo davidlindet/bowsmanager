@@ -172,6 +172,16 @@ class Bill
         return $this->reference;
     }
 
+    /**
+     * @return string returns billing year (based on bill reference)
+     */
+    public function getBillingYear()
+    {
+        $billInfo = explode("-", $this->reference);
+        return $billInfo[1];
+    }
+
+
     /************
      * IS PAID
      ************/
